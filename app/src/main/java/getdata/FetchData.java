@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Hashtable;
 import java.util.Scanner;
 
 /**
@@ -24,6 +25,8 @@ public class FetchData extends AsyncTask<String, Void, Day> {
 
     final String head = "function getAqiModel( ){if (window.aqiModel) return aqiModel;var model= ";
     final String tail = ";return model;}function getMetricName(m)";
+
+    AbbrTable abbrTable = new AbbrTable();
 
     public interface AsyncResponse {
         void processFinish(Day day);
@@ -65,13 +68,14 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                 String cityName = city.getString("name");
                 String id = city.getString("id");
                 int aqi = jsonObject.getInt("aqi");
-                day = new Day(cityName, id, aqi);
+                String time = jsonObject.getJSONObject("time").getJSONObject("s").getJSONObject("cn").getString("time").split(" ")[1];
+                day = new Day(cityName, id, aqi, time);
                 JSONArray iaqisJSONArray = jsonObject.getJSONArray("iaqi");
                 int i = 0;
                 while (i < iaqisJSONArray.length()) {
                     JSONObject iaqiJSONObject = iaqisJSONArray.getJSONObject(i);
 
-                    String name = iaqiJSONObject.getString("p");
+                    String name = abbrTable.translateAbbr(iaqiJSONObject.getString("p"));
 
                     JSONArray values = iaqiJSONObject.getJSONArray("v");
                     int cur = values.getInt(0),
@@ -98,9 +102,8 @@ public class FetchData extends AsyncTask<String, Void, Day> {
 
                     String siteName = siteObject.getString("name");
                     int siteAqi = Integer.valueOf(siteObject.getString("aqi"));
-                    String siteUrl = siteObject.getString("curl");
 
-                    day.newSiteData(new SiteData(siteName, siteAqi, siteUrl));
+                    day.newSiteData(new SiteData(siteName, siteAqi));
                     i++;
                 }
             }
@@ -114,5 +117,29 @@ public class FetchData extends AsyncTask<String, Void, Day> {
     protected void onPostExecute(Day day) {
         super.onPostExecute(day);
         delegate.processFinish(day);
+    }
+}
+
+class AbbrTable {
+    Hashtable<String, String> map;
+
+    public AbbrTable() {
+        map = new Hashtable<>();
+        map.put("pm25", "PM2.5");
+        map.put("pm10", "PM10");
+        map.put("o3", "O3");
+        map.put("no2", "NO2");
+        map.put("so2", "SO2");
+        map.put("co", "CO");
+        map.put("t", "温度");
+        map.put("d", "露点");
+        map.put("p", "空气压力");
+        map.put("h", "湿度");
+        map.put("w", "风");
+    }
+
+    public String translateAbbr (String abbr) {
+        if (map.get(abbr) != null) return map.get(abbr);
+        return abbr;
     }
 }

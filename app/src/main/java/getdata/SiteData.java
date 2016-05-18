@@ -5,12 +5,13 @@ package getdata;
  */
 public class SiteData {
     String name;
-    int aqi;
+    int pm25;
+    String nameE;
     String pageUrl;
+    double lon, lat;
 
-    public SiteData (String name, int aqi, String pageUrl) {
+    public SiteData (String name, int pm25) {
         this.name = name;
-        this.aqi = aqi;
-        this.pageUrl = pageUrl;
+        this.pm25 = pm25;
     }
 }

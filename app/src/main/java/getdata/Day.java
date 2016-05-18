@@ -9,14 +9,16 @@ import java.util.Hashtable;
 public class Day {
     String cityName;
     String cityId;
+    String time;
     int aqi;
     Hashtable<String, IAQI> stringIAQIHashtable = new Hashtable<>();
     ArrayList<SiteData> siteDatas = new ArrayList<>();
 
-    public Day (String name, String id, int aqi) {
+    public Day (String name, String id, int aqi, String time) {
         this.cityName = name;
         this.cityId = id;
         this.aqi = aqi;
+        this.time = time;
     }
 
     public void setIAQI(String name, IAQI iaqi) {
