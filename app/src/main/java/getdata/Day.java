@@ -12,6 +12,8 @@ public class Day {
     String time;
     int aqi;
     Hashtable<String, IAQI> stringIAQIHashtable = new Hashtable<>();
+    ArrayList<IAQI> forecastAQI = new ArrayList<>();
+    ArrayList<Wind> forecastWind = new ArrayList<>();
     ArrayList<SiteData> siteDatas = new ArrayList<>();
 
     public Day (String name, String id, int aqi, String time) {
@@ -25,8 +27,15 @@ public class Day {
         stringIAQIHashtable.put(name, iaqi);
     }
 
-    public void newSiteData (SiteData siteData) {
+    public void addSiteData(SiteData siteData) {
         siteDatas.add(siteData);
     }
 
+    public void addForecast(IAQI pm25Forecast) {
+        forecastAQI.add(pm25Forecast);
+    }
+
+    public void addForecast(Wind windForecast) {
+        forecastWind.add(windForecast);
+    }
 }

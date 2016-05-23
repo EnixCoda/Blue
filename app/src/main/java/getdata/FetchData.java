@@ -95,6 +95,40 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                     i++;
                 }
 
+                // forecast
+                JSONObject forecast = jsonObject.getJSONObject("forecast");
+                JSONArray forecastAQI = forecast.getJSONArray("aqi");
+                i = 0;
+                while (i < forecastAQI.length()) {
+                    JSONObject f = forecastAQI.getJSONObject(i);
+                    String timeS = f.getString("t");
+                    SimpleDateFormat sdf = new SimpleDateFormat("y-m-d'T'H:00:00+00:00");
+                    Date foreDate = sdf.parse(timeS);
+                    Calendar date = Calendar.getInstance();
+                    date.setTime(foreDate);
+                    date.add(Calendar.HOUR, 8);
+                    JSONArray values = f.getJSONArray("v");
+                    int min = values.getInt(0), max = values.getInt(1);
+                    day.addForecast(new IAQI("PM2.5", min, max, 0, date));
+                    i++;
+                }
+
+                JSONArray forecastWind = forecast.getJSONArray("wind");
+                i = 0;
+                while (i < forecastWind.length()) {
+                    JSONObject f = forecastWind.getJSONObject(i);
+                    String timeS = f.getString("t");
+                    SimpleDateFormat sdf = new SimpleDateFormat("y-m-d'T'H:00:00+00:00");
+                    Date foreDate = sdf.parse(timeS);
+                    Calendar date = Calendar.getInstance();
+                    date.setTime(foreDate);
+                    date.add(Calendar.HOUR, 8);
+                    JSONArray values = f.getJSONArray("w");
+                    double min = values.getDouble(0), max = values.getDouble(1), degree = values.getDouble(2);
+                    day.addForecast(new Wind(min, max, degree, date));
+                    i++;
+                }
+
                 JSONArray nearSites = jsonObject.getJSONArray("nearest");
                 i = 0;
                 while (i < nearSites.length()) {
@@ -103,7 +137,7 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                     String siteName = siteObject.getString("name");
                     int siteAqi = Integer.valueOf(siteObject.getString("aqi"));
 
-                    day.newSiteData(new SiteData(siteName, siteAqi));
+                    day.addSiteData(new SiteData(siteName, siteAqi));
                     i++;
                 }
             }
