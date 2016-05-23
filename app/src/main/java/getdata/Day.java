@@ -15,6 +15,7 @@ public class Day {
     ArrayList<IAQI> forecastAQI = new ArrayList<>();
     ArrayList<Wind> forecastWind = new ArrayList<>();
     ArrayList<SiteData> siteDatas = new ArrayList<>();
+    ArrayList<Forecast> forecasts = new ArrayList<>();
 
     public Day (String name, String id, int aqi, String time) {
         this.cityName = name;
@@ -37,5 +38,9 @@ public class Day {
 
     public void addForecast(Wind windForecast) {
         forecastWind.add(windForecast);
+    }
+
+    public void addForecast(Forecast weather) {
+        forecasts.add(weather);
     }
 }

@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Hashtable;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -85,7 +86,7 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                     String description = iaqiJSONObject.getString("i");
 
                     String dateString = iaqiJSONObject.getJSONArray("h").getString(0);
-                    SimpleDateFormat sf = new SimpleDateFormat("y/m/d H:m:s");
+                    SimpleDateFormat sf = new SimpleDateFormat("y/M/d H:m:s");
                     Date recordDate = sf.parse(dateString);
                     Calendar date = Calendar.getInstance();
                     date.setTime(recordDate);
@@ -102,7 +103,7 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                 while (i < forecastAQI.length()) {
                     JSONObject f = forecastAQI.getJSONObject(i);
                     String timeS = f.getString("t");
-                    SimpleDateFormat sdf = new SimpleDateFormat("y-m-d'T'H:00:00+00:00");
+                    SimpleDateFormat sdf = new SimpleDateFormat("y-M-d'T'H:m:s+00:00", Locale.ENGLISH);
                     Date foreDate = sdf.parse(timeS);
                     Calendar date = Calendar.getInstance();
                     date.setTime(foreDate);
@@ -118,7 +119,7 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                 while (i < forecastWind.length()) {
                     JSONObject f = forecastWind.getJSONObject(i);
                     String timeS = f.getString("t");
-                    SimpleDateFormat sdf = new SimpleDateFormat("y-m-d'T'H:00:00+00:00");
+                    SimpleDateFormat sdf = new SimpleDateFormat("y-M-d'T'H:m:s+00:00", Locale.CHINA);
                     Date foreDate = sdf.parse(timeS);
                     Calendar date = Calendar.getInstance();
                     date.setTime(foreDate);
@@ -140,9 +141,37 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                     day.addSiteData(new SiteData(siteName, siteAqi));
                     i++;
                 }
+
+
+                // from heweather
+                url = new URL("https://api.heweather.com/x3/weather?key=4882d5fa92124f2a959703aaf5b049be&city=" + cityId);
+                httpURLConnection = (HttpURLConnection) url.openConnection();
+                inputStream = httpURLConnection.getInputStream();
+                s = new Scanner(inputStream).useDelimiter("\\A");
+                response = s.hasNext() ? s.next() : "";
+
+                jsonObject = new JSONObject(response);
+                jsonObject = jsonObject.getJSONArray("\"HeWeather data service 3.0\"").getJSONObject(0);
+                JSONArray hourlyForecasts = jsonObject.getJSONArray("hourly_forecast");
+                i = 0;
+                while (i < hourlyForecasts.length()) {
+                    JSONObject weatherForecast = hourlyForecasts.getJSONObject(i);
+                    SimpleDateFormat sdf = new SimpleDateFormat("y-M-d H:m");
+                    Calendar date = Calendar.getInstance();
+                    date.setTime(sdf.parse(weatherForecast.getString("date")));
+
+                    int humidity = Integer.valueOf(weatherForecast.getString("hum"));
+                    int rain = Integer.valueOf(weatherForecast.getString("pop"));
+                    int pressure = Integer.valueOf(weatherForecast.getString("pres"));
+                    int temp = Integer.valueOf(weatherForecast.getString("tmp"));
+                    day.addForecast(new Forecast(date, "", temp, humidity, rain, pressure));
+                    i++;
+                }
             }
+
         } catch (Exception e) {
             Log.e("FetchData", e.getMessage());
+            return null;
         }
         return day;
     }
