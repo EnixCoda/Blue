@@ -13,12 +13,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Hashtable;
-import java.util.Locale;
 import java.util.Scanner;
 
 /**
  * Created by Exin on 2016/5/18.
- * 获取此刻的AQI
+ * 获取此刻的AQI相关数据、天气预报
  */
 public class FetchData extends AsyncTask<String, Void, Day> {
     final String urlPrefix = "http://aqicn.org/city/";
@@ -40,27 +39,21 @@ public class FetchData extends AsyncTask<String, Void, Day> {
     }
 
     /**
-    *
-    * @param params
-     *          params = [cityId];
-     *          like: ["shanghai"]
-    */
+     * @param params params = [cityId];
+     *               like: ["shanghai"], ["Shanghai"]
+     */
     @Override
     protected Day doInBackground(String... params) {
         String cityId;
         if (params.length > 0) cityId = params[0];
         else return null;
-        Day day = null;
-        HttpURLConnection httpURLConnection;
-        URL url;
         try {
             // get HTML page source
-            url = new URL(urlPrefix + cityId + urlSuffix);
-            httpURLConnection = (HttpURLConnection) url.openConnection();
+            URL url = new URL(urlPrefix + cityId + urlSuffix);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             InputStream inputStream = httpURLConnection.getInputStream();
             Scanner s = new Scanner(inputStream).useDelimiter("\\A");
-            String response;
-            response = s.hasNext() ? s.next() : "";
+            String response = s.hasNext() ? s.next() : "";
 
             if (response.contains(head) && response.contains(tail)) {
                 String dataJSON = response.substring(response.indexOf(head) + head.length(), response.indexOf(tail));
@@ -70,7 +63,7 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                 String id = city.getString("id");
                 int aqi = jsonObject.getInt("aqi");
                 String time = jsonObject.getJSONObject("time").getJSONObject("s").getJSONObject("cn").getString("time").split(" ")[1];
-                day = new Day(cityName, id, aqi, time);
+                Day day = new Day(cityName, id, aqi, time);
                 JSONArray iaqisJSONArray = jsonObject.getJSONArray("iaqi");
                 int i = 0;
                 while (i < iaqisJSONArray.length()) {
@@ -80,8 +73,8 @@ public class FetchData extends AsyncTask<String, Void, Day> {
 
                     JSONArray values = iaqiJSONObject.getJSONArray("v");
                     int cur = values.getInt(0),
-                        min = values.getInt(1),
-                        max = values.getInt(2);
+                            min = values.getInt(1),
+                            max = values.getInt(2);
 
                     String description = iaqiJSONObject.getString("i");
 
@@ -92,7 +85,7 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                     date.setTime(recordDate);
                     date.add(Calendar.HOUR, 8);
 
-                    day.setIAQI(name, new IAQI(name, min, max, cur, date));
+                    day.setIAQI(name, new IAQI(name, cur, date));
                     i++;
                 }
 
@@ -103,14 +96,14 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                 while (i < forecastAQI.length()) {
                     JSONObject f = forecastAQI.getJSONObject(i);
                     String timeS = f.getString("t");
-                    SimpleDateFormat sdf = new SimpleDateFormat("y-M-d'T'H:m:s+00:00", Locale.ENGLISH);
+                    SimpleDateFormat sdf = new SimpleDateFormat("y-M-d'T'H:m:s+00:00");
                     Date foreDate = sdf.parse(timeS);
                     Calendar date = Calendar.getInstance();
                     date.setTime(foreDate);
                     date.add(Calendar.HOUR, 8);
                     JSONArray values = f.getJSONArray("v");
                     int min = values.getInt(0), max = values.getInt(1);
-                    day.addForecast(new IAQI("PM2.5", min, max, 0, date));
+                    day.addForecast(new IAQI("PM2.5", min, max, date));
                     i++;
                 }
 
@@ -119,7 +112,7 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                 while (i < forecastWind.length()) {
                     JSONObject f = forecastWind.getJSONObject(i);
                     String timeS = f.getString("t");
-                    SimpleDateFormat sdf = new SimpleDateFormat("y-M-d'T'H:m:s+00:00", Locale.CHINA);
+                    SimpleDateFormat sdf = new SimpleDateFormat("y-M-d'T'H:m:s+00:00");
                     Date foreDate = sdf.parse(timeS);
                     Calendar date = Calendar.getInstance();
                     date.setTime(foreDate);
@@ -136,12 +129,15 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                     JSONObject siteObject = nearSites.getJSONObject(i);
 
                     String siteName = siteObject.getString("name");
-                    int siteAqi = Integer.valueOf(siteObject.getString("aqi"));
+                    String aqiInString = siteObject.getString("aqi");
+                    int siteAqi = 0;
+                    if (!aqiInString.equals("-")) {
+                        siteAqi = Integer.valueOf(aqiInString);
+                    }
 
                     day.addSiteData(new SiteData(siteName, siteAqi));
                     i++;
                 }
-
 
                 // from heweather
                 url = new URL("https://api.heweather.com/x3/weather?key=4882d5fa92124f2a959703aaf5b049be&city=" + cityId);
@@ -151,7 +147,7 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                 response = s.hasNext() ? s.next() : "";
 
                 jsonObject = new JSONObject(response);
-                jsonObject = jsonObject.getJSONArray("\"HeWeather data service 3.0\"").getJSONObject(0);
+                jsonObject = jsonObject.getJSONArray("HeWeather data service 3.0").getJSONObject(0);
                 JSONArray hourlyForecasts = jsonObject.getJSONArray("hourly_forecast");
                 i = 0;
                 while (i < hourlyForecasts.length()) {
@@ -167,13 +163,13 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                     day.addForecast(new Forecast(date, "", temp, humidity, rain, pressure));
                     i++;
                 }
+                return day;
             }
 
         } catch (Exception e) {
             Log.e("FetchData", e.getMessage());
-            return null;
         }
-        return day;
+        return null;
     }
 
     @Override
@@ -201,7 +197,7 @@ class AbbrTable {
         map.put("w", "风");
     }
 
-    public String translateAbbr (String abbr) {
+    public String translateAbbr(String abbr) {
         if (map.get(abbr) != null) return map.get(abbr);
         return abbr;
     }

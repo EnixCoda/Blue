@@ -5,17 +5,18 @@ import java.util.Hashtable;
 
 /**
  * Created by Exin on 2016/5/18.
+ *
  */
 public class Day {
-    String cityName;
-    String cityId;
-    String time;
-    int aqi;
-    Hashtable<String, IAQI> stringIAQIHashtable = new Hashtable<>();
-    ArrayList<IAQI> forecastAQI = new ArrayList<>();
-    ArrayList<Wind> forecastWind = new ArrayList<>();
-    ArrayList<SiteData> siteDatas = new ArrayList<>();
-    ArrayList<Forecast> forecasts = new ArrayList<>();
+    public Hashtable<String, IAQI> stringIAQIHashtable = new Hashtable<>();
+    public String cityName;
+    public String cityId;
+    public String time;
+    public int aqi;
+    public ArrayList<IAQI> forecastAQI = new ArrayList<>();
+    public ArrayList<Wind> forecastWind = new ArrayList<>();
+    public ArrayList<SiteData> nearbySitesData = new ArrayList<>();
+    public ArrayList<Forecast> hourlyForecasts = new ArrayList<>();
 
     public Day (String name, String id, int aqi, String time) {
         this.cityName = name;
@@ -29,7 +30,7 @@ public class Day {
     }
 
     public void addSiteData(SiteData siteData) {
-        siteDatas.add(siteData);
+        nearbySitesData.add(siteData);
     }
 
     public void addForecast(IAQI pm25Forecast) {
@@ -41,6 +42,6 @@ public class Day {
     }
 
     public void addForecast(Forecast weather) {
-        forecasts.add(weather);
+        hourlyForecasts.add(weather);
     }
 }
