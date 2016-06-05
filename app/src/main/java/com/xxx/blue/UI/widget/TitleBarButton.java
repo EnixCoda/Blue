@@ -11,15 +11,15 @@ import android.widget.TextView;
 
 import com.xxx.blue.R;
 
-import butterknife.BindViews;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class TitleBarButton extends FrameLayout {
-    @BindViews(R.id.vg_container) ViewGroup mContainer;
-    @BindViews(R.id.img_image) ImageView mImageView;
-    @BindViews(R.id.img_placeholder) ImageView mImagePlaceholder;
-    @BindViews(R.id.txt_text) TextView mTextView;
-    @BindViews(R.id.txt_placeholder) TextView mTextPlaceholder;
+    @Bind(R.id.vg_container) ViewGroup mContainer;
+    @Bind(R.id.img_image) ImageView mImageView;
+    @Bind(R.id.img_placeholder) ImageView mImagePlaceholder;
+    @Bind(R.id.txt_text) TextView mTextView;
+    @Bind(R.id.txt_placeholder) TextView mTextPlaceholder;
 
     public TitleBarButton(Context context) {
         super(context);
