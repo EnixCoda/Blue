@@ -9,6 +9,8 @@ public class QueryLocation {
         char[] location;
         char[] target = namePrefix.toCharArray();
         try {
+            //TODO
+            String jsonContent = "";//jsonContent为能运行暂设为空
             JSONArray jsonArray = new JSONArray(jsonContent);
             int size = jsonArray.length();
             for (int i = 0; i < size; i++) {
