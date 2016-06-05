@@ -11,25 +11,25 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.shehabic.droppy.DroppyClickCallbackInterface;
+import com.shehabic.droppy.DroppyMenuPopup;
 import com.xxx.blue.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindViews;
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.shehabic.droppy.DroppyClickCallbackInterface;
-import com.shehabic.droppy.DroppyMenuPopup;
 
 public class TitleBar extends FrameLayout {
     public static final boolean ON_LEFT = true;
     public static final boolean ON_RIGHT = false;
 
-    @BindViews(R.id.vg_root) ViewGroup mRoot;
-    @BindViews(R.id.vg_left) LinearLayout mLeftGroup;
-    @BindViews(R.id.vg_right) LinearLayout mRightGroup;
-    @BindViews(R.id.txt_title) TextView mTitle;
-    @BindViews(R.id.view_shadow) View mShadow;
+    @Bind(R.id.vg_root) ViewGroup mRoot;
+    @Bind(R.id.vg_left) LinearLayout mLeftGroup;
+    @Bind(R.id.vg_right) LinearLayout mRightGroup;
+    @Bind(R.id.txt_title) TextView mTitle;
+    @Bind(R.id.view_shadow) View mShadow;
 
     private List<TitleBarButton> mLeftList = new ArrayList<>();
     private List<TitleBarButton> mRightList = new ArrayList<>();

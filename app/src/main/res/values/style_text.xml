@@ -9,6 +9,22 @@
         <item name="android:textSize">@dimen/text_size_subhead</item>
     </style>
 
+    <style name="TextAppearance.LargeSize" parent="TextAppearance">
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="TextAppearance.LargeSize.Inverse" parent="TextAppearance.LargeSize">
+        <item name="android:textColor">@color/textColorPrimaryInverse</item>
+    </style>
+
+    <style name="TextAppearance.HugeSize" parent="TextAppearance">
+        <item name="android:textSize">@dimen/text_size_huge</item>
+    </style>
+
+    <style name="TextAppearance.HugeSize.Inverse" parent="TextAppearance.HugeSize">
+        <item name="android:textColor">@color/textColorPrimaryInverse</item>
+    </style>
+
     <style name="TextAppearance.Subhead.Inverse" parent="TextAppearance.Subhead">
         <item name="android:textColor">@color/textColorPrimaryInverse</item>
     </style>
@@ -16,4 +32,5 @@
     <style name="TextAppearance.Title" parent="TextAppearance">
         <item name="android:textSize">@dimen/text_size_title</item>
     </style>
+
 </resources>
