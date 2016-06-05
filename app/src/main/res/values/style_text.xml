@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance">
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textSize">@dimen/text_size_body</item>
+    </style>
+
+    <style name="TextAppearance.Subhead" parent="TextAppearance">
+        <item name="android:textSize">@dimen/text_size_subhead</item>
+    </style>
+
+    <style name="TextAppearance.Subhead.Inverse" parent="TextAppearance.Subhead">
+        <item name="android:textColor">@color/textColorPrimaryInverse</item>
+    </style>
+
+    <style name="TextAppearance.Title" parent="TextAppearance">
+        <item name="android:textSize">@dimen/text_size_title</item>
+    </style>
+</resources>
