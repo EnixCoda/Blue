@@ -13,23 +13,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp">
-            <TextView
-                android:id="@+id/tv_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:id="@+id/vg_search"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="3dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-                android:text="上海"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+                    android:text="上海"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_toRightOf="@id/tv_location"
+                    android:src="@mipmap/ic_search_white24_24"/>
+            </LinearLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:layout_marginLeft="4dp"
-                android:layout_toRightOf="@id/tv_location"
-                android:src="@mipmap/ic_search_white24_24"/>
-            <ImageView
+                android:id="@+id/menu_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_white_more_24_24"
@@ -42,6 +49,7 @@
             android:layout_height="22dp"
             android:layout_marginTop="10dp">
             <TextView
+                android:id="@+id/tab_current"
                 android:layout_width="0dp"
                 android:layout_weight="0.5"
                 android:layout_height="wrap_content"
@@ -53,6 +61,7 @@
                 android:layout_height="match_parent"
                 style="@style/Divider.Vertical"/>
             <TextView
+                android:id="@+id/tab_prediction"
                 android:layout_width="0dp"
                 android:layout_weight="0.5"
                 android:gravity="center"
@@ -75,6 +84,7 @@
                 android:orientation="vertical"
                 android:layout_weight="0.5">
                 <TextView
+                    android:id="@+id/tv_temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -83,6 +93,7 @@
                     android:text="53"/>
 
                 <TextView
+                    android:id="@+id/tv_air"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -91,13 +102,14 @@
                     android:text="空气质量良好"/>
             </LinearLayout>
 
-            <ViewStub
-                android:id="@+id/viewstub"
+            <FrameLayout
+                android:id="@+id/active_fragment"
                 android:inflatedId="@+id/inflated_layout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:layout="@layout/viewstub_current"/>
+
         </LinearLayout>
     </LinearLayout>
 
