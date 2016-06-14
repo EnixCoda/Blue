@@ -27,11 +27,17 @@ import butterknife.OnClick;
  * Created by Burgess on 2016/6/11.
  */
 public class LocationDialog extends DialogFragment {
+    OnLocationClickListener mListener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Builder builder = new Builder(getContext());
+        builder.setListener(mListener);
         return builder.show();
+    }
+
+    public void setListener(OnLocationClickListener mListener) {
+        this.mListener = mListener;
     }
 
     public class Builder extends AlertDialog.Builder {
@@ -134,7 +140,7 @@ public class LocationDialog extends DialogFragment {
             @OnClick(R.id.tv_location)
             void onLocationClick(){
                 if (null != mListener){
-                    mListener.onClick();
+                    mListener.onClick(mLocation.getText().toString());
                 }
             }
 
@@ -146,6 +152,6 @@ public class LocationDialog extends DialogFragment {
     }
 
     public interface OnLocationClickListener{
-        void onClick();
+        void onClick(String text);
     }
 }
