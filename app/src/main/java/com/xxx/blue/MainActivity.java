@@ -118,8 +118,15 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.vg_search:
-                LocationDialog locationDialog = new LocationDialog();
+                final LocationDialog locationDialog = new LocationDialog();
                 locationDialog.show(getSupportFragmentManager(), "locationDialog");
+                locationDialog.setListener(new LocationDialog.OnLocationClickListener() {
+                    @Override
+                    public void onClick(String text) {
+                        mLocation.setText(text);
+                        locationDialog.dismiss();
+                    }
+                });
                 break;
             case R.id.tab_current:
                 getFragmentManager().beginTransaction()
