@@ -1,5 +1,6 @@
 package com.xxx.blue;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,11 +9,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.xxx.blue.UI.widget.LifeHintItemAdapter;
+import com.shehabic.droppy.DroppyClickCallbackInterface;
+import com.shehabic.droppy.DroppyMenuPopup;
+import com.shehabic.droppy.animations.DroppyFadeInAnimation;
+import com.xxx.blue.adapter.LifeHintItemAdapter;
 import com.xxx.blue.UI.widget.LocationDialog;
+import com.xxx.blue.model.HintModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -51,7 +55,30 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.menu_more)
     void onMenuClick(){
-
+        DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(this, mMenuMore);
+        DroppyMenuPopup droppyMenu = droppyBuilder.fromMenu(R.menu.main_menu)
+                .triggerOnAnchorClick(false)
+                .setOnClick(new DroppyClickCallbackInterface() {
+                    @Override
+                    public void call(View v, int id) {
+                        switch (id){
+                            case R.id.menu_share: //分享
+                                Intent intent = new Intent();
+                                intent.setType("text/plain"); // 纯文本
+                                startActivity(Intent.createChooser(intent, "分享"));
+                                break;
+                            case R.id.menu_about://TODO:跳转至关于界面
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                })
+        .setPopupAnimation(new DroppyFadeInAnimation())
+                .setXOffset(5)
+                .setYOffset(5)
+                .build();
+        droppyMenu.show();
     }
 
     @Override

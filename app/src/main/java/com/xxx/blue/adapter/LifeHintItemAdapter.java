@@ -1,4 +1,4 @@
-package com.xxx.blue.UI.widget;
+package com.xxx.blue.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,10 +9,9 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.xxx.blue.HintModel;
+import com.xxx.blue.model.HintModel;
 import com.xxx.blue.R;
 
 import java.util.List;
