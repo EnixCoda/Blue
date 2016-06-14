@@ -1,4 +1,4 @@
-package com.xxx.blue;
+package com.xxx.blue.model;
 
 /**
  * Created by Burgess on 2016/6/14.
