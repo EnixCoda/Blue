@@ -1,50 +1,74 @@
-package Utility;
+package utility;
+
+import android.content.Context;
 
 import org.json.JSONArray;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public class QueryLocation {
-    public static String[] query(String namePrefix) {
-        String[] LocationSet = new String[300];
-        int LocationNum = 0;
-        char[] location;
-        char[] target = namePrefix.toCharArray();
+
+    private Context context;
+    private JSONArray cities, hotCities;
+
+    public QueryLocation(Context context) {
+        this.context = context;
+        String jsonCities = loadJSONFromAsset("cities.json");
+        String jsonHotCities = loadJSONFromAsset("hotCities.json");
         try {
-            //TODO
-            String jsonContent = "";//jsonContent为能运行暂设为空
-            JSONArray jsonArray = new JSONArray(jsonContent);
-            int size = jsonArray.length();
-            for (int i = 0; i < size; i++) {
-                JSONArray jsonObject = jsonArray.getJSONArray(i);
-                location = jsonObject.getString(0).toCharArray();
-                int flag = 0;
-                for (int i1 = 0; i1 < location.length; i1++) {
-                    if ((location.length - i1) >= target.length) {
-                        if (target[0] == location[i1]) {
-                            if (target.length == 1)
-                                flag = 1;
-                            for (int i2 = 1; i2 < target.length; i2++) {
-                                if (target[i2] == location[i2])
-                                    flag = 1;
-                                else {
-                                    flag = 0;
-                                    break;
-                                }
-                            }
-                        }
-                        if (flag == 1)
-                            break;
-                    }
+            cities = new JSONArray(jsonCities);
+            hotCities = new JSONArray(jsonHotCities);
+        } catch (Exception e) {
+            try {
+                cities = new JSONArray("[]");
+                hotCities = new JSONArray("[]");
+            } catch (Exception ee) {
+
+            }
+        }
+    }
+
+    public String[] query(String namePrefix) {
+        int maxQueryLength = 20;
+        String[] locationSet = new String[maxQueryLength];
+        int countLocations = 0;
+        try {
+            if (namePrefix.length()==0) {
+                while (countLocations < maxQueryLength && countLocations < hotCities.length()) {
+                    locationSet[countLocations++] = hotCities.getString(countLocations);
                 }
-                StringBuffer buf = new StringBuffer();
-                buf.append(location);
-                if (flag == 1) {
-                    LocationSet[LocationNum] = buf.toString();
-                    LocationNum++;
+            }
+            namePrefix = ChineseToPinyin.getPinYin(namePrefix);
+            int size = cities.length();
+            String cityPinyin, cityName;
+            for (int i = 0; i < size && countLocations < maxQueryLength; i++) {
+                JSONArray city = cities.getJSONArray(i);
+                cityName = city.getString(0);
+                cityPinyin = city.getString(1);
+                if (cityPinyin.indexOf(namePrefix) == 0) {
+                    locationSet[countLocations++] = cityName;
                 }
             }
         } catch (Exception e) {
 
         }
-        return LocationSet;
+        return locationSet;
+    }
+
+    private String loadJSONFromAsset(String filename) {
+        String json = null;
+        try {
+            InputStream is = context.getAssets().open(filename);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 }

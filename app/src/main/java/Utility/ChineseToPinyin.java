@@ -1,4 +1,4 @@
-package Utility;
+package utility;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
@@ -8,11 +8,11 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 
 public class ChineseToPinyin {
-    public static String getPingYin(String src) {
+    public static String getPinYin(String src) {
         src = src.toLowerCase();
-        char[] t1 = null;
+        char[] t1;
         t1 = src.toCharArray();
-        String[] t2 = new String[t1.length];
+        String[] t2;
         HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();
         format.setCaseType(HanyuPinyinCaseType.LOWERCASE);
         format.setToneType(HanyuPinyinToneType.WITHOUT_TONE);

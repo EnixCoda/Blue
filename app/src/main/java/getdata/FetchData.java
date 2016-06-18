@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Hashtable;
 import java.util.Scanner;
 
+import utility.ChineseToPinyin;
+
 /**
  * Created by Exin on 2016/5/18.
  * 获取此刻的AQI相关数据、天气预报
@@ -45,7 +47,7 @@ public class FetchData extends AsyncTask<String, Void, Day> {
     @Override
     protected Day doInBackground(String... params) {
         String cityId;
-        if (params.length > 0) cityId = params[0];
+        if (params.length > 0) cityId = ChineseToPinyin.getPinYin(params[0]);
         else return null;
         try {
             // get HTML page source
@@ -73,8 +75,8 @@ public class FetchData extends AsyncTask<String, Void, Day> {
 
                     JSONArray values = iaqiJSONObject.getJSONArray("v");
                     int cur = values.getInt(0),
-                            min = values.getInt(1),
-                            max = values.getInt(2);
+                        min = values.getInt(1),
+                        max = values.getInt(2);
 
                     String description = iaqiJSONObject.getString("i");
 
