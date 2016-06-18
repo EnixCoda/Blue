@@ -22,17 +22,19 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import utility.QueryLocation;
 
 /**
  * Created by Burgess on 2016/6/11.
  */
 public class LocationDialog extends DialogFragment {
     OnLocationClickListener mListener;
-
+    QueryLocation mQueryLocation;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Builder builder = new Builder(getContext());
         builder.setListener(mListener);
+        mQueryLocation = new QueryLocation(getActivity());
         return builder.show();
     }
 
@@ -111,10 +113,9 @@ public class LocationDialog extends DialogFragment {
 
         public void setFilter(String text){
             mFilterList.clear();
-            for (String str : mList){
-                if (str.contains(text)){
-                    mFilterList.add(str);
-                }
+            String [] list = mQueryLocation.query(text);
+            for (String str : list){
+                mFilterList.add(str);
             }
             reset(mFilterList);
         }

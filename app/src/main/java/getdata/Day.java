@@ -1,4 +1,4 @@
-package getdata;
+package getData;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -17,6 +17,7 @@ public class Day {
     public ArrayList<Wind> forecastWind = new ArrayList<>();
     public ArrayList<SiteData> nearbySitesData = new ArrayList<>();
     public ArrayList<Forecast> hourlyForecasts = new ArrayList<>();
+    public ArrayList<Forecast> dailyForecasts = new ArrayList<>();
 
     public Day (String name, String id, int aqi, String time) {
         this.cityName = name;
@@ -41,7 +42,11 @@ public class Day {
         forecastWind.add(windForecast);
     }
 
-    public void addForecast(Forecast weather) {
+    public void addHourlyForecast(Forecast weather) {
         hourlyForecasts.add(weather);
+    }
+
+    public void addDailyForecast(Forecast weather) {
+        dailyForecasts.add(weather);
     }
 }

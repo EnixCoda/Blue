@@ -1,4 +1,4 @@
-package getdata;
+package getData;
 
 /**
  * Created by Exin on 2016/5/18.

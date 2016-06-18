@@ -1,4 +1,4 @@
-package getdata;
+package getData;
 
 import java.util.Calendar;
 

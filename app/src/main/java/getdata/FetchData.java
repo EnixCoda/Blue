@@ -1,4 +1,4 @@
-package getdata;
+package getData;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -148,6 +148,7 @@ public class FetchData extends AsyncTask<String, Void, Day> {
 
                 jsonObject = new JSONObject(response);
                 jsonObject = jsonObject.getJSONArray("HeWeather data service 3.0").getJSONObject(0);
+
                 JSONArray hourlyForecasts = jsonObject.getJSONArray("hourly_forecast");
                 i = 0;
                 while (i < hourlyForecasts.length()) {
@@ -160,9 +161,31 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                     int rain = Integer.valueOf(weatherForecast.getString("pop"));
                     int pressure = Integer.valueOf(weatherForecast.getString("pres"));
                     int temp = Integer.valueOf(weatherForecast.getString("tmp"));
-                    day.addForecast(new Forecast(date, "", temp, humidity, rain, pressure));
+                    day.addHourlyForecast(new Forecast(date, "", temp, humidity, rain, pressure));
                     i++;
                 }
+
+                JSONArray dailyForecasts = jsonObject.getJSONArray("daily_forecast");
+                i = 0;
+                while (i < dailyForecasts.length()) {
+                    JSONObject weatherForecast = dailyForecasts.getJSONObject(i);
+                    SimpleDateFormat sdf = new SimpleDateFormat("y-M-d");
+                    Calendar date = Calendar.getInstance();
+                    date.setTime(sdf.parse(weatherForecast.getString("date")));
+
+                    JSONObject descriptions = weatherForecast.getJSONObject("cond");
+                    String descriptionDay = descriptions.getString("txt_d");
+                    String descriptionNight = descriptions.getString("txt_n");
+                    String description = descriptionDay.equals(descriptionNight) ? descriptionDay : descriptionDay + "转" + descriptionNight;
+                    int humidity = Integer.valueOf(weatherForecast.getString("hum"));
+                    int rainPossibility = Integer.valueOf(weatherForecast.getString("pop"));
+                    int rainAmount = Integer.valueOf(weatherForecast.getString("pop"));
+                    int pressure = Integer.valueOf(weatherForecast.getString("pres"));
+                    int temp = Integer.valueOf(weatherForecast.getString("tmp"));
+                    day.addDailyForecast(new Forecast(date, description, temp, humidity, rainPossibility, rainAmount, pressure));
+                    i++;
+                }
+
                 return day;
             }
 

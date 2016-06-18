@@ -1,4 +1,4 @@
-package getdata;
+package getData;
 
 import android.os.AsyncTask;
 import android.util.Log;

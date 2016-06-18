@@ -1,4 +1,4 @@
-package getdata;
+package getData;
 
 import java.util.Calendar;
 
@@ -12,6 +12,7 @@ public class Forecast {
     public int temp;
     public int humidity;
     public int rainPoss;
+    public int rainAmount;
     public int pressure;
 
     public Forecast(Calendar date, String conclusion, int temp, int hum, int rain, int pressure) {
@@ -20,6 +21,16 @@ public class Forecast {
         this.temp = temp;
         this.humidity = hum;
         this.rainPoss = rain;
+        this.pressure = pressure;
+    }
+
+    public Forecast(Calendar date, String conclusion, int temp, int hum, int rainPossibility, int rainAmount, int pressure) {
+        this.date = date;
+        this.description = conclusion;
+        this.temp = temp;
+        this.humidity = hum;
+        this.rainPoss = rainPossibility;
+        this.rainAmount = rainAmount;
         this.pressure = pressure;
     }
 }
