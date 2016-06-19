@@ -1,5 +1,6 @@
 package com.xxx.blue;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -37,11 +38,13 @@ public class CurrentFragment extends Fragment {
     @OnClick(R.id.vg_air)
     void onAirClick(){
 //        //TODO：跳转至天气质量详情
+        startActivity(new Intent(getActivity(), WeatherDetailsActivity.class));
     }
 
     @OnClick(R.id.vg_temperature)
     void onTemperatureClick(){
 //        //TODO：跳转至温度详情
+
     }
 
     @Override
