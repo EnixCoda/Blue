@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import Utility.QueryLocation;
+import utility.QueryLocation;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
