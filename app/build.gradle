@@ -10,6 +10,13 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['jniLibs']
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -26,4 +33,9 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.shehabic.droppy:Droppy:0.5.1@aar'
     compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile files('libs/Volley.jar')
+    compile files('libs/AMap_2DMap_V2.8.1_20160202.jar')
+    compile files('libs/AMap_Location_V2.4.1_20160414.jar')
+    compile files('libs/AMap_Search_V3.2.1_20160308.jar')
+    compile files('libs/AMap_3DMap_V3.3.1_20160419.jar')
 }
