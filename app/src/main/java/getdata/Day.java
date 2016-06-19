@@ -3,16 +3,24 @@ package getData;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import analyse.Instructor;
+
 /**
  * Created by Exin on 2016/5/18.
  *
  */
 public class Day {
-    public Hashtable<String, IAQI> stringIAQIHashtable = new Hashtable<>();
-    public String cityName;
     public String cityId;
+    public String cityName;
     public String time;
     public int aqi;
+    public String AQIConclusion="";
+    public int weatherCode=0;
+    public String weatherConclusion="";
+
+    public Day tomorrow;
+
+    public Hashtable<String, IAQI> stringIAQIHashtable = new Hashtable<>();
     public ArrayList<IAQI> forecastAQI = new ArrayList<>();
     public ArrayList<Wind> forecastWind = new ArrayList<>();
     public ArrayList<SiteData> nearbySitesData = new ArrayList<>();
@@ -48,5 +56,10 @@ public class Day {
 
     public void addDailyForecast(Forecast weather) {
         dailyForecasts.add(weather);
+    }
+
+    public void calcTomorrow() {
+        tomorrow.aqi = forecastAQI.get(30).max;
+        tomorrow.AQIConclusion = Instructor.tellMeAboutAQI(tomorrow.aqi);
     }
 }

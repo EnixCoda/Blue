@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Hashtable;
 import java.util.Scanner;
 
+import analyse.Instructor;
 import utility.ChineseToPinyin;
 
 /**
@@ -66,6 +67,8 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                 int aqi = jsonObject.getInt("aqi");
                 String time = jsonObject.getJSONObject("time").getJSONObject("s").getJSONObject("cn").getString("time").split(" ")[1];
                 Day day = new Day(cityName, id, aqi, time);
+                day.tomorrow = new Day(cityName, id, 0, "");
+                day.AQIConclusion = Instructor.tellMeAboutAQI(aqi);
                 JSONArray iaqisJSONArray = jsonObject.getJSONArray("iaqi");
                 int i = 0;
                 while (i < iaqisJSONArray.length()) {
@@ -188,6 +191,16 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                     day.addDailyForecast(new Forecast(date, description, tempMin, tempMax, humidity, rainPossibility, rainAmount, pressure));
                     i++;
                 }
+
+                // set weather code and conclusion
+                JSONObject weatherForecastToday = dailyForecasts.getJSONObject(0).getJSONObject("cond");
+                day.weatherCode = weatherForecastToday.getInt("code_d");
+                day.weatherConclusion = weatherForecastToday.getString("txt_d");
+                JSONObject weatherForecastTomorrow = dailyForecasts.getJSONObject(1).getJSONObject("cond");
+                day.tomorrow.weatherCode = weatherForecastTomorrow.getInt("code_d");
+                day.tomorrow.weatherConclusion = weatherForecastTomorrow.getString("txt_d");
+
+                day.calcTomorrow();
 
                 return day;
             }

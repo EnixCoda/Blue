@@ -53,7 +53,7 @@ public class Instructor {
         pollutionNameToIndex.put("风", 11);
     }
 
-    public String tellMeAboutAQI (int aqi) {
+    public static String tellMeAboutAQI (int aqi) {
         String msg = "空气质量";
         if (aqi < 50) {
             msg += "优良";
