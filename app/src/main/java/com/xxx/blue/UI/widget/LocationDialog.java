@@ -42,9 +42,9 @@ public class LocationDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        mQueryLocation = new QueryLocation(getActivity());
         builder = new Builder(getContext());
         builder.setListener(mListener);
-        mQueryLocation = new QueryLocation(getActivity());
         return builder.show();
     }
 
@@ -84,9 +84,10 @@ public class LocationDialog extends DialogFragment {
         }
 
         private void init() {
-            String[] provinces = getContext().getResources().getStringArray(R.array.string_province);
+            String[] recommendLocation = mQueryLocation.query("");
+            //String[] provinces = getContext().getResources().getStringArray(R.array.string_province);
             //init RecyclerView
-            mAdapter = new LocationAdapter(new ArrayList<>(Arrays.asList(provinces)));
+            mAdapter = new LocationAdapter(new ArrayList<>(Arrays.asList(recommendLocation)));
             mLocationRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             mLocationRecyclerView.setAdapter(mAdapter);
             mLocationRecyclerView.requestFocus();
@@ -128,7 +129,9 @@ public class LocationDialog extends DialogFragment {
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    mAdapter.setFilter(newText);
+                    //mAdapter.setFilter(newText);
+                    String[] searchResult = mQueryLocation.query(newText);
+                    mAdapter.resetAndNotify(Arrays.asList(searchResult));
                     return false;
                 }
             });
@@ -186,7 +189,7 @@ public class LocationDialog extends DialogFragment {
             for (String str : list){
                 mFilterList.add(str);
             }
-            reset(mFilterList);
+            resetAndNotify(mFilterList);
         }
 
         @Override
@@ -194,7 +197,7 @@ public class LocationDialog extends DialogFragment {
             return mFilterList.size();
         }
 
-        public void reset(List<String> mList) {
+        public void resetAndNotify(List<String> mList) {
             mFilterList = mList;
             notifyDataSetChanged();
         }

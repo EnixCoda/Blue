@@ -3,15 +3,15 @@ package com.xxx.blue.presenter;
 import com.xxx.blue.BaseView;
 
 import Utility.ChineseToPinyin;
-import getdata.Day;
-import getdata.FetchData;
+import getData.Day;
+import getData.FetchData;
 
 /**
  * Created by Burgess on 2016/6/18.
  */
 public class MainPresenter extends BasePresenter<MainPresenter.MainView> {
     public void loadCurrentData(String location){
-        String localLocation = ChineseToPinyin.getPingYin(location);
+        String localLocation = ChineseToPinyin.getPinYin(location);
         FetchData fetchData = new FetchData(new FetchData.AsyncResponse() {
             @Override
             public void processFinish(Day day) {

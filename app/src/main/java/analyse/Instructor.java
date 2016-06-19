@@ -2,7 +2,7 @@ package analyse;
 
 import java.util.Hashtable;
 
-import getdata.Day;
+import getData.Day;
 
 public class Instructor {
 
