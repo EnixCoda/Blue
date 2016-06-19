@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
     SharedPreferences mPrefenrence;//做持久化数据
     boolean isCurrent = true;//判断当前所在页面
     private Day mData;
+    private String mLocationText;
 
     @OnClick(R.id.menu_more)
     void onMenuClick(){
@@ -121,12 +122,12 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
             @Override
             public void onPageSelected(int position) {
                 if (position == 0){
-                    mTabCurrent.setAlpha(0.4f);
-                    mTabPrediction.setAlpha(1.0f);
-                    mCurrentFragment.setData(setCurrentDataBundle());
-                }else {
                     mTabCurrent.setAlpha(1.0f);
                     mTabPrediction.setAlpha(0.4f);
+                    mCurrentFragment.setData(setCurrentDataBundle());
+                }else {
+                    mTabCurrent.setAlpha(0.4f);
+                    mTabPrediction.setAlpha(1.0f);
                     mPredictionFragment.setData(setPredictionDataBundle());
                 }
             }
@@ -152,7 +153,8 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
         mAdapter.setGridView(mGridHint);
         mGridHint.setAdapter(mAdapter);
 
-        mPresenter.loadCurrentData(mPrefenrence.getString(EXTRA_LOCATION, "上海"));
+        mLocationText = mPrefenrence.getString(EXTRA_LOCATION, "上海");
+        mPresenter.loadCurrentData(mLocationText);
     }
 
     @OnClick({R.id.vg_search, R.id.tab_current, R.id.tab_prediction})
@@ -164,27 +166,23 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
                 locationDialog.setListener(new LocationDialog.OnLocationClickListener() {
                     @Override
                     public void onClick(String text) {
-                        mLocation.setText(text);
+                        mLocationText = text;
                         //数据持久化
                         mPrefenrence.edit()
                                 .putString(EXTRA_LOCATION, text)
                                 .apply();
                         locationDialog.dismiss();
-                        mPresenter.loadCurrentData(text);
+                        mPresenter.loadCurrentData(mLocationText);
                     }
                 });
                 break;
             case R.id.tab_current:
-                mTabCurrent.setAlpha(0.4f);
-                mTabPrediction.setAlpha(1.0f);
                 mViewPager.setCurrentItem(0, true);
                 mCurrentFragment.setData(setCurrentDataBundle());
                 isCurrent = true;
                 break;
             case R.id.tab_prediction:
                 isCurrent = false;
-                mTabPrediction.setAlpha(0.4f);
-                mTabCurrent.setAlpha(1.0f);
                 mViewPager.setCurrentItem(1, true);
                 mPredictionFragment.setData(setPredictionDataBundle());
                 break;
@@ -233,8 +231,12 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
 
     @Override
     public void showCurrentData(Day data) {
-        if (null == data) return;
+        if (null == data) {
+            Toast.makeText(this, "数据为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Toast.makeText(this, "得到数据", Toast.LENGTH_SHORT).show();
+        mLocation.setText(mLocationText);
         mData = data;
         if (isCurrent){
             mViewPager.setCurrentItem(0, true);

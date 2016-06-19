@@ -31,7 +31,7 @@ public class PredictionFragment extends Fragment {
 
     @OnClick(R.id.vg_air)
     void onAirClick(){
-//        //TODO：跳转至天气详情
+//        //TODO：跳转至天气质量详情
     }
 
     @OnClick(R.id.vg_temperature)
@@ -52,12 +52,12 @@ public class PredictionFragment extends Fragment {
     }
 
     public void setData(Bundle data) {
-        mTodayWhether.setText(data.getString(Constant.EXTRA_WHETHER, "小雨转阴"));
-        mTodayTemperatureRange.setText(data.getString(Constant.EXTRA_TEMPERATURE_RANGE, "18~23℃"));
-        mForecastWhether.setText(data.getString(Constant.EXTRA_FORECAST_WHETHER, "晴"));
-        mForecastTemperature.setText(data.getString(Constant.EXTRA_FORECAST_TEMPERATURE_RANGE, "20~25℃"));
-        mAir.setText(data.getString(Constant.EXTRA_AIR_TEXT, "空气质量良好"));
-        mPM2_5.setText(data.getString(Constant.EXTRA_AIR, "76"));
+        mTodayWhether.setText(data.getString(Constant.EXTRA_WHETHER, "--"));
+        mTodayTemperatureRange.setText(data.getString(Constant.EXTRA_TEMPERATURE_RANGE, "--℃"));
+        mForecastWhether.setText(data.getString(Constant.EXTRA_FORECAST_WHETHER, "--"));
+        mForecastTemperature.setText(data.getString(Constant.EXTRA_FORECAST_TEMPERATURE_RANGE, "--℃"));
+        mAir.setText(data.getString(Constant.EXTRA_AIR_TEXT, "--"));
+        mPM2_5.setText(data.getString(Constant.EXTRA_AIR, "--"));
     }
 
     @Override

@@ -16,7 +16,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:textAppearance="@style/TextAppearance.HugeSize.Inverse"
-            android:text="53"/>
+            android:text="--"/>
 
         <TextView
             android:id="@+id/tv_air"
@@ -25,7 +25,7 @@
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
             android:textAppearance="@style/TextAppearance.LargeSize.Inverse"
-            android:text="空气质量良好"/>
+            android:text="--"/>
     </LinearLayout>
 
     <LinearLayout
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                android:text="小雨"/>
+                android:text="--"/>
         </LinearLayout>
         <RelativeLayout
             android:layout_gravity="center_horizontal"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                 android:layout_alignParentRight="true"
-                android:text="21℃"/>
+                android:text="--℃"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_gravity="center_horizontal"
@@ -82,14 +82,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                android:text="东南风"/>
+                android:text="风速"/>
             <TextView
                 android:id="@+id/tv_wind_speed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                 android:layout_alignParentRight="true"
-                android:text="3~5 m/s"/>
+                android:text="--m/s"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_gravity="center_horizontal"
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                 android:layout_alignParentRight="true"
-                android:text="90%"/>
+                android:text="--%"/>
         </RelativeLayout>
 
         <RelativeLayout

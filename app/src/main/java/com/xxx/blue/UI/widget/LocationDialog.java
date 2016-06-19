@@ -101,21 +101,23 @@ public class LocationDialog extends DialogFragment {
                 at.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) {
-                        if (!hasFocus){
-                            ViewGroup.LayoutParams params = mLocationRecyclerView.getLayoutParams();
-                            params.height = 1600;
-                            mLocationRecyclerView.setLayoutParams(params);
-                        }
-                    }
-                });
-                at.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
                         ViewGroup.LayoutParams params = mLocationRecyclerView.getLayoutParams();
-                        params.height = 600;
+                        if (!hasFocus){
+                            params.height = (int) getResources().getDimension(R.dimen.dialog_height);
+                        }else{
+                            params.height = (int) getResources().getDimension(R.dimen.main_title_height);
+                        }
                         mLocationRecyclerView.setLayoutParams(params);
                     }
                 });
+//                at.setOnClickListener(new OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        ViewGroup.LayoutParams params = mLocationRecyclerView.getLayoutParams();
+//                        params.height = 600;
+//                        mLocationRecyclerView.setLayoutParams(params);
+//                    }
+//                });
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             } catch (NoSuchFieldException e) {
