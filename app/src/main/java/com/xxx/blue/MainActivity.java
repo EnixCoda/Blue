@@ -3,6 +3,7 @@ package com.xxx.blue;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,7 +29,10 @@ import com.xxx.blue.model.HintModel;
 import com.xxx.blue.presenter.MainPresenter;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
 
+import analyse.Suggestion;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -152,15 +156,10 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
         }
         //gridView
         ArrayList<HintModel> models = new ArrayList<>();
-        models.add(new HintModel());
-        models.add(new HintModel());
-        models.add(new HintModel());
-        models.add(new HintModel());
-        models.add(new HintModel());
-        models.add(new HintModel());
-        models.add(new HintModel());
-        models.add(new HintModel());
-        models.add(new HintModel());
+        TypedArray imageId = getResources().obtainTypedArray(R.array.image_id);
+        for (int i = 0; i < 9; ++i) {
+            models.add(new HintModel("无建议", imageId.getResourceId(i, 0)));
+        }
         mAdapter = new LifeHintItemAdapter(this, models);
         mAdapter.setGridView(mGridHint);
         mGridHint.setAdapter(mAdapter);
@@ -207,9 +206,8 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
         bundle.putString(Constant.EXTRA_AIR, String.valueOf(mData.aqi));
         bundle.putString(Constant.EXTRA_AIR_TEXT, mData.AQIConclusion);
 
-        Forecast todayForecast = mData.dailyForecasts.get(0);
         bundle.putInt(Constant.EXTRA_WHETHER_IMG, R.mipmap.ic_rain_24_24);
-        bundle.putString(Constant.EXTRA_WHETHER, String.valueOf(mData.weatherCode));
+        bundle.putString(Constant.EXTRA_WHETHER, String.valueOf(mData.weatherConclusion));
         IAQI temperature = mData.stringIAQIHashtable.get("温度");
         bundle.putString(Constant.EXTRA_TEMPERATURE, temperature.cur + "℃");
         IAQI wind = mData.stringIAQIHashtable.get("风");
@@ -247,8 +245,20 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
             return;
         }
         Toast.makeText(this, "得到数据", Toast.LENGTH_SHORT).show();
-        mLocation.setText(mLocationText);
+
         mData = data;
+        //gridView更新
+        ArrayList<HintModel> lists = new ArrayList<>();
+        TypedArray imageId = getResources().obtainTypedArray(R.array.image_id);
+        Hashtable<String, Suggestion> suggestionTable = data.getInstructions();
+        int i = 0;
+        for (Object key : suggestionTable.keySet()) {
+            Suggestion value = suggestionTable.get(key);
+            HintModel hint = new HintModel(value.getDesc(), imageId.getResourceId(i++, 0));
+            lists.add(hint);
+        }
+        mAdapter.resetAndNotify(lists);
+        mLocation.setText(mLocationText);
         if (isCurrent){
             mViewPager.setCurrentItem(0, true);
             mCurrentFragment.setData(setCurrentDataBundle());

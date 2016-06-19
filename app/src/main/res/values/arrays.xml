@@ -36,4 +36,15 @@
         <item>澳门</item>
         <item>台湾</item>
     </string-array>
+    <string-array name="image_id">
+        <item>@mipmap/suggest_car</item>
+        <item>@mipmap/suggest_kaze</item>
+        <item>@mipmap/suggest_wear</item>
+        <item>@mipmap/suggest_refrigeration</item>
+        <item>@mipmap/suggest_asa</item>
+        <item>@mipmap/suggest_bike</item>
+        <item>@mipmap/suggest_feeling</item>
+        <item>@mipmap/suggest_sun</item>
+        <item>@mipmap/suggest_sport</item>
+    </string-array>
 </resources>
