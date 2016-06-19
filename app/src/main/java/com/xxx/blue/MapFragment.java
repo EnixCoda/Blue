@@ -30,6 +30,9 @@ import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 
+import java.util.ArrayList;
+
+import getData.SiteData;
 import utility.AMapUtil;
 import utility.ToastUtil;
 
@@ -73,12 +76,26 @@ public class MapFragment extends Fragment implements GeocodeSearch.OnGeocodeSear
 
     }
 
-    public void setData(double[] aim, double[] latd, double[] lond, int[] aqid) {
+    public void setData(ArrayList<SiteData> arrayList) {
+        double avgLat = 0, avgLon = 0;
+        double[] latd = new double[10], lond = new double[10];
+        int[] aqid = new int[10];
+        int i;
+        for (i = 0; i < arrayList.size() && i < 10; i++) {
+            aqid[i] = arrayList.get(i).pm25;
+            latd[i] = arrayList.get(i).lat;
+            avgLat += arrayList.get(i).lat;
+            lond[i] = arrayList.get(i).lon;
+            avgLon += arrayList.get(i).lon;
+        }
+
         lat = latd;
         lon = lond;
-        aimpos = aim;
+        aimpos[0] = avgLat/i;
+        aimpos[1] = avgLon/i;
         aqi = aqid;
     }
+
 
     public static MapFragment newInstance(double[] aim, double[] lat, double[] lon, int[] aqi) {
         Bundle args = new Bundle();
