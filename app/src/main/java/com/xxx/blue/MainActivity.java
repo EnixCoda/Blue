@@ -121,12 +121,12 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
             @Override
             public void onPageSelected(int position) {
                 if (position == 0){
-                    mTabCurrent.setAlpha(0.4f);
-                    mTabPrediction.setAlpha(1.0f);
-                    mCurrentFragment.setData(setCurrentDataBundle());
-                }else {
                     mTabCurrent.setAlpha(1.0f);
                     mTabPrediction.setAlpha(0.4f);
+                    mCurrentFragment.setData(setCurrentDataBundle());
+                }else {
+                    mTabCurrent.setAlpha(0.4f);
+                    mTabPrediction.setAlpha(1.0f);
                     mPredictionFragment.setData(setPredictionDataBundle());
                 }
             }
@@ -175,16 +175,12 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
                 });
                 break;
             case R.id.tab_current:
-                mTabCurrent.setAlpha(0.4f);
-                mTabPrediction.setAlpha(1.0f);
                 mViewPager.setCurrentItem(0, true);
                 mCurrentFragment.setData(setCurrentDataBundle());
                 isCurrent = true;
                 break;
             case R.id.tab_prediction:
                 isCurrent = false;
-                mTabPrediction.setAlpha(0.4f);
-                mTabCurrent.setAlpha(1.0f);
                 mViewPager.setCurrentItem(1, true);
                 mPredictionFragment.setData(setPredictionDataBundle());
                 break;

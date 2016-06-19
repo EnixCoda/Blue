@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
-        android:id="@id/vg_air"
+        android:id="@+id/vg_air"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -15,8 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:textAppearance="@style/TextAppearance.HugeSize.Inverse"
-            android:text="53"/>
+            android:textAppearance="@style/TextAppearance.HugeSize.Inverse"/>
 
         <TextView
             android:id="@+id/tv_air"
@@ -24,8 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
-            android:textAppearance="@style/TextAppearance.LargeSize.Inverse"
-            android:text="空气质量良好"/>
+            android:textAppearance="@style/TextAppearance.LargeSize.Inverse"/>
     </LinearLayout>
 
     <LinearLayout
@@ -57,8 +55,7 @@
                     android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                    android:text="小雨转阴"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
 
                 <TextView
                     android:id="@+id/tv_today_temperature_range"
@@ -66,8 +63,7 @@
                     android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                    android:text="21~23℃"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
             </LinearLayout>
         </RelativeLayout>
 
@@ -94,8 +90,7 @@
                     android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                    android:text="小雨转阴"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
 
                 <TextView
                     android:id="@+id/forecast_temperature"
@@ -103,8 +98,7 @@
                     android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                    android:text="21~23℃"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
             </LinearLayout>
         </RelativeLayout>
 
