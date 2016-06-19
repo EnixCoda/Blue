@@ -53,7 +53,12 @@ public class QueryLocation {
         } catch (Exception e) {
 
         }
-        return locationSet;
+        int i = -1;
+        String[] _locationSet_ = new String[countLocations];
+        while (++i < countLocations) {
+            _locationSet_[i] = locationSet[i];
+        }
+        return _locationSet_;
     }
 
     private String loadJSONFromAsset(String filename) {
