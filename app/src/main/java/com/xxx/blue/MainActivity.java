@@ -153,7 +153,8 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
         mAdapter.setGridView(mGridHint);
         mGridHint.setAdapter(mAdapter);
 
-        mPresenter.loadCurrentData(mPrefenrence.getString(EXTRA_LOCATION, "上海"));
+        mLocationText = mPrefenrence.getString(EXTRA_LOCATION, "上海");
+        mPresenter.loadCurrentData(mLocationText);
     }
 
     @OnClick({R.id.vg_search, R.id.tab_current, R.id.tab_prediction})
@@ -166,12 +167,12 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
                     @Override
                     public void onClick(String text) {
                         mLocationText = text;
-                        mLocation.setText(text);
                         //数据持久化
                         mPrefenrence.edit()
                                 .putString(EXTRA_LOCATION, text)
                                 .apply();
                         locationDialog.dismiss();
+                        mPresenter.loadCurrentData(mLocationText);
                     }
                 });
                 break;
@@ -235,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
             return;
         }
         Toast.makeText(this, "得到数据", Toast.LENGTH_SHORT).show();
-        mPresenter.loadCurrentData(mLocationText);
+        mLocation.setText(mLocationText);
         mData = data;
         if (isCurrent){
             mViewPager.setCurrentItem(0, true);
