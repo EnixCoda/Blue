@@ -5,6 +5,7 @@
     <dimen name="tab_bar_height">50dp</dimen>
 
     <dimen name="main_title_height">260dp</dimen>
+    <dimen name="dialog_height">480dp</dimen>
 
     <dimen name="text_size_body">14sp</dimen>
     <dimen name="text_size_subhead">16sp</dimen>

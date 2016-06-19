@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
     SharedPreferences mPrefenrence;//做持久化数据
     boolean isCurrent = true;//判断当前所在页面
     private Day mData;
+    private String mLocationText;
 
     @OnClick(R.id.menu_more)
     void onMenuClick(){
@@ -164,13 +165,13 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
                 locationDialog.setListener(new LocationDialog.OnLocationClickListener() {
                     @Override
                     public void onClick(String text) {
+                        mLocationText = text;
                         mLocation.setText(text);
                         //数据持久化
                         mPrefenrence.edit()
                                 .putString(EXTRA_LOCATION, text)
                                 .apply();
                         locationDialog.dismiss();
-                        mPresenter.loadCurrentData(text);
                     }
                 });
                 break;
@@ -229,8 +230,12 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
 
     @Override
     public void showCurrentData(Day data) {
-        if (null == data) return;
+        if (null == data) {
+            Toast.makeText(this, "数据为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Toast.makeText(this, "得到数据", Toast.LENGTH_SHORT).show();
+        mPresenter.loadCurrentData(mLocationText);
         mData = data;
         if (isCurrent){
             mViewPager.setCurrentItem(0, true);
