@@ -36,12 +36,12 @@ public class CurrentFragment extends Fragment {
 
     @OnClick(R.id.vg_air)
     void onAirClick(){
-//        //TODO：跳转至天气详情
+//        //TODO：跳转至天气质量详情
     }
 
     @OnClick(R.id.vg_temperature)
     void onTemperatureClick(){
-//        //TODO：跳转至天气详情
+//        //TODO：跳转至温度详情
     }
 
     @Override
@@ -59,13 +59,12 @@ public class CurrentFragment extends Fragment {
 
     public void setData(Bundle mData){
         mWhetherImg.setImageResource(mData.getInt(Constant.EXTRA_WHETHER_IMG, R.mipmap.ic_rain_24_24));
-        mWhether.setText(String.valueOf(mData.getString(Constant.EXTRA_WHETHER, "小雨")));
-        mTemperature.setText(mData.getString(Constant.EXTRA_TEMPERATURE, "19℃"));
-        mWindDirection.setText(mData.getString(Constant.EXTRA_WIND_DIRECTION, "东南风"));
-        mWindSpeed.setText(mData.getString(Constant.EXTRA_WIND_SPEED, "3~5m/s"));
-        mWetPercent.setText(mData.getString(Constant.EXTRA_WET_PERCENT, "90%"));
-        mAir.setText(mData.getString(Constant.EXTRA_AIR_TEXT, "空气质量良好"));
-        mPM2_5.setText(mData.getString(Constant.EXTRA_AIR, "56"));
+        mWhether.setText(String.valueOf(mData.getString(Constant.EXTRA_WHETHER, "--")));
+        mTemperature.setText(mData.getString(Constant.EXTRA_TEMPERATURE, "--℃"));
+        mWindSpeed.setText(mData.getString(Constant.EXTRA_WIND_SPEED, "--m/s"));
+        mWetPercent.setText(mData.getString(Constant.EXTRA_WET_PERCENT, "--%"));
+        mAir.setText(mData.getString(Constant.EXTRA_AIR_TEXT, "--"));
+        mPM2_5.setText(mData.getString(Constant.EXTRA_AIR, "--"));
     }
 
     @Override
