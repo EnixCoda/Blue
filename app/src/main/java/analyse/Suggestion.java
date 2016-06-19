@@ -12,4 +12,12 @@ public class Suggestion {
         desc = s;
         code = j;
     }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
 }
