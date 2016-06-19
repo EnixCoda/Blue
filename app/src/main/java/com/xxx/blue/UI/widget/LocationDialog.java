@@ -105,7 +105,7 @@ public class LocationDialog extends DialogFragment {
                         if (!hasFocus){
                             params.height = (int) getResources().getDimension(R.dimen.dialog_height);
                         }else{
-                            params.height = (int) getResources().getDimension(R.dimen.main_title_height);
+                            params.height = (int) getResources().getDimension(R.dimen.dialog_height_collosp);
                         }
                         mLocationRecyclerView.setLayoutParams(params);
                     }

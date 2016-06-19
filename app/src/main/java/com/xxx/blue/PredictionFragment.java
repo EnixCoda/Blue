@@ -52,6 +52,7 @@ public class PredictionFragment extends Fragment {
     }
 
     public void setData(Bundle data) {
+        if (mTodayWhether == null) return;
         mTodayWhether.setText(data.getString(Constant.EXTRA_WHETHER, "--"));
         mTodayTemperatureRange.setText(data.getString(Constant.EXTRA_TEMPERATURE_RANGE, "--℃"));
         mForecastWhether.setText(data.getString(Constant.EXTRA_FORECAST_WHETHER, "--"));
