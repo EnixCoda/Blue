@@ -36,4 +36,10 @@
     <color name="bg_main">#1985c5</color>
 
     <color name="divider">@color/white_alpha_38</color>
+
+    <color name="list_line">#cdcdcd</color>
+    <color name="weather_text">#248cce</color>
+    <color name="weather_small_title">#999999</color>
+    <color name="weather_temperature">#75b24b</color>
+    <color name="weather_rainpercent">#139bd2</color>
 </resources>
