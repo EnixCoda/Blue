@@ -143,15 +143,15 @@ public class Instructor {
         clothes = getInstruction("温度", day.hourlyForecasts.get(0).temp);
 
         instructions = new Hashtable<>();
-        instructions.put("uv", new Suggestion("无需防晒", 0));
-        instructions.put("outSuggestion", new Suggestion(outSuggestion, ifOut));
-        instructions.put("clothes", new Suggestion(clothes, 0));
-        instructions.put("cold", new Suggestion(cold, ifCold));
-        instructions.put("umbrella", new Suggestion(umbrella, ifUmbrella));
-        instructions.put("sports", new Suggestion(sports, ifSports));
-        instructions.put("washCars", new Suggestion(washCars, ifWashCars));
-        instructions.put("airCleaner", new Suggestion(airCleaner, ifAirCleaner));
-        instructions.put("feeling", new Suggestion(feeling, ifFeeling));
+        instructions.put("uv",              new Suggestion("无需防晒", 0));
+        instructions.put("outSuggestion",   new Suggestion(outSuggestion, ifOut));
+        instructions.put("clothes",         new Suggestion(clothes, 0));
+        instructions.put("cold",            new Suggestion(cold, ifCold));
+        instructions.put("umbrella",        new Suggestion(umbrella, ifUmbrella));
+        instructions.put("sports",          new Suggestion(sports, ifSports));
+        instructions.put("washCars",        new Suggestion(washCars, ifWashCars));
+        instructions.put("airCleaner",      new Suggestion(airCleaner, ifAirCleaner));
+        instructions.put("feeling",         new Suggestion(feeling, ifFeeling));
         return instructions;
     }
 
