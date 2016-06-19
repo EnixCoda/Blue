@@ -16,5 +16,7 @@ public class Constant {
     public static final String EXTRA_FORECAST_WHETHER = "extra.forecast_whether";
     public static final String EXTRA_FORECAST_TEMPERATURE_RANGE = "extra.forecast_temperature_range";
     public static final String EXTRA_TEMPERATURE_RANGE = "extra.temperature_range";
-
+    //
+    public static final String EXTRA_AIR = "extra.air";
+    public static final String EXTRA_AIR_TEXT = "extra.air_text";
 }

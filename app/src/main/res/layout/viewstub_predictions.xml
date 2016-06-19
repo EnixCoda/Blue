@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
+        android:id="@id/vg_air"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -28,7 +29,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/active_fragment"
+        android:id="@+id/vg_temperature"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"

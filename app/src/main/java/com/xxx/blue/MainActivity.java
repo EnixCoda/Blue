@@ -12,6 +12,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shehabic.droppy.DroppyClickCallbackInterface;
 import com.shehabic.droppy.DroppyMenuPopup;
@@ -28,6 +29,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import getData.Day;
+import getData.Forecast;
+import getData.IAQI;
+import utility.Constant;
 
 public class MainActivity extends AppCompatActivity implements MainPresenter.MainView{
     private static final String EXTRA_LOCATION = "extra.location";
@@ -41,10 +45,6 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
     TextView mTabCurrent;
     @Bind(R.id.tab_prediction)
     TextView mTabPrediction;
-    @Bind(R.id.tv_pm2_5)
-    TextView mPM2_5;
-    @Bind(R.id.tv_air)
-    TextView mAir;
     @Bind(R.id.grid_hint)
     GridView mGridHint;
     @Bind(R.id.view_pager)
@@ -58,16 +58,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
 
     SharedPreferences mPrefenrence;//做持久化数据
     boolean isCurrent = true;//判断当前所在页面
-
-    @OnClick(R.id.active_fragment)
-    void onFragmentClick(){
-        //TODO：跳转至天气详情
-    }
-
-    @OnClick(R.id.tv_air)
-    void onAirClick(){
-        //TODO: 跳转至空气质量详情
-    }
+    private Day mData;
 
     @OnClick(R.id.menu_more)
     void onMenuClick(){
@@ -115,14 +106,36 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
         mCurrentFragment = new CurrentFragment();
         mPredictionFragment = new PredictionFragment();
 
-        mTabCurrent.setAlpha(0.4f);
-        mTabPrediction.setAlpha(1.0f);
         //viewPager
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(mCurrentFragment);
         fragments.add(mPredictionFragment);
         mPagerAdapter = new PagerViewerAdapter(getSupportFragmentManager(), fragments);
         mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0){
+                    mTabCurrent.setAlpha(0.4f);
+                    mTabPrediction.setAlpha(1.0f);
+                    mCurrentFragment.setData(setCurrentDataBundle());
+                }else {
+                    mTabCurrent.setAlpha(1.0f);
+                    mTabPrediction.setAlpha(0.4f);
+                    mPredictionFragment.setData(setPredictionDataBundle());
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         //gridView
         ArrayList<HintModel> models = new ArrayList<>();
@@ -157,44 +170,82 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
                                 .putString(EXTRA_LOCATION, text)
                                 .apply();
                         locationDialog.dismiss();
+                        mPresenter.loadCurrentData(text);
                     }
                 });
                 break;
             case R.id.tab_current:
                 mTabCurrent.setAlpha(0.4f);
                 mTabPrediction.setAlpha(1.0f);
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.active_fragment, mCurrentFragment)
-                        .commitAllowingStateLoss();
+                mViewPager.setCurrentItem(0, true);
+                mCurrentFragment.setData(setCurrentDataBundle());
                 isCurrent = true;
                 break;
             case R.id.tab_prediction:
                 isCurrent = false;
                 mTabPrediction.setAlpha(0.4f);
                 mTabCurrent.setAlpha(1.0f);
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.active_fragment, mPredictionFragment)
-                        .commitAllowingStateLoss();
+                mViewPager.setCurrentItem(1, true);
+                mPredictionFragment.setData(setPredictionDataBundle());
                 break;
         }
     }
 
+    private Bundle setCurrentDataBundle(){
+        if (null == mData) return new Bundle();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constant.EXTRA_AIR, String.valueOf(mData.aqi));
+        bundle.putString(Constant.EXTRA_AIR_TEXT, "空气质量良好");
+
+        Forecast todayForecast = mData.dailyForecasts.get(0);
+        bundle.putInt(Constant.EXTRA_WHETHER_IMG, R.mipmap.ic_rain_24_24);
+        bundle.putString(Constant.EXTRA_WHETHER, todayForecast.description);
+        IAQI temperature = mData.stringIAQIHashtable.get("温度");
+        bundle.putString(Constant.EXTRA_TEMPERATURE, temperature.cur + "℃");
+        bundle.putString(Constant.EXTRA_WIND_DIRECTION, "东南风");
+        IAQI wind = mData.stringIAQIHashtable.get("风");
+        if (wind != null) {
+            bundle.putString(Constant.EXTRA_WIND_SPEED, wind.min + "~" + wind.max + "m/s");
+        }
+        IAQI wet = mData.stringIAQIHashtable.get("湿度");
+        bundle.putString(Constant.EXTRA_WET_PERCENT, wet.cur + "%");
+
+        return bundle;
+    }
+
+    private Bundle setPredictionDataBundle() {
+        if (null == mData) return new Bundle();
+        Bundle bundle = new Bundle();
+
+        Forecast todayForecast = mData.dailyForecasts.get(0);
+        Forecast tomorrowForecast = mData.dailyForecasts.get(1);
+
+        bundle.putString(Constant.EXTRA_AIR, String.valueOf(mData.aqi));
+        bundle.putString(Constant.EXTRA_AIR_TEXT, "空气质量良好");
+
+        bundle.putString(Constant.EXTRA_WHETHER, todayForecast.description);
+        bundle.putString(Constant.EXTRA_TEMPERATURE_RANGE, "19~23℃");
+        bundle.putString(Constant.EXTRA_FORECAST_WHETHER, "晴");
+        bundle.putString(Constant.EXTRA_FORECAST_TEMPERATURE_RANGE, "13~25℃");
+
+        return bundle;
+    }
+
     @Override
     public void showCurrentData(Day data) {
-        mPM2_5.setText("53");
-        mAir.setText("空气质量良好");
+        if (null == data) return;
+        Toast.makeText(this, "得到数据", Toast.LENGTH_SHORT).show();
+        mData = data;
         if (isCurrent){
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.active_fragment, mCurrentFragment)
-                    .commitAllowingStateLoss();
-            mCurrentFragment.setData(new Bundle());
+            mViewPager.setCurrentItem(0, true);
+            mCurrentFragment.setData(setCurrentDataBundle());
 
         }else {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.active_fragment, mPredictionFragment)
-                    .commitAllowingStateLoss();
+            mViewPager.setCurrentItem(1, true);
+            mPredictionFragment.setData(setPredictionDataBundle());
         }
     }
+
 
     @Override
     public Context getViewContext() {
