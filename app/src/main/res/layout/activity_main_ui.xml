@@ -84,7 +84,7 @@
                 android:orientation="vertical"
                 android:layout_weight="0.5">
                 <TextView
-                    android:id="@+id/tv_temperature"
+                    android:id="@+id/tv_pm2_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
