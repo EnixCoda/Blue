@@ -6,25 +6,17 @@ import getData.Day;
 
 
 public class Instructor {
-    private class Suggestion {
 
-        String desc;
-        int code;
+    String outSuggestion = "适宜出行";  //-1 1
+    String clothes;                     // 0
+    String umbrella = "不需带伞";       //-1 1
+    String sports = "适合运动";         //-1 1
+    String washCars = "适宜洗车";       //-1 1
+    String airCleaner = "不需开启";     //-1 1
+    String feeling = "体感一般";        //-1 0 1
+    String cold = "感冒不易发";         //-1 1
+    String uv = "中等";
 
-        Suggestion(String s, int j) {
-            desc = s;
-            code = j;
-        }
-    }
-
-    String outSuggestion = "适宜出行";//-1 1
-    String clothes;
-    String umbrella = "不需带伞";//-1 1
-    String sports = "适合运动";//-1 1
-    String washCars = "适宜洗车";//-1 1
-    String airCleaner = "不需开启";//-1 1
-    String feeling = "体感一般";//-1 0 1
-    String cold = "感冒不易发";//-1 1
     int ifOut = 1;
     int ifUmbrella = -1;
     int ifSports = 1;
@@ -130,6 +122,7 @@ public class Instructor {
             washCars = "不宜洗车";
             feeling = "体感不适";
         }
+
         //验证降雨可能
         if (day.hourlyForecasts.get(0).rainPoss > 50) {
             ifOut = -1;
@@ -141,44 +134,29 @@ public class Instructor {
             washCars = "不宜洗车";
             umbrella = "建议带伞";
         }
-        if ((day.stringIAQIHashtable.get("温度").max - day.stringIAQIHashtable.get("温度").min) > 15) {
+
+        if ((day.stringIAQIHashtable.get("温度").max - day.stringIAQIHashtable.get("温度").min) >= 10) {
             ifCold = -1;
             cold = "感冒易发";
         }
-        /* if (ifOut) {
-            for (String pollution : RespirableParticulateMatters) {
-                outSuggestion = getInstruction(pollution, day.stringIAQIHashtable.get(pollution).cur);
-            }
-        } else {
-            for (String pollution : RespirableParticulateMatters) {
-                outSuggestion = "建议避免出行";
-            }
-        }*/
+
         clothes = getInstruction("温度", day.hourlyForecasts.get(0).temp);
 
-        Suggestion o = new Suggestion(outSuggestion, ifOut);
-        Suggestion c = new Suggestion(clothes, 0);
-        Suggestion u = new Suggestion(umbrella, ifUmbrella);
-        Suggestion s = new Suggestion(sports, ifSports);
-        Suggestion w = new Suggestion(washCars, ifWashCars);
-        Suggestion a = new Suggestion(airCleaner, ifAirCleaner);
-        Suggestion f = new Suggestion(feeling, ifFeeling);
-        Suggestion co = new Suggestion(cold, ifCold);
-
         instructions = new Hashtable<>();
-        instructions.put("outSuggestion", o);
-        instructions.put("clothes", c);
-        instructions.put("cold", co);
-        instructions.put("umbrella", u);
-        instructions.put("sports", s);
-        instructions.put("washCars", w);
-        instructions.put("airCleaner", a);
-        instructions.put("feeling", f);
+        instructions.put("uv", new Suggestion("无需防晒", 0));
+        instructions.put("outSuggestion", new Suggestion(outSuggestion, ifOut));
+        instructions.put("clothes", new Suggestion(clothes, 0));
+        instructions.put("cold", new Suggestion(cold, ifCold));
+        instructions.put("umbrella", new Suggestion(umbrella, ifUmbrella));
+        instructions.put("sports", new Suggestion(sports, ifSports));
+        instructions.put("washCars", new Suggestion(washCars, ifWashCars));
+        instructions.put("airCleaner", new Suggestion(airCleaner, ifAirCleaner));
+        instructions.put("feeling", new Suggestion(feeling, ifFeeling));
         return instructions;
     }
 
     //验证用方法，输入空气质量信息返回是否建议出门
-    public int ifOutside(String type, double val) {
+    int ifOutside(String type, double val) {
         switch (pollutionNameToIndex.get(type)) {
             case 1:
                 if (val < 150) {
@@ -186,8 +164,6 @@ public class Instructor {
                 }
                 return -1;
             case 2:
-                /*if()
-                else ;*/
                 if (val < 150) {
                     return 1;
                 }
@@ -220,29 +196,26 @@ public class Instructor {
                 }
                 return -1;
             case 8:
-            /*if()
-                else ;*/
+                break;
             case 9:
-            /*if()
-                else ;*/
+                break;
             case 10:
                 if (40 <= val && val <= 50) {
                     return 1;
                 }
                 return -1;
             case 11:
-                /*if()
-				else ;*/
                 if (val < 10) {
                     return 1;
                 }
                 return -1;
             default:
-                return 1;
+                return 0;
         }
+        return 0;
     }
-//根据输入空气质量信息返回单条建议
 
+    //根据输入空气质量信息返回单条建议
     String getInstruction(String type, int val) {
         switch (pollutionNameToIndex.get(type)) {
             case 1:
@@ -251,8 +224,6 @@ public class Instructor {
                 }
                 return "不宜出行";
             case 2:
-                /*if()
-				else ;*/
                 if (val < 150) {
                     return "适宜出行";
                 }

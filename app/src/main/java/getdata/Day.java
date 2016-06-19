@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 import analyse.Instructor;
+import analyse.Suggestion;
 
 /**
  * Created by Exin on 2016/5/18.
@@ -26,6 +27,8 @@ public class Day {
     public ArrayList<SiteData> nearbySitesData = new ArrayList<>();
     public ArrayList<Forecast> hourlyForecasts = new ArrayList<>();
     public ArrayList<Forecast> dailyForecasts = new ArrayList<>();
+
+    Hashtable<String, Suggestion> instructions;
 
     public Day (String name, String id, int aqi, String time) {
         this.cityName = name;

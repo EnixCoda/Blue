@@ -16,6 +16,7 @@ import java.util.Hashtable;
 import java.util.Scanner;
 
 import analyse.Instructor;
+import analyse.Suggestion;
 import utility.ChineseToPinyin;
 
 /**
@@ -214,6 +215,10 @@ public class FetchData extends AsyncTask<String, Void, Day> {
     @Override
     protected void onPostExecute(Day day) {
         super.onPostExecute(day);
+        if (day != null) {
+            Instructor instructor = new Instructor();
+            day.instructions = instructor.getInstructions(day);
+        }
         delegate.processFinish(day);
     }
 }
