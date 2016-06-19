@@ -61,15 +61,18 @@ public class Instructor {
 
     //根据确定的Day对象获得空气质量信息并返回建议，保存在哈希表中
     public Hashtable<String, Suggestion> getInstructions(Day day) {
-        if (ifOutside("湿度", day.hourlyForecasts.get(0).humidity) == 1 && ifOutside("温度", day.hourlyForecasts.get(0).temp) == 1) {
-            ifFeeling = 1;
-            feeling = "体感舒适";
-        } else if (ifOutside("温度", day.hourlyForecasts.get(0).temp) != -1) {
-            ifFeeling = 0;
-            feeling = "体感一般";
-        } else {
-            ifFeeling = -1;
-            feeling = "体感不适";
+        if (day == null) return null;
+        if (day.hourlyForecasts.size() > 0) {
+            if (ifOutside("湿度", day.hourlyForecasts.get(0).humidity) == 1 && ifOutside("温度", day.hourlyForecasts.get(0).temp) == 1) {
+                ifFeeling = 1;
+                feeling = "体感舒适";
+            } else if (ifOutside("温度", day.hourlyForecasts.get(0).temp) != -1) {
+                ifFeeling = 0;
+                feeling = "体感一般";
+            } else {
+                ifFeeling = -1;
+                feeling = "体感不适";
+            }
         }
         //验证可吸入颗粒物
         for (String pollution : RespirableParticulateMatters) {
@@ -102,7 +105,7 @@ public class Instructor {
             }
         }
         //验证温度
-        if (ifOutside("温度", day.hourlyForecasts.get(0).temp) == -1) {
+        if (day.hourlyForecasts.size() > 0 && ifOutside("温度", day.hourlyForecasts.get(0).temp) == -1) {
             ifOut = -1;
             ifSports = -1;
             ifFeeling = -1;
@@ -124,7 +127,7 @@ public class Instructor {
         }
 
         //验证降雨可能
-        if (day.hourlyForecasts.get(0).rainPoss > 50) {
+        if (day.hourlyForecasts.size() > 0  && day.hourlyForecasts.get(0).rainPoss > 50) {
             ifOut = -1;
             ifSports = -1;
             ifWashCars = -1;
@@ -140,7 +143,7 @@ public class Instructor {
             cold = "感冒易发";
         }
 
-        clothes = getInstruction("温度", day.hourlyForecasts.get(0).temp);
+        clothes = getInstruction("温度", day.hourlyForecasts.size() > 0 ? day.hourlyForecasts.get(0).temp : 26);
 
         instructions = new Hashtable<>();
         instructions.put("uv",              new Suggestion("无需防晒", 0));
