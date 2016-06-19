@@ -10,6 +10,8 @@ public class Forecast {
     Calendar date;
     public String description;
     public int temp;
+    public int tempMin;
+    public int tempMax;
     public int humidity;
     public int rainPoss;
     public int rainAmount;
@@ -27,7 +29,8 @@ public class Forecast {
     public Forecast(Calendar date, String conclusion, int tempMin, int tempMax, int hum, int rainPossibility, int rainAmount, int pressure) {
         this.date = date;
         this.description = conclusion;
-        this.temp = temp;
+        this.tempMin = tempMin;
+        this.tempMax = tempMax;
         this.humidity = hum;
         this.rainPoss = rainPossibility;
         this.rainAmount = rainAmount;
