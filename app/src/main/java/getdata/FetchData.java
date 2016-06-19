@@ -167,7 +167,9 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                     int rain = Integer.valueOf(weatherForecast.getString("pop"));
                     int pressure = Integer.valueOf(weatherForecast.getString("pres"));
                     int temp = Integer.valueOf(weatherForecast.getString("tmp"));
-                    day.addHourlyForecast(new Forecast(date, "", temp, humidity, rain, pressure));
+                    JSONObject descriptions = jsonObject.getJSONArray("daily_forecast").getJSONObject(0).getJSONObject("cond");
+                    int weatherCodeDay = descriptions.getInt("code_d");
+                    day.addHourlyForecast(new Forecast(date, weatherCodeDay, temp, humidity, rain, pressure));
                     i++;
                 }
 
@@ -181,6 +183,7 @@ public class FetchData extends AsyncTask<String, Void, Day> {
 
                     JSONObject descriptions = weatherForecast.getJSONObject("cond");
                     String descriptionDay = descriptions.getString("txt_d");
+                    int weatherCode = descriptions.getInt("code_d");
                     String descriptionNight = descriptions.getString("txt_n");
                     String description = descriptionDay.equals(descriptionNight) ? descriptionDay : descriptionDay + "转" + descriptionNight;
                     int humidity = Integer.valueOf(weatherForecast.getString("hum"));
@@ -189,7 +192,7 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                     int pressure = Integer.valueOf(weatherForecast.getString("pres"));
                     int tempMin = Integer.valueOf(weatherForecast.getJSONObject("tmp").getString("min"));
                     int tempMax = Integer.valueOf(weatherForecast.getJSONObject("tmp").getString("max"));
-                    day.addDailyForecast(new Forecast(date, description, tempMin, tempMax, humidity, rainPossibility, rainAmount, pressure));
+                    day.addDailyForecast(new Forecast(date, description, weatherCode, tempMin, tempMax, humidity, rainPossibility, rainAmount, pressure));
                     i++;
                 }
 

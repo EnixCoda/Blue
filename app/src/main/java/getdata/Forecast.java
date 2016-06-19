@@ -9,6 +9,7 @@ import java.util.Calendar;
 public class Forecast {
     Calendar date;
     public String description;
+    public int code;
     public int temp;
     public int tempMin;
     public int tempMax;
@@ -17,6 +18,14 @@ public class Forecast {
     public int rainAmount;
     public int pressure;
 
+    public Forecast(Calendar date, int code, int temp, int hum, int rain, int pressure) {
+        this.date = date;
+        this.code = code;
+        this.temp = temp;
+        this.humidity = hum;
+        this.rainPoss = rain;
+        this.pressure = pressure;
+    }
     public Forecast(Calendar date, String conclusion, int temp, int hum, int rain, int pressure) {
         this.date = date;
         this.description = conclusion;
@@ -26,6 +35,17 @@ public class Forecast {
         this.pressure = pressure;
     }
 
+    public Forecast(Calendar date, String conclusion, int code, int tempMin, int tempMax, int hum, int rainPossibility, int rainAmount, int pressure) {
+        this.date = date;
+        this.description = conclusion;
+        this.code = code;
+        this.tempMin = tempMin;
+        this.tempMax = tempMax;
+        this.humidity = hum;
+        this.rainPoss = rainPossibility;
+        this.rainAmount = rainAmount;
+        this.pressure = pressure;
+    }
     public Forecast(Calendar date, String conclusion, int tempMin, int tempMax, int hum, int rainPossibility, int rainAmount, int pressure) {
         this.date = date;
         this.description = conclusion;
