@@ -24,7 +24,7 @@ public class Forecast {
         this.pressure = pressure;
     }
 
-    public Forecast(Calendar date, String conclusion, int temp, int hum, int rainPossibility, int rainAmount, int pressure) {
+    public Forecast(Calendar date, String conclusion, int tempMin, int tempMax, int hum, int rainPossibility, int rainAmount, int pressure) {
         this.date = date;
         this.description = conclusion;
         this.temp = temp;

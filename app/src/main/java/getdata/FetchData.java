@@ -183,8 +183,9 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                     int rainPossibility = Integer.valueOf(weatherForecast.getString("pop"));
                     int rainAmount = Integer.valueOf(weatherForecast.getString("pop"));
                     int pressure = Integer.valueOf(weatherForecast.getString("pres"));
-                    int temp = Integer.valueOf(weatherForecast.getString("tmp"));
-                    day.addDailyForecast(new Forecast(date, description, temp, humidity, rainPossibility, rainAmount, pressure));
+                    int tempMin = Integer.valueOf(weatherForecast.getJSONObject("tmp").getString("min"));
+                    int tempMax = Integer.valueOf(weatherForecast.getJSONObject("tmp").getString("max"));
+                    day.addDailyForecast(new Forecast(date, description, tempMin, tempMax, humidity, rainPossibility, rainAmount, pressure));
                     i++;
                 }
 
