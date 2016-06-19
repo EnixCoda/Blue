@@ -75,42 +75,10 @@
             android:layout_height="1dp"
             style="@style/Divider.Horizontal"/>
 
-        <LinearLayout
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="0.5">
-                <TextView
-                    android:id="@+id/tv_pm2_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:textAppearance="@style/TextAppearance.HugeSize.Inverse"
-                    android:text="53"/>
-
-                <TextView
-                    android:id="@+id/tv_air"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_gravity="center"
-                    android:textAppearance="@style/TextAppearance.LargeSize.Inverse"
-                    android:text="空气质量良好"/>
-            </LinearLayout>
-
-            <FrameLayout
-                android:id="@+id/active_fragment"
-                android:inflatedId="@+id/inflated_layout"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:layout="@layout/viewstub_current"/>
-
-        </LinearLayout>
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
     <GridView

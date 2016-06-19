@@ -1,94 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_gravity="center_horizontal"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp">
-        <TextView
-            android:id="@+id/today"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-            android:text="今日"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_toRightOf="@+id/today">
-
-            <TextView
-                android:id="@+id/tv_today_whether"
-                android:layout_gravity="right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                android:text="小雨转阴"/>
-
-            <TextView
-                android:id="@+id/tv_today_temperature_range"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                android:text="21~23℃"/>
-        </LinearLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_gravity="center_horizontal"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp">
-        <TextView
-            android:id="@+id/tomorrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-            android:text="明日"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_toRightOf="@+id/tomorrow">
-
-            <TextView
-                android:id="@+id/forecast_whether"
-                android:layout_gravity="right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                android:text="小雨转阴"/>
-
-            <TextView
-                android:id="@+id/forecast_temperature"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                android:text="21~23℃"/>
-        </LinearLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_gravity="center_horizontal"
-        android:layout_width="130dp"
+    <LinearLayout
+        android:id="@id/vg_air"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="15dp">
+        android:orientation="vertical"
+        android:layout_weight="0.5">
         <TextView
+            android:id="@+id/tv_pm2_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:text="预报"/>
-    </RelativeLayout>
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textAppearance="@style/TextAppearance.HugeSize.Inverse"
+            android:text="53"/>
+
+        <TextView
+            android:id="@+id/tv_air"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.LargeSize.Inverse"
+            android:text="空气质量良好"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/vg_temperature"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5">
+        <RelativeLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:id="@+id/today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                android:text="今日"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_toRightOf="@+id/today">
+
+                <TextView
+                    android:id="@+id/tv_today_whether"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                    android:text="小雨转阴"/>
+
+                <TextView
+                    android:id="@+id/tv_today_temperature_range"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                    android:text="21~23℃"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/tomorrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                android:text="明日"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_toRightOf="@+id/tomorrow">
+
+                <TextView
+                    android:id="@+id/forecast_whether"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                    android:text="小雨转阴"/>
+
+                <TextView
+                    android:id="@+id/forecast_temperature"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                    android:text="21~23℃"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:text="预报"/>
+        </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

@@ -2,8 +2,8 @@ package com.xxx.blue;
 
 import org.junit.Test;
 
-import Utility.ChineseToPinyin;
-import Utility.QueryLocation;
+import utility.ChineseToPinyin;
+import utility.QueryLocation;
 
 import static org.junit.Assert.*;
 
