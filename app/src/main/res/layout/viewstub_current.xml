@@ -1,84 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp">
-        <ImageView
-            android:id="@+id/img_whether"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@mipmap/ic_rain_24_24"/>
+        android:layout_weight="0.5">
         <TextView
-            android:id="@+id/tv_whether"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="3dp"
+            android:id="@+id/tv_pm2_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-            android:text="小雨"/>
-    </LinearLayout>
-    <RelativeLayout
-        android:layout_gravity="center_horizontal"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-            android:text="温度"/>
-        <TextView
-            android:id="@+id/tv_temperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-            android:layout_alignParentRight="true"
-            android:text="21℃"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_gravity="center_horizontal"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp">
-        <TextView
-            android:id="@+id/tv_wind_direction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-            android:text="东南风"/>
-        <TextView
-            android:id="@+id/tv_wind_speed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-            android:layout_alignParentRight="true"
-            android:text="3~5 m/s"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_gravity="center_horizontal"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-            android:text="相对湿度"/>
-        <TextView
-            android:id="@+id/tv_wet_percent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-            android:layout_alignParentRight="true"
-            android:text="90%"/>
-    </RelativeLayout>
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textAppearance="@style/TextAppearance.HugeSize.Inverse"
+            android:text="53"/>
 
-    <RelativeLayout
+        <TextView
+            android:id="@+id/tv_air"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.LargeSize.Inverse"
+            android:text="空气质量良好"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/active_fragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:id="@+id/img_whether"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/ic_rain_24_24"/>
+            <TextView
+                android:id="@+id/tv_whether"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                android:text="小雨"/>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                android:text="温度"/>
+            <TextView
+                android:id="@+id/tv_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                android:layout_alignParentRight="true"
+                android:text="21℃"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp">
+            <TextView
+                android:id="@+id/tv_wind_direction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                android:text="东南风"/>
+            <TextView
+                android:id="@+id/tv_wind_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                android:layout_alignParentRight="true"
+                android:text="3~5 m/s"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                android:text="相对湿度"/>
+            <TextView
+                android:id="@+id/tv_wet_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                android:layout_alignParentRight="true"
+                android:text="90%"/>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_gravity="center_horizontal|bottom"
             android:layout_width="130dp"
             android:layout_height="match_parent"
@@ -92,5 +123,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="当前"/>
         </RelativeLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

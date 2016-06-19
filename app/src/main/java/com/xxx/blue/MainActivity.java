@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.GridView;
@@ -16,6 +18,7 @@ import com.shehabic.droppy.DroppyMenuPopup;
 import com.shehabic.droppy.animations.DroppyFadeInAnimation;
 import com.xxx.blue.adapter.LifeHintItemAdapter;
 import com.xxx.blue.UI.widget.LocationDialog;
+import com.xxx.blue.adapter.PagerViewerAdapter;
 import com.xxx.blue.model.HintModel;
 import com.xxx.blue.presenter.MainPresenter;
 
@@ -44,9 +47,12 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
     TextView mAir;
     @Bind(R.id.grid_hint)
     GridView mGridHint;
+    @Bind(R.id.view_pager)
+    ViewPager mViewPager;
     CurrentFragment mCurrentFragment;
     PredictionFragment mPredictionFragment;
     LifeHintItemAdapter mAdapter;
+    PagerViewerAdapter mPagerAdapter;
 
     MainPresenter mPresenter;
 
@@ -105,19 +111,19 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
         //presenter
         mPresenter = new MainPresenter();
         mPresenter.attachView(this);
-
         //fragment
         mCurrentFragment = new CurrentFragment();
         mPredictionFragment = new PredictionFragment();
 
-        mCurrentFragment.setArguments(new Bundle());
-        mPredictionFragment.setArguments(new Bundle());
-
         mTabCurrent.setAlpha(0.4f);
         mTabPrediction.setAlpha(1.0f);
-        getFragmentManager().beginTransaction()
-                .replace(R.id.active_fragment, mCurrentFragment)
-                .commit();
+        //viewPager
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(mCurrentFragment);
+        fragments.add(mPredictionFragment);
+        mPagerAdapter = new PagerViewerAdapter(getSupportFragmentManager(), fragments);
+        mViewPager.setAdapter(mPagerAdapter);
+
         //gridView
         ArrayList<HintModel> models = new ArrayList<>();
         models.add(new HintModel());
