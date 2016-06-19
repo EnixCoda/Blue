@@ -9,10 +9,12 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp">
         <ImageView
+            android:id="@+id/img_whether"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@mipmap/ic_rain_24_24"/>
         <TextView
+            android:id="@+id/tv_whether"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="3dp"
             android:layout_width="wrap_content"
@@ -31,6 +33,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
             android:text="温度"/>
         <TextView
+            android:id="@+id/tv_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
@@ -43,11 +46,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp">
         <TextView
+            android:id="@+id/tv_wind_direction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
             android:text="东南风"/>
         <TextView
+            android:id="@+id/tv_wind_speed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
@@ -65,6 +70,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
             android:text="相对湿度"/>
         <TextView
+            android:id="@+id/tv_wet_percent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"

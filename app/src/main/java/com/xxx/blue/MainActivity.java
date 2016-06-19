@@ -1,7 +1,10 @@
 package com.xxx.blue;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.GridView;
@@ -15,14 +18,17 @@ import com.shehabic.droppy.animations.DroppyFadeInAnimation;
 import com.xxx.blue.adapter.LifeHintItemAdapter;
 import com.xxx.blue.UI.widget.LocationDialog;
 import com.xxx.blue.model.HintModel;
+import com.xxx.blue.presenter.MainPresenter;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import getdata.Day;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainPresenter.MainView{
+    private static final String EXTRA_LOCATION = "extra.location";
     @Bind(R.id.tv_location)
     TextView mLocation;
     @Bind(R.id.vg_search)
@@ -33,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
     TextView mTabCurrent;
     @Bind(R.id.tab_prediction)
     TextView mTabPrediction;
-    @Bind(R.id.tv_temperature)
-    TextView mTemperature;
+    @Bind(R.id.tv_pm2_5)
+    TextView mPM2_5;
     @Bind(R.id.tv_air)
     TextView mAir;
     @Bind(R.id.grid_hint)
@@ -43,8 +49,13 @@ public class MainActivity extends AppCompatActivity {
     PredictionFragment mPredictionFragment;
     LifeHintItemAdapter mAdapter;
 
-    @OnClick(R.id.tv_temperature)
-    void onTemperatureClick(){
+    MainPresenter mPresenter;
+
+    SharedPreferences mPrefenrence;//做持久化数据
+    boolean isCurrent = true;//判断当前所在页面
+
+    @OnClick(R.id.active_fragment)
+    void onFragmentClick(){
         //TODO：跳转至天气详情
     }
 
@@ -91,10 +102,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
+        mPrefenrence = getPreferences(MODE_PRIVATE);
+        //presenter
+        mPresenter = new MainPresenter();
+        mPresenter.attachView(this);
+
         //fragment
         mCurrentFragment = new CurrentFragment();
         mPredictionFragment = new PredictionFragment();
 
+        mCurrentFragment.setArguments(new Bundle());
+        mPredictionFragment.setArguments(new Bundle());
+
+        mTabCurrent.setAlpha(0.4f);
+        mTabPrediction.setAlpha(1.0f);
         getFragmentManager().beginTransaction()
                 .replace(R.id.active_fragment, mCurrentFragment)
                 .commit();
@@ -112,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new LifeHintItemAdapter(this, models);
         mAdapter.setGridView(mGridHint);
         mGridHint.setAdapter(mAdapter);
+
+        mPresenter.loadCurrentData(mPrefenrence.getString(EXTRA_LOCATION, "上海"));
     }
 
     @OnClick({R.id.vg_search, R.id.tab_current, R.id.tab_prediction})
@@ -124,20 +147,57 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(String text) {
                         mLocation.setText(text);
+                        //数据持久化
+                        mPrefenrence.edit()
+                                .putString(EXTRA_LOCATION, text)
+                                .apply();
                         locationDialog.dismiss();
                     }
                 });
                 break;
             case R.id.tab_current:
+                mTabCurrent.setAlpha(0.4f);
+                mTabPrediction.setAlpha(1.0f);
                 getFragmentManager().beginTransaction()
                         .replace(R.id.active_fragment, mCurrentFragment)
-                        .commit();
+                        .commitAllowingStateLoss();
+                isCurrent = true;
                 break;
             case R.id.tab_prediction:
+                isCurrent = false;
+                mTabPrediction.setAlpha(0.4f);
+                mTabCurrent.setAlpha(1.0f);
                 getFragmentManager().beginTransaction()
                         .replace(R.id.active_fragment, mPredictionFragment)
-                        .commit();
+                        .commitAllowingStateLoss();
                 break;
         }
+    }
+
+    @Override
+    public void showCurrentData(Day data) {
+        mPM2_5.setText("53");
+        mAir.setText("空气质量良好");
+        if (isCurrent){
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.active_fragment, mCurrentFragment)
+                    .commitAllowingStateLoss();
+            mCurrentFragment.setData(new Bundle());
+
+        }else {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.active_fragment, mPredictionFragment)
+                    .commitAllowingStateLoss();
+        }
+    }
+
+    @Override
+    public Context getViewContext() {
+        return this;
+    }
+
+    @Override
+    public void detachView() {
+        finish();
     }
 }
