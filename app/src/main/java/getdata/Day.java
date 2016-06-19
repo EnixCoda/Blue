@@ -65,4 +65,8 @@ public class Day {
         tomorrow.aqi = forecastAQI.get(30).max;
         tomorrow.AQIConclusion = Instructor.tellMeAboutAQI(tomorrow.aqi);
     }
+
+    public Hashtable<String, Suggestion> getInstructions() {
+        return instructions;
+    }
 }

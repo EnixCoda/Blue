@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:id="@+id/wei_container"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp">
+    <TextView
+        android:id="@+id/week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+        android:textColor="@color/weather_small_title"
+        android:text="周一"/>
+    <ImageView
+        android:id="@+id/weathericon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:layout_marginTop="10dp"
+        />
+    <TextView
+        android:id="@+id/hightemp"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
+        android:background="@drawable/temperature_box_bg"
+        android:text="25℃"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginTop="7dp"/>
+    <TextView
+        android:id="@+id/lowtemp"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
+        android:background="@drawable/temperature_box_bg"
+        android:text="19℃"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginTop="7dp"/>
+
+</LinearLayout>

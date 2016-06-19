@@ -13,4 +13,9 @@
     <dimen name="text_size_title">18sp</dimen>
     <dimen name="text_size_large">18sp</dimen>
     <dimen name="text_size_huge">80sp</dimen>
+
+    <dimen name="weather_detail_text_left_margin">37dp</dimen>
+    <dimen name="weather_detail_text_right_margin">26dp</dimen>
+    <dimen name="weather_detail_text_tt_right_margin">20dp</dimen>
+    <dimen name="weather_detail_text_size">17sp</dimen>
 </resources>

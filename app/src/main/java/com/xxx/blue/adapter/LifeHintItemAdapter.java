@@ -63,7 +63,14 @@ public class LifeHintItemAdapter extends BaseAdapter{
             params.width = width;
             holder.setLayoutParams(params);
         }
+        holder.tvHint.setText(mModels.get(position).getmHint());
+        holder.imgHint.setImageResource(mModels.get(position).getmImageId());
         return holder;
+    }
+
+    public void resetAndNotify(List<HintModel> lists){
+        mModels = lists;
+        notifyDataSetChanged();
     }
 
     public class ItemViewHolder extends FrameLayout{
@@ -87,13 +94,13 @@ public class LifeHintItemAdapter extends BaseAdapter{
 
         @OnClick(R.id.vg_container)
         public void onClick() {
-            if (vgHintContainer.getVisibility() == VISIBLE){
-                vgHintContainer.setVisibility(GONE);
-                tvHintDetail.setVisibility(VISIBLE);
-            }else {
-                vgHintContainer.setVisibility(VISIBLE);
-                tvHintDetail.setVisibility(GONE);
-            }
+//            if (vgHintContainer.getVisibility() == VISIBLE){
+//                vgHintContainer.setVisibility(GONE);
+//                tvHintDetail.setVisibility(VISIBLE);
+//            }else {
+//                vgHintContainer.setVisibility(VISIBLE);
+//                tvHintDetail.setVisibility(GONE);
+//            }
         }
     }
 }
