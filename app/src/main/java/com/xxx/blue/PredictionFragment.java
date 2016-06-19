@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import butterknife.OnClick;
 import utility.Constant;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,6 +24,20 @@ public class PredictionFragment extends Fragment {
     TextView mForecastWhether;
     @Bind(R.id.forecast_temperature)
     TextView mForecastTemperature;
+    @Bind(R.id.tv_pm2_5)
+    TextView mPM2_5;
+    @Bind(R.id.tv_air)
+    TextView mAir;
+
+    @OnClick(R.id.vg_air)
+    void onAirClick(){
+//        //TODO：跳转至天气详情
+    }
+
+    @OnClick(R.id.vg_temperature)
+    void onTemperatureClick(){
+//        //TODO：跳转至温度详情
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,15 +45,19 @@ public class PredictionFragment extends Fragment {
         View viewGroup = inflater.inflate(R.layout.viewstub_predictions, container, false);
         ButterKnife.bind(this, viewGroup);
 
-        setData(getArguments());
+        Bundle bundle = getArguments();
+        if (bundle != null)
+            setData(bundle);
         return viewGroup;
     }
 
-    private void setData(Bundle data) {
+    public void setData(Bundle data) {
         mTodayWhether.setText(data.getString(Constant.EXTRA_WHETHER, "小雨转阴"));
         mTodayTemperatureRange.setText(data.getString(Constant.EXTRA_TEMPERATURE_RANGE, "18~23℃"));
         mForecastWhether.setText(data.getString(Constant.EXTRA_FORECAST_WHETHER, "晴"));
         mForecastTemperature.setText(data.getString(Constant.EXTRA_FORECAST_TEMPERATURE_RANGE, "20~25℃"));
+        mAir.setText(data.getString(Constant.EXTRA_AIR_TEXT, "空气质量良好"));
+        mPM2_5.setText(data.getString(Constant.EXTRA_AIR, "76"));
     }
 
     @Override
