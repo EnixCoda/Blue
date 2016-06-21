@@ -23,6 +23,7 @@ public class WeatherEveryhourItem {
         this.rainPossibility = rainPossibility;
         tempS = temp + "℃";
         hour = date.get(Calendar.HOUR) + ":00";
-        rainPossibilityS = rainPossibility + "%";
+        double modifiedPercent = (rainPossibility * 0.8);
+        rainPossibilityS = (int)modifiedPercent + "%";
     }
 }

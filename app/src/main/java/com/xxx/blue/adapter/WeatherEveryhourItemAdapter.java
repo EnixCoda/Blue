@@ -76,7 +76,7 @@ public class WeatherEveryhourItemAdapter extends BaseAdapter {
         ItemViewHolder holder = new ItemViewHolder(mContext, position);
         if (view != null) {
             int height = view.getHeight();
-            int width = view.getWidth() / 6;
+            int width = view.getWidth() / 18;
             ViewGroup.LayoutParams params = holder.mContainer.getLayoutParams();
             params.height = height;
             params.width = width;
