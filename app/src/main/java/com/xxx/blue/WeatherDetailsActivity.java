@@ -72,13 +72,11 @@ public class WeatherDetailsActivity extends AppCompatActivity {
                 mAdapter.setGridView(mGridWeatherEveryday);
 
                 //gridView 每3小时天气
-
                 for (Forecast forecast : day.hourlyForecasts) {
                     hourModels.add(new WeatherEveryhourItem(forecast.date, forecast.description, forecast.temp, forecast.rainPoss));
                 }
-
                 int size = hourModels.size();
-                int length = 240;
+                int length = 60;
                 DisplayMetrics dm = new DisplayMetrics();
                 getWindowManager().getDefaultDisplay().getMetrics(dm);
                 float density = dm.density;
@@ -89,7 +87,7 @@ public class WeatherDetailsActivity extends AppCompatActivity {
                         gridViewWidth, LinearLayout.LayoutParams.MATCH_PARENT);
                 mGridWeatherEveryhour.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
                 mGridWeatherEveryhour.setColumnWidth(itemWidth); // 设置列表项宽
-                mGridWeatherEveryhour.setHorizontalSpacing(5); // 设置列表项水平间距
+                mGridWeatherEveryhour.setHorizontalSpacing(0); // 设置列表项水平间距
                 mGridWeatherEveryhour.setStretchMode(GridView.NO_STRETCH);
                 mGridWeatherEveryhour.setNumColumns(size); // 设置列数量=列表集合数
 
