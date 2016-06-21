@@ -84,8 +84,8 @@ public class MapFragment extends Fragment implements GeocodeSearch.OnGeocodeSear
 
         lat = latd;
         lon = lond;
-        aimpos[0] = sumLat / i;
-        aimpos[1] = sumLon / i;
+        aimpos[0] = sumLon / i;
+        aimpos[1] = sumLat / i;
         aqi = aqid;
     }
 
@@ -124,7 +124,7 @@ public class MapFragment extends Fragment implements GeocodeSearch.OnGeocodeSear
     public void add() {
         aim(new LatLonPoint(aimpos[0], aimpos[1]));
         for (int i = 0; i < lat.length; i++) {
-            addMarkers(new LatLonPoint(lat[i], lon[i]), String.valueOf(aqi[i]));
+            addMarkers(new LatLonPoint(lon[i], lat[i]), String.valueOf(aqi[i]));
         }
     }
 
@@ -139,7 +139,7 @@ public class MapFragment extends Fragment implements GeocodeSearch.OnGeocodeSear
     }
 
     private void aim(LatLonPoint lat) {
-        aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(AMapUtil.convertToLatLng(lat), 11));
+        aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(AMapUtil.convertToLatLng(lat), 12));
     }
 
     private void addMarkers(LatLonPoint latLonPoint, String number) {
