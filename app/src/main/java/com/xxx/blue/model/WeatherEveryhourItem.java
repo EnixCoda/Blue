@@ -10,6 +10,7 @@ public class WeatherEveryhourItem {
     public Calendar date;
     public String description;
     public String hour;
+    public String dateS;
     public int temp;
     public String tempS;
     public String weatherIcon;
@@ -23,7 +24,8 @@ public class WeatherEveryhourItem {
         this.rainPossibility = rainPossibility;
         tempS = temp + "℃";
         hour = date.get(Calendar.HOUR) + ":00";
-        double modifiedPercent = (rainPossibility * 0.8);
-        rainPossibilityS = (int)modifiedPercent + "%";
+        dateS = date.get(Calendar.DAY_OF_MONTH) + "日";
+//        double modifiedPercent = (rainPossibility * 0.8);
+        rainPossibilityS = ((int)(rainPossibility * 0.8)) + "%";
     }
 }

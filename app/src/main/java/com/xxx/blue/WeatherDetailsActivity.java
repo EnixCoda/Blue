@@ -78,7 +78,7 @@ public class WeatherDetailsActivity extends AppCompatActivity {
                 }
 
                 int size = hourModels.size();
-                int length = 50;
+                int length = 240;
                 DisplayMetrics dm = new DisplayMetrics();
                 getWindowManager().getDefaultDisplay().getMetrics(dm);
                 float density = dm.density;

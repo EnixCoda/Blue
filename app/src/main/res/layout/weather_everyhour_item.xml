@@ -6,6 +6,15 @@
     android:id="@+id/wehi_container"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp">
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+        android:textColor="@color/weather_small_title"
+        android:text="--"/>
+
     <TextView
         android:id="@+id/hour"
         android:layout_width="wrap_content"

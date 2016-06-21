@@ -30,6 +30,7 @@ public class WeatherEveryhourItemAdapter extends BaseAdapter {
     Context mContext;
     GridView view;
     List<String> Chour = new ArrayList<>();
+    List<String> Cdate = new ArrayList<>();
     List<Bitmap> ChourWeatherIcon = new ArrayList<>();
     Bitmap bmp;
     List<String> Ctemp = new ArrayList<>();
@@ -46,6 +47,7 @@ public class WeatherEveryhourItemAdapter extends BaseAdapter {
             ChourWeatherIcon.add(bmp);
             bmp = BitmapFactory.decodeResource(res, R.drawable.rainnum60);
             CrainAmount.add(bmp);
+            Cdate.add(weatherEveryhourItem.dateS);
             Chour.add(weatherEveryhourItem.hour);
             Ctemp.add(weatherEveryhourItem.tempS);
             CrainPossibility.add(weatherEveryhourItem.rainPossibilityS);
@@ -88,6 +90,8 @@ public class WeatherEveryhourItemAdapter extends BaseAdapter {
     public class ItemViewHolder extends FrameLayout {
         @Bind(R.id.wehi_container)
         ViewGroup mContainer;
+        @Bind(R.id.date)
+        TextView date;
         @Bind(R.id.hour)
         TextView hour;
         @Bind(R.id.hourweathericon)
@@ -102,6 +106,7 @@ public class WeatherEveryhourItemAdapter extends BaseAdapter {
             View view = LayoutInflater.from(context).inflate(R.layout.weather_everyhour_item, null);
             addView(view);
             ButterKnife.bind(this, view);
+            date.setText(Cdate.get(position));
             hour.setText(Chour.get(position));
             hourWeatherIcon.setImageBitmap(ChourWeatherIcon.get(position));
             temp.setText(Ctemp.get(position));
