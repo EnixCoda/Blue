@@ -42,4 +42,9 @@
     <color name="weather_small_title">#999999</color>
     <color name="weather_temperature">#75b24b</color>
     <color name="weather_rainpercent">#139bd2</color>
+
+    <color name="color_f2f2f2">#f2f2f2</color>
+    <color name="color_ff4631">#303F9F</color>
+    <color name="color_999999">#999999</color>
+
 </resources>

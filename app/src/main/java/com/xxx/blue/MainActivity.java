@@ -22,15 +22,14 @@ import android.widget.Toast;
 import com.shehabic.droppy.DroppyClickCallbackInterface;
 import com.shehabic.droppy.DroppyMenuPopup;
 import com.shehabic.droppy.animations.DroppyFadeInAnimation;
-import com.xxx.blue.adapter.LifeHintItemAdapter;
 import com.xxx.blue.UI.widget.LocationDialog;
+import com.xxx.blue.adapter.LifeHintItemAdapter;
 import com.xxx.blue.adapter.PagerViewerAdapter;
 import com.xxx.blue.model.HintModel;
 import com.xxx.blue.presenter.MainPresenter;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Iterator;
 
 import analyse.Suggestion;
 import butterknife.Bind;
@@ -83,7 +82,9 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
                                 intent.setType("text/plain"); // 纯文本
                                 startActivity(Intent.createChooser(intent, "分享"));
                                 break;
-                            case R.id.menu_about://TODO:跳转至关于界面
+                            case R.id.menu_about://跳转至关于界面
+                                Intent intent2 = new Intent(MainActivity.this,About.class);
+                                startActivity(intent2);
                                 break;
                             default:
                                 break;

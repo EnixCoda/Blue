@@ -1,6 +1,8 @@
 package com.xxx.blue;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -32,13 +34,15 @@ public class PredictionFragment extends Fragment {
 
     @OnClick(R.id.vg_air)
     void onAirClick(){
-//        //TODO：跳转至天气质量详情
-        startActivity(new Intent(getActivity(), WeatherDetailsActivity.class));
+        Intent intent = new Intent(getActivity(), DetailedAQI.class);
+        SharedPreferences mPreference = getActivity().getPreferences(Context.MODE_PRIVATE);
+        intent.putExtra("location", mPreference.getString("extra.location", "上海"));
+        startActivity(intent);
     }
 
     @OnClick(R.id.vg_temperature)
     void onTemperatureClick(){
-//        //TODO：跳转至温度详情
+        startActivity(new Intent(getActivity(), WeatherDetailsActivity.class));
     }
 
     @Override

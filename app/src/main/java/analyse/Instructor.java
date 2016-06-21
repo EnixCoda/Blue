@@ -146,7 +146,7 @@ public class Instructor {
         clothes = getInstruction("温度", day.hourlyForecasts.size() > 0 ? day.hourlyForecasts.get(0).temp : 26);
 
         instructions = new Hashtable<>();
-        instructions.put("uv",              new Suggestion("无需防晒", 0));
+        instructions.put("uv",              new Suggestion(uv, 0));
         instructions.put("outSuggestion",   new Suggestion(outSuggestion, ifOut));
         instructions.put("clothes",         new Suggestion(clothes, 0));
         instructions.put("cold",            new Suggestion(cold, ifCold));
