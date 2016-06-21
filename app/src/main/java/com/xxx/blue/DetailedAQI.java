@@ -5,8 +5,10 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,6 +48,7 @@ public class DetailedAQI extends AppCompatActivity {
         nearbySites.execute(localLocation);
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        lgv = new LineGraphicView(this);
 
         //各类污染物实时数据
         FetchData fetchData = new FetchData(new FetchData.AsyncResponse() {
@@ -53,28 +56,26 @@ public class DetailedAQI extends AppCompatActivity {
             public void processFinish(Day _day_) {
                 day = _day_;
                 adapter.add("PM2.5");
-                adapter.add(day.stringIAQIHashtable.get("PM2.5").toString());
+                adapter.add(Integer.toString(day.stringIAQIHashtable.get("PM2.5").cur));
                 adapter.add("PM10");
-                adapter.add(day.stringIAQIHashtable.get("PM10").toString());
+                adapter.add(Integer.toString(day.stringIAQIHashtable.get("PM10").cur));
                 adapter.add("SO2");
-                adapter.add(day.stringIAQIHashtable.get("SO2").toString());
+                adapter.add(Integer.toString(day.stringIAQIHashtable.get("SO2").cur));
                 adapter.add("O3");
-                adapter.add(day.stringIAQIHashtable.get("O3").toString());
+                adapter.add(Integer.toString(day.stringIAQIHashtable.get("O3").cur));
                 adapter.add("NO2");
-                adapter.add(day.stringIAQIHashtable.get("NO2").toString());
+                adapter.add(Integer.toString(day.stringIAQIHashtable.get("NO2").cur));
                 adapter.add("CO");
-                adapter.add(day.stringIAQIHashtable.get("CO").toString());
+                adapter.add(Integer.toString(day.stringIAQIHashtable.get("CO").cur));
 
                 gridView = (GridView)findViewById(R.id.gridView);
                 gridView.setAdapter(adapter);
 
                 // 最近7天空气质量曲线
-                lgv = (LineGraphicView) findViewById(R.id.line_graphic);
-                yList = new ArrayList<Double>();
+                yList = new ArrayList<>();
                 for (int i=0; i<7; i++) {
-                    yList.add(Double.valueOf(DetailedAQI.this.day.forecastAQI.get(i).max));
+                    yList.add(Double.valueOf(DetailedAQI.this.day.forecastAQI.get(i * 8).max));
                 }
-
                 final Calendar c = Calendar.getInstance();
                 c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -87,6 +88,13 @@ public class DetailedAQI extends AppCompatActivity {
                 xRawData.add(String.valueOf(mDay+5)+"日");
                 xRawData.add(String.valueOf(mDay+6)+"日");
                 lgv.setData(yList, xRawData, 300, 150);
+                View dummyView = findViewById(R.id.dummy_view);
+                ViewGroup parent = (ViewGroup) dummyView.getParent();
+                int index = parent.indexOfChild(dummyView);
+                if (parent != null)
+                    ((ViewGroup) dummyView.getParent()).removeView(dummyView);
+                lgv.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 650));
+                parent.addView(lgv, index);
 
                 findViewById(R.id.imageButton).setOnClickListener(new View.OnClickListener(){
                     @Override

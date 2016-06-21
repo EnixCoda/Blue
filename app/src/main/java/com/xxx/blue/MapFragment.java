@@ -49,7 +49,7 @@ public class MapFragment extends Fragment implements GeocodeSearch.OnGeocodeSear
     private LatLonPoint latLonPoint = new LatLonPoint(31.2047372, 121.4489017);
 
 
-    private double aimpos[];
+    private double aimpos[] = new double[2];
     private double lat[], lon[];
     private int aqi[];
     private Marker marker;
@@ -92,22 +92,6 @@ public class MapFragment extends Fragment implements GeocodeSearch.OnGeocodeSear
         aimpos[0] = avgLat/i;
         aimpos[1] = avgLon/i;
         aqi = aqid;
-    }
-
-
-    public static MapFragment newInstance(double[] aim, double[] lat, double[] lon, int[] aqi) {
-        Bundle args = new Bundle();
-        args.putDoubleArray("lat", lat);
-        args.putDoubleArray("lon", lon);
-        args.putDoubleArray("aim", aim);
-        args.putIntArray("aqi", aqi);
-        MapFragment fragment = new MapFragment();
-        fragment.lat = lat;
-        fragment.lat = lon;
-        fragment.aimpos = aim;
-        fragment.aqi = aqi;
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Nullable
