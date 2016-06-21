@@ -68,37 +68,41 @@ public class DetailedAQI extends AppCompatActivity {
                 adapter.add("CO");
                 adapter.add(Integer.toString(day.stringIAQIHashtable.get("CO").cur));
 
-                gridView = (GridView)findViewById(R.id.gridView);
+                gridView = (GridView) findViewById(R.id.gridView);
                 gridView.setAdapter(adapter);
 
                 // 最近7天空气质量曲线
                 yList = new ArrayList<>();
-                for (int i=0; i<7; i++) {
-                    yList.add(Double.valueOf(DetailedAQI.this.day.forecastAQI.get(i * 8).max));
+                for (int i = 0; i < 7; i++) {
+                    yList.add(Double.valueOf(DetailedAQI.this.day.forecastAQI.get(i * 9).max));
                 }
                 final Calendar c = Calendar.getInstance();
                 c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
-                ArrayList<String> xRawData = new ArrayList<String>();
+                ArrayList<String> xRawData = new ArrayList<>();
                 xRawData.add("今天");
-                xRawData.add(String.valueOf(mDay+1)+"日");
-                xRawData.add(String.valueOf(mDay+2)+"日");
-                xRawData.add(String.valueOf(mDay+3)+"日");
-                xRawData.add(String.valueOf(mDay+4)+"日");
-                xRawData.add(String.valueOf(mDay+5)+"日");
-                xRawData.add(String.valueOf(mDay+6)+"日");
+                xRawData.add(String.valueOf(mDay + 1) + "日");
+                xRawData.add(String.valueOf(mDay + 2) + "日");
+                xRawData.add(String.valueOf(mDay + 3) + "日");
+                xRawData.add(String.valueOf(mDay + 4) + "日");
+                xRawData.add(String.valueOf(mDay + 5) + "日");
+                xRawData.add(String.valueOf(mDay + 6) + "日");
                 lgv.setData(yList, xRawData, 300, 150);
                 View dummyView = findViewById(R.id.dummy_view);
-                ViewGroup parent = (ViewGroup) dummyView.getParent();
-                int index = parent.indexOfChild(dummyView);
-                if (parent != null)
+                try {
+                    ViewGroup parent = (ViewGroup) dummyView.getParent();
+                    int index = parent.indexOfChild(dummyView);
                     ((ViewGroup) dummyView.getParent()).removeView(dummyView);
-                lgv.setLayoutParams( new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 650));
-                parent.addView(lgv, index);
+                    lgv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 650));
+                    parent.addView(lgv, index);
 
-                findViewById(R.id.imageButton).setOnClickListener(new View.OnClickListener(){
+                } catch (NullPointerException e) {
+
+                }
+
+                findViewById(R.id.imageButton).setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v){
+                    public void onClick(View v) {
                         finish();
                     }
                 });

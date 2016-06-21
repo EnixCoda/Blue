@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+
 import butterknife.ButterKnife;
 import getData.Day;
 import getData.FetchData;
@@ -43,15 +44,15 @@ public class WeatherDetailsActivity extends AppCompatActivity {
         });
         fetchData.execute(localLocation);
 
-        returnBtn = (Button)findViewById(R.id.header_left_btn);
+        returnBtn = (Button) findViewById(R.id.header_left_btn);
         returnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        mGridWeatherEveryday = (GridView)findViewById(R.id.grid_everyDayWeather);
-        mGridWeatherEveryhour = (GridView)findViewById(R.id.grid_everyHourWeather);
+        mGridWeatherEveryday = (GridView) findViewById(R.id.grid_everyDayWeather);
+        mGridWeatherEveryhour = (GridView) findViewById(R.id.grid_everyHourWeather);
         //gridView 每日天气
         ArrayList<WeatherEverydayItem> models = new ArrayList<>();
         models.add(new WeatherEverydayItem());

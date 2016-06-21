@@ -12,6 +12,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import utility.ChineseToPinyin;
+
 /**
  * Created by Exin on 2016/5/18.
  */
@@ -32,7 +34,7 @@ public class NearbySites extends AsyncTask<String, Void, ArrayList<SiteData>>{
     @Override
     protected ArrayList<SiteData> doInBackground(String... params) {
         String cityId;
-        if (params.length > 0) cityId = params[0];
+        if (params.length > 0) cityId = ChineseToPinyin.getPinYin(params[0]);
         else return null;
 
         ArrayList<SiteData> siteDatas = new ArrayList<>();

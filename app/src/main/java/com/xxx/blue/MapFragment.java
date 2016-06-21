@@ -34,9 +34,6 @@ import getData.SiteData;
 import utility.AMapUtil;
 import utility.ToastUtil;
 
-/**
- * Created by sits on 2016/6/16.
- */
 public class MapFragment extends Fragment implements GeocodeSearch.OnGeocodeSearchListener, View.OnClickListener {
 
     private ProgressDialog progDialog = null;
@@ -55,42 +52,40 @@ public class MapFragment extends Fragment implements GeocodeSearch.OnGeocodeSear
     private Marker marker;
     private LatLng latLng;
     private TextOptions textOptions = new TextOptions();
-    private String textnumber = "";
-    private int a = 0;
+    private String textNumber = "";
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle b = getArguments();
-        if (b != null) {
-            a = b.getInt("num");
-            lat = b.getDoubleArray("lat");
-            lon = b.getDoubleArray("lon");
-            aimpos = b.getDoubleArray("aim");
-            aqi = b.getIntArray("aqi");
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            lat = bundle.getDoubleArray("lat");
+            lon = bundle.getDoubleArray("lon");
+            aimpos = bundle.getDoubleArray("aim");
+            aqi = bundle.getIntArray("aqi");
         }
 
     }
 
     public void setData(ArrayList<SiteData> arrayList) {
-        double avgLat = 0, avgLon = 0;
+        double sumLat = 0, sumLon = 0;
         double[] latd = new double[10], lond = new double[10];
         int[] aqid = new int[10];
         int i;
         for (i = 0; i < arrayList.size() && i < 10; i++) {
             aqid[i] = arrayList.get(i).pm25;
             latd[i] = arrayList.get(i).lat;
-            avgLat += arrayList.get(i).lat;
+            sumLat += arrayList.get(i).lat;
             lond[i] = arrayList.get(i).lon;
-            avgLon += arrayList.get(i).lon;
+            sumLon += arrayList.get(i).lon;
         }
 
         lat = latd;
         lon = lond;
-        aimpos[0] = avgLat/i;
-        aimpos[1] = avgLon/i;
+        aimpos[0] = sumLat / i;
+        aimpos[1] = sumLon / i;
         aqi = aqid;
     }
 
@@ -122,12 +117,9 @@ public class MapFragment extends Fragment implements GeocodeSearch.OnGeocodeSear
             geocoderSearch = new GeocodeSearch(getActivity());
             geocoderSearch.setOnGeocodeSearchListener(this);
             progDialog = new ProgressDialog(getActivity());
-
             add();
         }
-
     }
-
 
     public void add() {
         aim(new LatLonPoint(aimpos[0], aimpos[1]));
@@ -147,14 +139,10 @@ public class MapFragment extends Fragment implements GeocodeSearch.OnGeocodeSear
     }
 
     private void aim(LatLonPoint lat) {
-        aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                AMapUtil.convertToLatLng(lat), 11));
-
-        //9 sj //13
+        aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(AMapUtil.convertToLatLng(lat), 11));
     }
 
     private void addMarkers(LatLonPoint latLonPoint, String number) {
-
         int aqi = Integer.parseInt(number);
         if (aqi < 50) aMap.addMarker(new MarkerOptions().anchor(0.5f, 0.5f)
                 .icon(BitmapDescriptorFactory
@@ -166,47 +154,32 @@ public class MapFragment extends Fragment implements GeocodeSearch.OnGeocodeSear
                 .icon(BitmapDescriptorFactory
                         .defaultMarker(BitmapDescriptorFactory.HUE_RED))).setPosition(AMapUtil.convertToLatLng(latLonPoint));
 
-
         latLng = new LatLng(latLonPoint.getLatitude(), latLonPoint.getLongitude());
         textOptions.position(latLng)
                 .text(number).fontColor(Color.BLACK)
                 .fontSize(30).align(Text.ALIGN_CENTER_HORIZONTAL, Text.ALIGN_CENTER_VERTICAL)
                 .zIndex(1.f).typeface(Typeface.DEFAULT_BOLD);
         aMap.addText(textOptions);
-
     }
 
-    /**
-     * 方法必须重写
-     */
     @Override
     public void onResume() {
         super.onResume();
         mapView.onResume();
     }
 
-    /**
-     * 方法必须重写
-     */
     @Override
     public void onPause() {
         super.onPause();
         mapView.onPause();
     }
 
-    /**
-     * 方法必须重写
-     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
 
-    /**
-     * ckrr
-     * 方法必须重写
-     */
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -302,32 +275,17 @@ public class MapFragment extends Fragment implements GeocodeSearch.OnGeocodeSear
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-//            case R.id.searchButton:
-//                if(editText1.getText()!=null&&editText2.getText()!=null&&editText3.getText()!=null){
-//                    LatLonPoint Point = new LatLonPoint(Double.valueOf(editText1.getText().toString()), Double.valueOf(editText2.getText().toString()));
-//                    latLng=new LatLng(Double.valueOf(editText1.getText().toString()), Double.valueOf(editText2.getText().toString()));
-//                    textnumber=editText3.getText().toString();
-//                    latLonPoint=Point;
-//                    addMarkersToMap();
-//                    getAddress(Point);
-//                }
-//                break;
-//            default:
-//                break;
-        }
 
     }
 
     private void addMarkersToMap() {
         textOptions.position(latLng)
-                .text(textnumber).fontColor(Color.BLACK)
+                .text(textNumber).fontColor(Color.BLACK)
                 .fontSize(30).align(Text.ALIGN_CENTER_HORIZONTAL, Text.ALIGN_CENTER_VERTICAL)
                 .zIndex(1.f).typeface(Typeface.DEFAULT_BOLD);
         regeoMarker.setPosition(AMapUtil.convertToLatLng(latLonPoint));
         aMap.addText(textOptions);
     }
-
 
     public void setMarkerColor(MarkerOptions markerColor, int aqi) {
         if (aqi < 50) markerColor.icon(BitmapDescriptorFactory
@@ -336,7 +294,6 @@ public class MapFragment extends Fragment implements GeocodeSearch.OnGeocodeSear
                 .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
         if (aqi >= 100) markerColor.icon(BitmapDescriptorFactory
                 .defaultMarker(BitmapDescriptorFactory.HUE_RED));
-
     }
 
 }
