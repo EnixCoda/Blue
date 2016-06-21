@@ -12,6 +12,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import getData.Day;
 import getData.FetchData;
+import getData.Forecast;
 
 import com.xxx.blue.adapter.WeatherEverydayItemAdapter;
 import com.xxx.blue.adapter.WeatherEveryhourItemAdapter;
@@ -26,8 +27,10 @@ import java.util.ArrayList;
 public class WeatherDetailsActivity extends AppCompatActivity {
 
     Button returnBtn;
+    ArrayList<WeatherEverydayItem> models = new ArrayList<>();
+    ArrayList<WeatherEveryhourItem> hourModels = new ArrayList<>();
     WeatherEverydayItemAdapter mAdapter;
-    WeatherEveryhourItemAdapter hourAdapter;
+    WeatherEveryhourItemAdapter mHourAdapter;
     GridView mGridWeatherEveryday;
     GridView mGridWeatherEveryhour;
 
@@ -36,6 +39,9 @@ public class WeatherDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.weather_details_ui);
         ButterKnife.bind(this);
         String localLocation = getIntent().getExtras().getString("location");
+
+        mGridWeatherEveryday = (GridView) findViewById(R.id.grid_everyDayWeather);
+        mGridWeatherEveryhour = (GridView) findViewById(R.id.grid_everyHourWeather);
 
         FetchData fetchData = new FetchData(new FetchData.AsyncResponse() {
             @Override
@@ -51,11 +57,31 @@ public class WeatherDetailsActivity extends AppCompatActivity {
                 TextView today_weather = (TextView) findViewById(R.id.today_weather);
                 today_weather.setText(day.dailyForecasts.get(0).description);
                 TextView today_weather_value = (TextView) findViewById(R.id.today_weather_value);
-                today_weather_value.setText(Integer.toString(day.dailyForecasts.get(0).tempMin) + "~" + Integer.toString(day.dailyForecasts.get(0).tempMin) + "℃");
+                today_weather_value.setText(Integer.toString(day.dailyForecasts.get(0).tempMin) + "~" + Integer.toString(day.dailyForecasts.get(0).tempMax) + "℃");
                 TextView tomorrow_weather = (TextView) findViewById(R.id.tomorrow_weather);
                 tomorrow_weather.setText(day.dailyForecasts.get(1).description);
                 TextView tomorrow_weather_value = (TextView) findViewById(R.id.tomorrow_weather_value);
-                tomorrow_weather_value.setText(Integer.toString(day.dailyForecasts.get(1).tempMin) + "~" + Integer.toString(day.dailyForecasts.get(1).tempMin) + "℃");
+                tomorrow_weather_value.setText(Integer.toString(day.dailyForecasts.get(1).tempMin) + "~" + Integer.toString(day.dailyForecasts.get(1).tempMax) + "℃");
+
+                //gridView 每日天气
+                for (Forecast forecast : day.dailyForecasts) {
+                    models.add(new WeatherEverydayItem(forecast.date, forecast.code, forecast.tempMax, forecast.tempMin));
+                }
+                mAdapter = new WeatherEverydayItemAdapter(WeatherDetailsActivity.this, models);
+                mGridWeatherEveryday.setAdapter(mAdapter);
+                mAdapter.setGridView(mGridWeatherEveryday);
+
+                //gridView 每3小时天气
+                // TODO: 修复显示问题
+                int count = 10;
+                for (Forecast forecast : day.hourlyForecasts) {
+                    count++;
+                    if (count == 10) break;
+                    hourModels.add(new WeatherEveryhourItem(forecast.date, forecast.description, forecast.temp, forecast.rainPoss));
+                }
+                mHourAdapter = new WeatherEveryhourItemAdapter(WeatherDetailsActivity.this, hourModels);
+                mGridWeatherEveryhour.setAdapter(mHourAdapter);
+                mHourAdapter.setGridView(mGridWeatherEveryhour);
             }
         });
         fetchData.execute(localLocation);
@@ -67,53 +93,23 @@ public class WeatherDetailsActivity extends AppCompatActivity {
                 finish();
             }
         });
-        mGridWeatherEveryday = (GridView) findViewById(R.id.grid_everyDayWeather);
-        mGridWeatherEveryhour = (GridView) findViewById(R.id.grid_everyHourWeather);
-        //gridView 每日天气
-        ArrayList<WeatherEverydayItem> models = new ArrayList<>();
-        models.add(new WeatherEverydayItem());
-        models.add(new WeatherEverydayItem());
-        models.add(new WeatherEverydayItem());
-        models.add(new WeatherEverydayItem());
-        models.add(new WeatherEverydayItem());
-        models.add(new WeatherEverydayItem());
-        mAdapter = new WeatherEverydayItemAdapter(this, models);
-        mAdapter.setGridView(mGridWeatherEveryday);
-        mGridWeatherEveryday.setAdapter(mAdapter);
 
-        //gridView 每小时天气
-        ArrayList<WeatherEveryhourItem> hourModels = new ArrayList<>();
-        hourModels.add(new WeatherEveryhourItem());
-        hourModels.add(new WeatherEveryhourItem());
-        hourModels.add(new WeatherEveryhourItem());
-        hourModels.add(new WeatherEveryhourItem());
-        hourModels.add(new WeatherEveryhourItem());
-        hourModels.add(new WeatherEveryhourItem());
-        hourModels.add(new WeatherEveryhourItem());
-        hourModels.add(new WeatherEveryhourItem());
-        hourModels.add(new WeatherEveryhourItem());
-        hourModels.add(new WeatherEveryhourItem());
-        hourModels.add(new WeatherEveryhourItem());
-        hourModels.add(new WeatherEveryhourItem());
 
         int size = hourModels.size();
         int length = 100;
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         float density = dm.density;
-        int gridViewWidth = (int) (size * (length + 4) * density);
+        int gridViewWidth = (int) (size * length * density);
         int itemWidth = (int) (length * density);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                gridViewWidth, LinearLayout.LayoutParams.FILL_PARENT);
+                gridViewWidth, LinearLayout.LayoutParams.MATCH_PARENT);
         mGridWeatherEveryhour.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
         mGridWeatherEveryhour.setColumnWidth(itemWidth); // 设置列表项宽
         mGridWeatherEveryhour.setHorizontalSpacing(5); // 设置列表项水平间距
         mGridWeatherEveryhour.setStretchMode(GridView.NO_STRETCH);
         mGridWeatherEveryhour.setNumColumns(size); // 设置列数量=列表集合数
-        hourAdapter = new WeatherEveryhourItemAdapter(this, hourModels);
-        hourAdapter.setGridView(mGridWeatherEveryhour);
-        mGridWeatherEveryhour.setAdapter(hourAdapter);
-    }
 
+    }
 }

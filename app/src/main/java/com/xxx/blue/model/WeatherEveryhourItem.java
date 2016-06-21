@@ -1,55 +1,28 @@
 package com.xxx.blue.model;
 
+import java.util.Calendar;
+
 /**
  * Created by 张丽娟 on 2016/6/18.
  */
 public class WeatherEveryhourItem {
 
-    private String hour;
-    private String hourweathericon;
-    private String temp;
-    private  String wind;
-    private String rainnum;
-    private  String rainpercent;
+    public Calendar date;
+    public String description;
+    public String hour;
+    public int temp;
+    public String tempS;
+    public String weatherIcon;
+    public int rainPossibility;
+    public String rainPossibilityS;
 
-    public String gethour() {
-        return hour;
-    }
-    public void sethour(String hour) {
-        this.hour = hour;
-    }
-
-    public String gethourweathericon() {
-        return hourweathericon;
-    }
-
-    public void sethourweathericon(String hourweathericon) {
-        this.hourweathericon = hourweathericon;
-    }
-
-    public String gettemp() {
-        return temp;
-    }
-    public void settemp(String temp) {
+    public WeatherEveryhourItem(Calendar date, String description, int temp, int rainPossibility) {
+        this.date = date;
+        this.description = description;
         this.temp = temp;
-    }
-
-    public String getwind() {
-        return wind;
-    }
-    public void setwind(String wind) {
-        this.wind = wind;
-    }
-    public String getrainnum() {
-        return rainnum;
-    }
-    public void setrainnum(String rainnum) {
-        this.rainnum = rainnum;
-    }
-    public String getrainpercent() {
-        return rainpercent;
-    }
-    public void setrainpercent(String rainpercent) {
-        this.rainpercent = rainpercent;
+        this.rainPossibility = rainPossibility;
+        tempS = temp + "℃";
+        hour = date.get(Calendar.HOUR) + ":00";
+        rainPossibilityS = rainPossibility + "%";
     }
 }

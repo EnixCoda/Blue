@@ -6,8 +6,10 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
@@ -49,15 +51,12 @@ public class FetchData extends AsyncTask<String, Void, Day> {
     @Override
     protected Day doInBackground(String... params) {
         String cityId;
+        String response;
         if (params.length > 0) cityId = ChineseToPinyin.getPinYin(params[0]);
         else return null;
         try {
             // get HTML page source
-            URL url = new URL(urlPrefix + cityId + urlSuffix);
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            InputStream inputStream = httpURLConnection.getInputStream();
-            Scanner s = new Scanner(inputStream).useDelimiter("\\A");
-            String response = s.hasNext() ? s.next() : "";
+            response = askAPI(urlPrefix + cityId + urlSuffix);
 
             if (response.contains(head) && response.contains(tail)) {
                 String dataJSON = response.substring(response.indexOf(head) + head.length(), response.indexOf(tail));
@@ -133,45 +132,58 @@ public class FetchData extends AsyncTask<String, Void, Day> {
                 i = 0;
                 while (i < nearSites.length()) {
                     JSONObject siteObject = nearSites.getJSONObject(i);
-
                     String siteName = siteObject.getString("name");
                     String aqiInString = siteObject.getString("aqi");
                     int siteAqi = 0;
                     if (!aqiInString.equals("-")) {
                         siteAqi = Integer.valueOf(aqiInString);
                     }
-
                     day.addSiteData(new SiteData(siteName, siteAqi));
                     i++;
                 }
 
-                // from heweather
-                url = new URL("https://api.heweather.com/x3/weather?key=4882d5fa92124f2a959703aaf5b049be&city=" + cityId);
-                httpURLConnection = (HttpURLConnection) url.openConnection();
-                inputStream = httpURLConnection.getInputStream();
-                s = new Scanner(inputStream).useDelimiter("\\A");
-                response = s.hasNext() ? s.next() : "";
+                // from openweathermap.org
+                response = askAPI("http://api.openweathermap.org/data/2.5/forecast?units=metric&apiKey=2af0d79061afbe47f5d591b80e7054ae&q=" + cityId);
+                if (response.length() == 0) return null;
+                jsonObject = new JSONObject(response);
+                JSONArray hourlyForecasts = jsonObject.getJSONArray("list");
+                for (i = 0; i < hourlyForecasts.length(); i++) {
+                    JSONObject hourlyForecast = hourlyForecasts.getJSONObject(i);
+                    String timeS = hourlyForecast.getString("dt_txt");
+                    SimpleDateFormat sdf = new SimpleDateFormat("y-M-d H:m:s");
+                    Date forecastDate = sdf.parse(timeS);
+                    Calendar date = Calendar.getInstance();
+                    date.setTime(forecastDate);
+                    JSONObject weather = hourlyForecast.getJSONArray("weather").getJSONObject(0);
+                    String weatherE = weather.getString("main");
+                    JSONObject mainInfo = hourlyForecast.getJSONObject("main");
+                    day.addHourlyForecast(new Forecast(date, Forecast.translateConclusion(weatherE), mainInfo.getInt("temp"), mainInfo.getInt("humidity")));
+                }
 
+
+                // from heweather.com
+                response = askAPI("https://api.heweather.com/x3/weather?key=4882d5fa92124f2a959703aaf5b049be&city=" + cityId);
+                if (response.length() == 0) return null;
                 jsonObject = new JSONObject(response);
                 jsonObject = jsonObject.getJSONArray("HeWeather data service 3.0").getJSONObject(0);
 
-                JSONArray hourlyForecasts = jsonObject.getJSONArray("hourly_forecast");
-                i = 0;
-                while (i < hourlyForecasts.length()) {
-                    JSONObject weatherForecast = hourlyForecasts.getJSONObject(i);
-                    SimpleDateFormat sdf = new SimpleDateFormat("y-M-d H:m");
-                    Calendar date = Calendar.getInstance();
-                    date.setTime(sdf.parse(weatherForecast.getString("date")));
-
-                    int humidity = Integer.valueOf(weatherForecast.getString("hum"));
-                    int rain = Integer.valueOf(weatherForecast.getString("pop"));
-                    int pressure = Integer.valueOf(weatherForecast.getString("pres"));
-                    int temp = Integer.valueOf(weatherForecast.getString("tmp"));
-                    JSONObject descriptions = jsonObject.getJSONArray("daily_forecast").getJSONObject(0).getJSONObject("cond");
-                    int weatherCodeDay = descriptions.getInt("code_d");
-                    day.addHourlyForecast(new Forecast(date, weatherCodeDay, temp, humidity, rain, pressure));
-                    i++;
-                }
+//                JSONArray hourlyForecasts = jsonObject.getJSONArray("hourly_forecast");
+//                i = 0;
+//                while (i < hourlyForecasts.length()) {
+//                    JSONObject weatherForecast = hourlyForecasts.getJSONObject(i);
+//                    SimpleDateFormat sdf = new SimpleDateFormat("y-M-d H:m");
+//                    Calendar date = Calendar.getInstance();
+//                    date.setTime(sdf.parse(weatherForecast.getString("date")));
+//
+//                    int humidity = Integer.valueOf(weatherForecast.getString("hum"));
+//                    int rain = Integer.valueOf(weatherForecast.getString("pop"));
+//                    int pressure = Integer.valueOf(weatherForecast.getString("pres"));
+//                    int temp = Integer.valueOf(weatherForecast.getString("tmp"));
+//                    JSONObject descriptions = jsonObject.getJSONArray("daily_forecast").getJSONObject(0).getJSONObject("cond");
+//                    int weatherCodeDay = descriptions.getInt("code_d");
+//                    day.addHourlyForecast(new Forecast(date, weatherCodeDay, temp, humidity, rain, pressure));
+//                    i++;
+//                }
 
                 JSONArray dailyForecasts = jsonObject.getJSONArray("daily_forecast");
                 i = 0;
@@ -223,6 +235,19 @@ public class FetchData extends AsyncTask<String, Void, Day> {
             day.instructions = instructor.getInstructions(day);
         }
         delegate.processFinish(day);
+    }
+
+    private String askAPI(String urlString) {
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            InputStream inputStream = httpURLConnection.getInputStream();
+            Scanner s = new Scanner(inputStream).useDelimiter("\\A");
+            String response = s.hasNext() ? s.next() : "";
+            return response;
+        } catch (Exception e) {
+            return "";
+        }
     }
 }
 

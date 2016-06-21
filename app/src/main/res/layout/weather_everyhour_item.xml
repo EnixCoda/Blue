@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
         android:textColor="@color/weather_small_title"
-        android:text="02:00"/>
+        android:text="--:--"/>
     <ImageView
         android:id="@+id/hourweathericon"
         android:layout_width="40dp"
@@ -25,28 +25,23 @@
         android:layout_width="40dp"
         android:layout_height="25dp"
         android:background="@drawable/temperature_box_bg"
-        android:text="19℃"
+        android:text="--℃"
         android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
         android:textColor="@color/white"
         android:gravity="center"
         android:layout_marginTop="7dp"/>
-    <ImageView
-        android:id="@+id/wind"
-        android:layout_width="35dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/wind"/>
-    <ImageView
-        android:id="@+id/rainnum"
-        android:layout_width="40dp"
-        android:layout_height="45dp"
-        android:background="@drawable/rainnum60"
-        android:layout_marginTop="10dp"/>
+
+    <!--<ImageView-->
+        <!--android:id="@+id/rainnum"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:background="@drawable/rainnum60"-->
+        <!--android:layout_marginTop="10dp"/>-->
     <TextView
         android:id="@+id/rainpercent"
         android:layout_width="40dp"
         android:layout_height="25dp"
-        android:text="60%"
+        android:text="--%"
         android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
         android:textColor="@color/weather_rainpercent"
         android:gravity="center"

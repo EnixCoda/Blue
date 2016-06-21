@@ -4,10 +4,9 @@ import java.util.Calendar;
 
 /**
  * Created by Exin on 2016/5/23.
- *
  */
 public class Forecast {
-    Calendar date;
+    public Calendar date;
     public String description;
     public int code;
     public int temp;
@@ -18,6 +17,13 @@ public class Forecast {
     public int rainAmount;
     public int pressure;
 
+    public Forecast(Calendar date, String description, int temp, int rainPoss) {
+        this.date = date;
+        this.description = description;
+        this.temp = temp;
+        this.rainPoss = rainPoss;
+    }
+
     public Forecast(Calendar date, int code, int temp, int hum, int rain, int pressure) {
         this.date = date;
         this.code = code;
@@ -26,6 +32,7 @@ public class Forecast {
         this.rainPoss = rain;
         this.pressure = pressure;
     }
+
     public Forecast(Calendar date, String conclusion, int temp, int hum, int rain, int pressure) {
         this.date = date;
         this.description = conclusion;
@@ -46,6 +53,7 @@ public class Forecast {
         this.rainAmount = rainAmount;
         this.pressure = pressure;
     }
+
     public Forecast(Calendar date, String conclusion, int tempMin, int tempMax, int hum, int rainPossibility, int rainAmount, int pressure) {
         this.date = date;
         this.description = conclusion;
@@ -55,5 +63,18 @@ public class Forecast {
         this.rainPoss = rainPossibility;
         this.rainAmount = rainAmount;
         this.pressure = pressure;
+    }
+
+    public static String translateConclusion(String conclusionE) {
+        switch (conclusionE) {
+            case "Clouds":
+                return "多云";
+            case "Rain":
+                return "有雨";
+            case "Clear":
+                return "晴朗";
+            default:
+                return ":" + conclusionE;
+        }
     }
 }

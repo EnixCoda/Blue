@@ -1,53 +1,27 @@
 package com.xxx.blue.model;
 
-import android.content.Context;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.xxx.blue.R;
+import java.util.Calendar;
 
 /**
  * Created by 张丽娟 on 2016/6/16.
  */
 public class WeatherEverydayItem {
 
-    private String week;
-    private String weathericon;
-    private String hightemp;
-    private  String lowtemp;
+    public Calendar date;
+    public int code;
+    public int highTemp, lowTemp;
+    public String highTempS, lowTempS;
+    public String week;
+    public String weatherIcon;
+    private String[] countInChinese = {"日", "一", "二", "三", "四", "五", "六", "日"};
 
-
-    public String getweek() {
-        return week;
+    public WeatherEverydayItem(Calendar date, int code, int highTemp, int lowTemp) {
+        this.date = date;
+        this.code =code;
+        this.highTemp = highTemp;
+        this.lowTemp = lowTemp;
+        this.week = "周" + countInChinese[date.get(Calendar.DAY_OF_WEEK)];
+        highTempS = highTemp + "℃";
+        lowTempS = lowTemp + "℃";
     }
-    public void setweek(String week) {
-        this.week = week;
-    }
-
-    public String getweathericon() {
-        return weathericon;
-    }
-
-    public void setweathericon(String weathericon) {
-        this.weathericon = weathericon;
-    }
-
-    public String gethightemp() {
-        return hightemp;
-    }
-    public void sethightemp(String hightemp) {
-        this.hightemp = hightemp;
-    }
-
-    public String getlowtemp() {
-        return lowtemp;
-    }
-    public void setlowtemp(String lowtemp) {
-        this.lowtemp = lowtemp;
-    }
-
-
 }

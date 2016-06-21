@@ -11,18 +11,16 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.xxx.blue.model.HintModel;
 import com.xxx.blue.model.WeatherEverydayItem;
 import com.xxx.blue.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by 张丽娟 on 2016/6/17.
@@ -31,68 +29,46 @@ public class WeatherEverydayItemAdapter extends BaseAdapter {
     List<WeatherEverydayItem> mModels;
     Context mContext;
     GridView view;
-    List<String> Cweek = new ArrayList<String>();
-    List<Bitmap> Cweathericon = new ArrayList<Bitmap>();
+    List<String> Cweek = new ArrayList<>();
+    List<Bitmap> CweatherIcon = new ArrayList<>();
     Bitmap bmp;
-    List<String> Chightemp = new ArrayList<String>();
-    List<String> Clowtemp = new ArrayList<String>();
+    List<String> ChighTemp = new ArrayList<>();
+    List<String> ClowTemp = new ArrayList<>();
 
     public WeatherEverydayItemAdapter(Context mContext, List<WeatherEverydayItem> mModels) {
         this.mContext = mContext;
         this.mModels = mModels;
         Resources res = mContext.getResources();
-        Cweek.add("周一");
-        Cweek.add("周二");
-        Cweek.add("周三");
-        Cweek.add("周四");
-        Cweek.add("周五");
-        Cweek.add("周六");
-
-        bmp = BitmapFactory.decodeResource(res, R.drawable.clouds);
-        Cweathericon.add(bmp);
-        bmp = BitmapFactory.decodeResource(res, R.drawable.rain);
-        Cweathericon.add(bmp);
-        bmp = BitmapFactory.decodeResource(res, R.drawable.rain);
-        Cweathericon.add(bmp);
-        bmp = BitmapFactory.decodeResource(res, R.drawable.clouds);
-        Cweathericon.add(bmp);
-        bmp = BitmapFactory.decodeResource(res, R.drawable.rain);
-        Cweathericon.add(bmp);
-        bmp = BitmapFactory.decodeResource(res, R.drawable.rain);
-        Cweathericon.add(bmp);
-
-        Chightemp.add("25℃");
-        Chightemp.add("27℃");
-        Chightemp.add("21℃");
-        Chightemp.add("24℃");
-        Chightemp.add("22℃");
-        Chightemp.add("22℃");
-
-        Clowtemp.add("19℃");
-        Clowtemp.add("17℃");
-        Clowtemp.add("17℃");
-        Clowtemp.add("18℃");
-        Clowtemp.add("18℃");
-        Clowtemp.add("19℃");
+        for (WeatherEverydayItem weatherEverydayItem : mModels) {
+            bmp = BitmapFactory.decodeResource(res, R.drawable.clouds);
+            CweatherIcon.add(bmp);
+            Cweek.add(weatherEverydayItem.week);
+            ChighTemp.add(weatherEverydayItem.highTempS);
+            ClowTemp.add(weatherEverydayItem.lowTempS);
+        }
     }
-    public void setGridView(GridView view){
+
+    public void setGridView(GridView view) {
         this.view = view;
     }
+
     @Override
     public int getCount() {
         return mModels.size();
     }
+
     @Override
     public Object getItem(int position) {
         return mModels.get(position);
     }
+
     @Override
     public long getItemId(int position) {
         return position;
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         ItemViewHolder holder = new ItemViewHolder(mContext, position);
         if (view != null) {
             int height = view.getHeight();
@@ -104,17 +80,18 @@ public class WeatherEverydayItemAdapter extends BaseAdapter {
         }
         return holder;
     }
-    public class ItemViewHolder extends FrameLayout{
+
+    public class ItemViewHolder extends FrameLayout {
         @Bind(R.id.wei_container)
         ViewGroup mContainer;
         @Bind(R.id.week)
         TextView week;
         @Bind(R.id.weathericon)
-        ImageView weathericon;
+        ImageView weatherIcon;
         @Bind(R.id.hightemp)
-        TextView hightemp;
+        TextView highTemp;
         @Bind(R.id.lowtemp)
-        TextView lowtemp;
+        TextView lowTemp;
 
         public ItemViewHolder(Context context, int position) {
             super(context);
@@ -122,10 +99,9 @@ public class WeatherEverydayItemAdapter extends BaseAdapter {
             addView(view);
             ButterKnife.bind(this, view);
             week.setText(Cweek.get(position));
-            weathericon.setImageBitmap(Cweathericon.get(position));
-            hightemp.setText(Chightemp.get(position));
-            lowtemp.setText(Clowtemp.get(position));
+            weatherIcon.setImageBitmap(CweatherIcon.get(position));
+            highTemp.setText(ChighTemp.get(position));
+            lowTemp.setText(ClowTemp.get(position));
         }
-
     }
 }
