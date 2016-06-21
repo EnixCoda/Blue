@@ -47,7 +47,10 @@ public class CurrentFragment extends Fragment {
 
     @OnClick(R.id.vg_temperature)
     void onTemperatureClick(){
-        startActivity(new Intent(getActivity(), WeatherDetailsActivity.class));
+        Intent intent = new Intent(getActivity(), WeatherDetailsActivity.class);
+        SharedPreferences mPreference = getActivity().getPreferences(Context.MODE_PRIVATE);
+        intent.putExtra("location", mPreference.getString("extra.location", "上海"));
+        startActivity(intent);
     }
 
     @Override

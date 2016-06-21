@@ -4,14 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import butterknife.ButterKnife;
+import getData.Day;
+import getData.FetchData;
 
-import com.xxx.blue.adapter.LifeHintItemAdapter;
 import com.xxx.blue.adapter.WeatherEverydayItemAdapter;
 import com.xxx.blue.adapter.WeatherEveryhourItemAdapter;
 import com.xxx.blue.model.WeatherEverydayItem;
@@ -24,7 +23,6 @@ import java.util.ArrayList;
  */
 public class WeatherDetailsActivity extends AppCompatActivity {
 
-
     Button returnBtn;
     WeatherEverydayItemAdapter mAdapter;
     WeatherEveryhourItemAdapter hourAdapter;
@@ -35,7 +33,15 @@ public class WeatherDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weather_details_ui);
         ButterKnife.bind(this);
+        String localLocation = getIntent().getExtras().getString("location");
 
+        FetchData fetchData = new FetchData(new FetchData.AsyncResponse() {
+            @Override
+            public void processFinish(Day day) {
+                // TODO: operate day
+            }
+        });
+        fetchData.execute(localLocation);
 
         returnBtn = (Button)findViewById(R.id.header_left_btn);
         returnBtn.setOnClickListener(new View.OnClickListener() {
@@ -78,11 +84,11 @@ public class WeatherDetailsActivity extends AppCompatActivity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         float density = dm.density;
-        int gridviewWidth = (int) (size * (length + 4) * density);
+        int gridViewWidth = (int) (size * (length + 4) * density);
         int itemWidth = (int) (length * density);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                gridviewWidth, LinearLayout.LayoutParams.FILL_PARENT);
+                gridViewWidth, LinearLayout.LayoutParams.FILL_PARENT);
         mGridWeatherEveryhour.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
         mGridWeatherEveryhour.setColumnWidth(itemWidth); // 设置列表项宽
         mGridWeatherEveryhour.setHorizontalSpacing(5); // 设置列表项水平间距

@@ -53,17 +53,17 @@ public class DetailedAQI extends AppCompatActivity {
             public void processFinish(Day _day_) {
                 day = _day_;
                 adapter.add("PM2.5");
-                adapter.add(_day_.stringIAQIHashtable.get("PM2.5").toString());
+                adapter.add(day.stringIAQIHashtable.get("PM2.5").toString());
                 adapter.add("PM10");
-                adapter.add(_day_.stringIAQIHashtable.get("PM10").toString());
+                adapter.add(day.stringIAQIHashtable.get("PM10").toString());
                 adapter.add("SO2");
-                adapter.add(_day_.stringIAQIHashtable.get("SO2").toString());
+                adapter.add(day.stringIAQIHashtable.get("SO2").toString());
                 adapter.add("O3");
-                adapter.add(_day_.stringIAQIHashtable.get("O3").toString());
+                adapter.add(day.stringIAQIHashtable.get("O3").toString());
                 adapter.add("NO2");
-                adapter.add(_day_.stringIAQIHashtable.get("NO2").toString());
+                adapter.add(day.stringIAQIHashtable.get("NO2").toString());
                 adapter.add("CO");
-                adapter.add(_day_.stringIAQIHashtable.get("CO").toString());
+                adapter.add(day.stringIAQIHashtable.get("CO").toString());
 
                 gridView = (GridView)findViewById(R.id.gridView);
                 gridView.setAdapter(adapter);
@@ -72,7 +72,7 @@ public class DetailedAQI extends AppCompatActivity {
                 lgv = (LineGraphicView) findViewById(R.id.line_graphic);
                 yList = new ArrayList<Double>();
                 for (int i=0; i<7; i++) {
-                    yList.add(Double.valueOf(day.forecastAQI.get(i).max));
+                    yList.add(Double.valueOf(DetailedAQI.this.day.forecastAQI.get(i).max));
                 }
 
                 final Calendar c = Calendar.getInstance();
