@@ -25,7 +25,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_toRightOf="@+id/header_left_btn"
-                android:text="天气详情      "
+                android:text="天气详情"
                 android:textSize="21sp"
                 android:textColor="#000"
                 android:gravity="center"
@@ -37,29 +37,12 @@
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:background="@color/list_line"/>
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/rain"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="50dp"/>
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:text="小雨"
-                android:layout_marginTop="18dp"
-                android:layout_marginLeft="14dp"
-                android:textAppearance="@style/TextAppearance.LargeSize.Inverse"
-                android:textColor="@color/weather_text"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="4dp">
             <LinearLayout
 
                 android:layout_width="0dp"
@@ -90,25 +73,28 @@
                             android:id="@+id/wind"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="东南风"
+                            android:text="风速"
                             android:textColor="@color/weather_text"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                             android:layout_marginLeft="@dimen/weather_detail_text_left_margin"
-                            android:layout_marginTop="10dp"/>
-                        <TextView
-                            android:id="@+id/humidity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="相对湿度"
-                            android:textColor="@color/weather_text"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                            android:layout_marginLeft="@dimen/weather_detail_text_left_margin"
-                            android:layout_marginTop="10dp"/>
+                            android:layout_marginTop="10dp"
+                            android:singleLine="false"/>
+
                         <TextView
                             android:id="@+id/pressure"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="气压"
+                            android:textColor="@color/weather_text"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                            android:layout_marginLeft="@dimen/weather_detail_text_left_margin"
+                            android:layout_marginTop="10dp"/>
+
+                        <TextView
+                            android:id="@+id/humidity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="相对湿度"
                             android:textColor="@color/weather_text"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                             android:layout_marginLeft="@dimen/weather_detail_text_left_margin"
@@ -124,7 +110,7 @@
                             android:id="@+id/temperature_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="21℃"
+                            android:text="--℃"
                             android:textColor="@color/weather_text"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                             android:layout_marginRight="@dimen/weather_detail_text_right_margin"
@@ -133,25 +119,27 @@
                             android:id="@+id/wind_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3~5m/s"
+                            android:text="--m/s"
                             android:textColor="@color/weather_text"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                             android:layout_marginRight="@dimen/weather_detail_text_right_margin"
                             android:layout_marginTop="10dp"/>
-                        <TextView
-                            android:id="@+id/humidity_value"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="90%"
-                            android:textColor="@color/weather_text"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                            android:layout_marginRight="@dimen/weather_detail_text_right_margin"
-                            android:layout_marginTop="10dp"/>
+
                         <TextView
                             android:id="@+id/pressure_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="100.6kPa"
+                            android:text="--kPa"
+                            android:textColor="@color/weather_text"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+                            android:layout_marginRight="@dimen/weather_detail_text_right_margin"
+                            android:layout_marginTop="10dp"/>
+
+                        <TextView
+                            android:id="@+id/humidity_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="--%"
                             android:textColor="@color/weather_text"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                             android:layout_marginRight="@dimen/weather_detail_text_right_margin"
@@ -203,7 +191,7 @@
                         android:id="@+id/today_weather"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="小雨转阴"
+                        android:text="--"
                         android:textColor="@color/weather_text"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                         android:layout_marginTop="2dp"/>
@@ -211,7 +199,7 @@
                         android:id="@+id/today_weather_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="19~23℃"
+                        android:text="--℃"
                         android:textColor="@color/weather_text"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                         android:layout_marginTop="10dp"/>
@@ -219,7 +207,7 @@
                         android:id="@+id/tomorrow_weather"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="晴"
+                        android:text="--"
                         android:textColor="@color/weather_text"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                         android:layout_marginTop="17dp"/>
@@ -227,7 +215,7 @@
                         android:id="@+id/tomorrow_weather_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="21~26℃"
+                        android:text="--℃"
                         android:textColor="@color/weather_text"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
                         android:layout_marginTop="10dp"/>
@@ -249,7 +237,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.LargeSize.Inverse"
-                    android:text="每日预报"
+                    android:text="一周预报"
                     android:textColor="@color/weather_small_title"
                     android:layout_marginBottom="3dp"
                     />
@@ -283,7 +271,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.LargeSize.Inverse"
-                    android:text="每小时预报"
+                    android:text="近期预报"
                     android:textColor="@color/weather_small_title"
                     android:layout_marginBottom="3dp"
                     />
