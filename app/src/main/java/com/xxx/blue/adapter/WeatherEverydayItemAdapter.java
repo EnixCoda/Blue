@@ -40,7 +40,28 @@ public class WeatherEverydayItemAdapter extends BaseAdapter {
         this.mModels = mModels;
         Resources res = mContext.getResources();
         for (WeatherEverydayItem weatherEverydayItem : mModels) {
-            bmp = BitmapFactory.decodeResource(res, R.drawable.clouds);
+            String description = weatherEverydayItem.description;
+            description = description.split("转")[0];
+            switch (description) {
+                case "晴朗":
+                case "晴":
+                    bmp = BitmapFactory.decodeResource(res, R.drawable.clear);
+                    break;
+                case "多云":
+                    bmp = BitmapFactory.decodeResource(res, R.drawable.clouds);
+                    break;
+                case "小雨":
+                case "中雨":
+                case "大雨":
+                case "雷阵雨":
+                case "阵雨":
+                case "有雨":
+                    bmp = BitmapFactory.decodeResource(res, R.drawable.rain);
+                    break;
+                default:
+                    bmp = BitmapFactory.decodeResource(res, R.drawable.clouds);
+                    break;
+            }
             CweatherIcon.add(bmp);
             Cweek.add(weatherEverydayItem.week);
             ChighTemp.add(weatherEverydayItem.highTempS);

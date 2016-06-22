@@ -65,7 +65,7 @@ public class WeatherDetailsActivity extends AppCompatActivity {
 
                 //gridView 每日天气
                 for (Forecast forecast : day.dailyForecasts) {
-                    models.add(new WeatherEverydayItem(forecast.date, forecast.code, forecast.tempMax, forecast.tempMin));
+                    models.add(new WeatherEverydayItem(forecast.date, forecast.description, forecast.tempMax, forecast.tempMin));
                 }
                 mAdapter = new WeatherEverydayItemAdapter(WeatherDetailsActivity.this, models);
                 mGridWeatherEveryday.setAdapter(mAdapter);

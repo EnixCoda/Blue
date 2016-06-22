@@ -22,11 +22,11 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
         android:textColor="@color/weather_small_title"
         android:text="--:--"/>
+
     <ImageView
         android:id="@+id/hourweathericon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/clouds"
         android:layout_marginTop="10dp"
         />
     <TextView
@@ -46,6 +46,7 @@
         <!--android:layout_height="45dp"-->
         <!--android:background="@drawable/rainnum60"-->
         <!--android:layout_marginTop="10dp"/>-->
+
     <TextView
         android:id="@+id/rainpercent"
         android:layout_width="40dp"
@@ -53,7 +54,6 @@
         android:text="--%"
         android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
         android:textColor="@color/weather_rainpercent"
-        android:gravity="center"
-        />
+        android:gravity="center"/>
 
 </LinearLayout>

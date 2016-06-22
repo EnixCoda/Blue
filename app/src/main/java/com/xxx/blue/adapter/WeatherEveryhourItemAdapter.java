@@ -43,10 +43,29 @@ public class WeatherEveryhourItemAdapter extends BaseAdapter {
         this.mModels = mModels;
         Resources res = mContext.getResources();
         for (WeatherEveryhourItem weatherEveryhourItem : mModels) {
-            bmp = BitmapFactory.decodeResource(res, R.drawable.nightcloud);
+            String description = weatherEveryhourItem.description;
+            description = description.split("转")[0];
+            switch (description) {
+                case "晴朗":
+                case "晴":
+                    bmp = BitmapFactory.decodeResource(res, R.drawable.clear);
+                    break;
+                case "多云":
+                    bmp = BitmapFactory.decodeResource(res, R.drawable.clouds);
+                    break;
+                case "小雨":
+                case "中雨":
+                case "大雨":
+                case "雷阵雨":
+                case "阵雨":
+                case "有雨":
+                    bmp = BitmapFactory.decodeResource(res, R.drawable.rain);
+                    break;
+                default:
+                    bmp = BitmapFactory.decodeResource(res, R.drawable.clouds);
+                    break;
+            }
             ChourWeatherIcon.add(bmp);
-            bmp = BitmapFactory.decodeResource(res, R.drawable.rainnum60);
-            CrainAmount.add(bmp);
             Cdate.add(weatherEveryhourItem.dateS);
             Chour.add(weatherEveryhourItem.hour);
             Ctemp.add(weatherEveryhourItem.tempS);
