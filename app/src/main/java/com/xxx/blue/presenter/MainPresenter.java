@@ -20,8 +20,8 @@ public class MainPresenter extends BasePresenter<MainPresenter.MainView> {
         });
         fetchData.execute(localLocation);
     }
+
     public interface MainView extends BaseView{
         void showCurrentData(Day data);
-
     }
 }

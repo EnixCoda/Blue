@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
         bundle.putString(Constant.EXTRA_AIR_TEXT, mData.AQIConclusion);
 
         bundle.putInt(Constant.EXTRA_WHETHER_IMG, R.mipmap.weather_null);
-        bundle.putString(Constant.EXTRA_WHETHER, String.valueOf(mData.weatherConclusion));
+        bundle.putString(Constant.EXTRA_WHETHER, mData.weatherConclusion);
         IAQI temperature = mData.stringIAQIHashtable.get("温度");
         bundle.putString(Constant.EXTRA_TEMPERATURE, temperature.cur + "℃");
         IAQI wind = mData.stringIAQIHashtable.get("风");
@@ -242,10 +242,10 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
     @Override
     public void showCurrentData(Day data) {
         if (null == data) {
-            Toast.makeText(this, "数据为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "获取数据失败", Toast.LENGTH_SHORT).show();
             return;
         }
-        Toast.makeText(this, "得到数据", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "获取数据成功", Toast.LENGTH_SHORT).show();
 
         mData = data;
         //gridView更新
