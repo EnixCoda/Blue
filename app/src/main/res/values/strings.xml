@@ -25,4 +25,6 @@
     <string name="tomorrow">明日</string>
     <string name="title_activity_detail_aqi">空气质量详情</string>
     <string name="title_activity_detail_weather">天气详情</string>
+
+    <string name="superscript">&lt;sup&gt;3&lt;/sup&gt;</string>
 </resources>

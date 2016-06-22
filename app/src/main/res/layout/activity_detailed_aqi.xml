@@ -23,45 +23,88 @@
                 app:popupTheme="@style/NoActionBarAppTheme.PopupOverlay"/>
         </android.support.design.widget.AppBarLayout>
 
-        <TextView
-            android:id="@+id/textView_current"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/aqi_detail_specify"
-            />
-
-        <GridView
-            android:id="@+id/gridView"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_gravity="center_horizontal"
-            android:numColumns="4"/>
+            android:layout_height="match_parent"
+            android:padding="8dp">
 
-        <TextView
-            android:id="@+id/textView_graph"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/aqi_detail_trend"/>
+            <TextView
+                android:id="@+id/textView_current"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/aqi_detail_specify"
+                android:textSize="20sp"/>
+
+            <GridView
+                android:id="@+id/pollutions_grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:numColumns="2"
+                android:stretchMode="columnWidth"/>
+
+        </LinearLayout>
 
         <View
-            android:id="@+id/dummy_view"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:background="#ffffff"/>
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="25dp"
+            android:background="@color/list_line"
+            />
 
-        <TextView
-            android:id="@+id/textView_map"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/aqi_detail_sites"/>
-
-        <FrameLayout
-            android:id="@+id/map_fragment"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="480dp"/>
+            android:layout_height="match_parent"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/textView_graph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/aqi_detail_trend"
+                android:textSize="20sp"/>
+
+            <View
+                android:id="@+id/dummy_view"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:background="#ffffff"
+                android:layout_marginTop="8dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="25dp"
+            android:background="@color/list_line"
+            />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/textView_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/aqi_detail_sites"
+                android:textSize="20sp"/>
+
+            <FrameLayout
+                android:id="@+id/map_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="480dp"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

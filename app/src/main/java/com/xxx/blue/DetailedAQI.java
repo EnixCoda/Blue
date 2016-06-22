@@ -11,6 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
+import com.xxx.blue.adapter.AQIPollutionsItemAdapter;
+import com.xxx.blue.model.AQIPollutionItem;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -27,6 +30,9 @@ public class DetailedAQI extends AppCompatActivity {
     private Day day;
     LineGraphicView lgv;
     ArrayList<Double> yList;
+    ArrayList<AQIPollutionItem> pollutionModels = new ArrayList<>();
+    AQIPollutionsItemAdapter mAQIPollutionItemAdapter;
+    GridView mGridPollutionView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,9 @@ public class DetailedAQI extends AppCompatActivity {
         });
 
         String localLocation = getIntent().getExtras().getString("location");
+        mGridPollutionView = (GridView) findViewById(R.id.pollutions_grid_view);
+        lgv = new LineGraphicView(this);
+
         // 监测点地图
         NearbySites nearbySites = new NearbySites(new NearbySites.AsyncResponse() {
             @Override
@@ -59,29 +68,21 @@ public class DetailedAQI extends AppCompatActivity {
         });
         nearbySites.execute(localLocation);
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        lgv = new LineGraphicView(this);
-
         //各类污染物实时数据
         FetchData fetchData = new FetchData(new FetchData.AsyncResponse() {
             @Override
             public void processFinish(Day _day_) {
                 day = _day_;
-                adapter.add("PM2.5");
-                adapter.add(Integer.toString(day.stringIAQIHashtable.get("PM2.5").cur));
-                adapter.add("PM10");
-                adapter.add(Integer.toString(day.stringIAQIHashtable.get("PM10").cur));
-                adapter.add("SO2");
-                adapter.add(Integer.toString(day.stringIAQIHashtable.get("SO2").cur));
-                adapter.add("O3");
-                adapter.add(Integer.toString(day.stringIAQIHashtable.get("O3").cur));
-                adapter.add("NO2");
-                adapter.add(Integer.toString(day.stringIAQIHashtable.get("NO2").cur));
-                adapter.add("CO");
-                adapter.add(Integer.toString(day.stringIAQIHashtable.get("CO").cur));
+                pollutionModels.add(new AQIPollutionItem("PM2.5", day.stringIAQIHashtable.get("PM2.5").cur));
+                pollutionModels.add(new AQIPollutionItem("PM10", day.stringIAQIHashtable.get("PM10").cur));
+                pollutionModels.add(new AQIPollutionItem("SO2", day.stringIAQIHashtable.get("SO2").cur));
+                pollutionModels.add(new AQIPollutionItem("O3", day.stringIAQIHashtable.get("O3").cur));
+                pollutionModels.add(new AQIPollutionItem("NO2", day.stringIAQIHashtable.get("NO2").cur));
+                pollutionModels.add(new AQIPollutionItem("CO", day.stringIAQIHashtable.get("CO").cur));
 
-                gridView = (GridView) findViewById(R.id.gridView);
-                gridView.setAdapter(adapter);
+                mAQIPollutionItemAdapter = new AQIPollutionsItemAdapter(DetailedAQI.this, pollutionModels);
+                mGridPollutionView.setAdapter(mAQIPollutionItemAdapter);
+                mAQIPollutionItemAdapter.setGridView(mGridPollutionView);
 
                 // 最近7天空气质量曲线
                 yList = new ArrayList<>();
