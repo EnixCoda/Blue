@@ -40,7 +40,7 @@ import getData.Forecast;
 import getData.IAQI;
 import utility.Constant;
 
-public class MainActivity extends AppCompatActivity implements MainPresenter.MainView{
+public class MainActivity extends AppCompatActivity implements MainPresenter.MainView {
     private static final String EXTRA_LOCATION = "extra.location";
     @Bind(R.id.tv_location)
     TextView mLocation;
@@ -69,21 +69,21 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
     private String mLocationText;
 
     @OnClick(R.id.menu_more)
-    void onMenuClick(){
+    void onMenuClick() {
         DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(this, mMenuMore);
         DroppyMenuPopup droppyMenu = droppyBuilder.fromMenu(R.menu.main_menu)
                 .triggerOnAnchorClick(false)
                 .setOnClick(new DroppyClickCallbackInterface() {
                     @Override
                     public void call(View v, int id) {
-                        switch (id){
+                        switch (id) {
                             case R.id.menu_share: //分享
                                 Intent intent = new Intent();
                                 intent.setType("text/plain"); // 纯文本
                                 startActivity(Intent.createChooser(intent, "分享"));
                                 break;
                             case R.id.menu_about://跳转至关于界面
-                                Intent intent2 = new Intent(MainActivity.this,About.class);
+                                Intent intent2 = new Intent(MainActivity.this, About.class);
                                 startActivity(intent2);
                                 break;
                             default:
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
                         }
                     }
                 })
-        .setPopupAnimation(new DroppyFadeInAnimation())
+                .setPopupAnimation(new DroppyFadeInAnimation())
                 .setXOffset(5)
                 .setYOffset(5)
                 .build();
@@ -130,11 +130,11 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 0){
+                if (position == 0) {
                     mTabCurrent.setAlpha(1.0f);
                     mTabPrediction.setAlpha(0.4f);
                     mCurrentFragment.setData(setCurrentDataBundle());
-                }else {
+                } else {
                     mTabCurrent.setAlpha(0.4f);
                     mTabPrediction.setAlpha(1.0f);
                     mPredictionFragment.setData(setPredictionDataBundle());
@@ -147,19 +147,19 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
             }
         });
 
-        if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS  | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN  | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
-            window.setNavigationBarColor(Color.TRANSPARENT);
         }
+
         //gridView
         ArrayList<HintModel> models = new ArrayList<>();
         TypedArray imageId = getResources().obtainTypedArray(R.array.image_id);
         for (int i = 0; i < 9; ++i) {
-            models.add(new HintModel("无建议", imageId.getResourceId(i, 0)));
+            models.add(new HintModel("等待数据", imageId.getResourceId(i, 0)));
         }
         mAdapter = new LifeHintItemAdapter(this, models);
         mAdapter.setGridView(mGridHint);
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
         }
     }
 
-    private Bundle setCurrentDataBundle(){
+    private Bundle setCurrentDataBundle() {
         if (null == mData) return new Bundle();
         Bundle bundle = new Bundle();
         bundle.putString(Constant.EXTRA_AIR, String.valueOf(mData.aqi));
@@ -260,16 +260,15 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
         }
         mAdapter.resetAndNotify(lists);
         mLocation.setText(mLocationText);
-        if (isCurrent){
+        if (isCurrent) {
             mViewPager.setCurrentItem(0, true);
             mCurrentFragment.setData(setCurrentDataBundle());
 
-        }else {
+        } else {
             mViewPager.setCurrentItem(1, true);
             mPredictionFragment.setData(setPredictionDataBundle());
         }
     }
-
 
     @Override
     public Context getViewContext() {
