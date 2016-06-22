@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,38 +19,39 @@ public class About extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.title_activity_about);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
 
         listView = (ListView)findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
         adapter.add("开发团队成员：");
-        adapter.add(" @Yang Yixin@");
-        adapter.add(" @Li Zhen@");
-        adapter.add(" @Wu Yan@");
-        adapter.add(" @Zhang Lijuan@");
-        adapter.add(" @Sun Shiyun@");
-        adapter.add("官方网站");
+        adapter.add("Wu Yan");
+        adapter.add("Li Zhen");
+        adapter.add("Sun Shiyun");
+        adapter.add("Yang Yixin");
+        adapter.add("Zhang Lijuan");
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = null;
-                switch(position) {
-                    case 6:
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.ecnu.edu.cn")));
-                        break;
-                }
+//                switch(position) {
+//                    case 6:
+//                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.ecnu.edu.cn")));
+//                        break;
+//                }
             }
         });
-
-        findViewById(R.id.imageButton).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                About.this.finish();
-            }
-        });
-
     }
 }
