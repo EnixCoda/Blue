@@ -21,7 +21,8 @@ public class Forecast {
         this.date = date;
         this.description = description;
         this.temp = temp;
-        this.rainPoss = rainPoss;
+        if (description.equals("有雨")) this.rainPoss = 100;
+        else this.rainPoss = (int) (rainPoss * 0.2);
     }
 
     public Forecast(Calendar date, int code, int temp, int hum, int rain, int pressure) {

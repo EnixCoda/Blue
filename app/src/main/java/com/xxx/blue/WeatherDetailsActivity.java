@@ -65,8 +65,9 @@ public class WeatherDetailsActivity extends AppCompatActivity {
                 tomorrow_weather_value.setText(Integer.toString(day.dailyForecasts.get(1).tempMin) + "~" + Integer.toString(day.dailyForecasts.get(1).tempMax) + "℃");
 
                 //gridView 每日天气
+                int countDay = 0;
                 for (Forecast forecast : day.dailyForecasts) {
-                    models.add(new WeatherEverydayItem(forecast.date, forecast.description, forecast.tempMax, forecast.tempMin));
+                    if (++countDay < 7) models.add(new WeatherEverydayItem(forecast.date, forecast.description, forecast.tempMax, forecast.tempMin));
                 }
                 mAdapter = new WeatherEverydayItemAdapter(WeatherDetailsActivity.this, models);
                 mGridWeatherEveryday.setAdapter(mAdapter);

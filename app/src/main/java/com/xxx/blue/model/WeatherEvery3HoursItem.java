@@ -23,7 +23,7 @@ public class WeatherEvery3HoursItem {
         tempS = temp + "℃";
         hourS = date.get(Calendar.HOUR) + ":00";
         dateS = date.get(Calendar.DAY_OF_MONTH) + "日";
-        rainPossibilityS = ((int) (rainPossibility * 0.8)) + "%";
+        rainPossibilityS = rainPossibility + "%";
         iconResourceId = getIconResourceIdFromDescription(description);
     }
 
