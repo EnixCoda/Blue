@@ -50,4 +50,7 @@
     <color name="color_ff4631">#303F9F</color>
     <color name="color_999999">#999999</color>
 
+    <color name="suggest_good">#ff64dd17</color>
+    <color name="suggest_ok">#ff009688</color>
+    <color name="suggest_bad">#ffF4511E</color>
 </resources>

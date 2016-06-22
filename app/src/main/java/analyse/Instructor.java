@@ -15,7 +15,7 @@ public class Instructor {
     String airCleaner = "不需开启";     //-1 1
     String feeling = "体感一般";        //-1 0 1
     String cold = "感冒不易发";         //-1 1
-    String uv = "中等";
+    String uv = "不需防晒";
 
     int ifOut = 1;
     int ifUmbrella = -1;

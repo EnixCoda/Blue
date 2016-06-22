@@ -1,6 +1,10 @@
 package com.xxx.blue.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +68,12 @@ public class LifeHintItemAdapter extends BaseAdapter{
             holder.setLayoutParams(params);
         }
         holder.tvHint.setText(mModels.get(position).getmHint());
-        holder.imgHint.setImageResource(mModels.get(position).getmImageId());
+        Drawable drawable = mContext.getResources().getDrawable(mModels.get(position).getmImageId());
+        drawable.setColorFilter(
+                mContext.getResources().getColor(getColorFromCode(mModels.get(position).getCode())),
+                PorterDuff.Mode.MULTIPLY
+        );
+        holder.imgHint.setImageDrawable(drawable);
         return holder;
     }
 
@@ -101,6 +110,17 @@ public class LifeHintItemAdapter extends BaseAdapter{
 //                vgHintContainer.setVisibility(VISIBLE);
 //                tvHintDetail.setVisibility(GONE);
 //            }
+        }
+    }
+
+    private int getColorFromCode(int code) {
+        switch (code) {
+            case 1:
+                return R.color.suggest_good;
+            case -1:
+                return R.color.suggest_bad;
+            default:
+                return R.color.suggest_ok;
         }
     }
 }

@@ -157,9 +157,9 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
 
         //gridView
         ArrayList<HintModel> models = new ArrayList<>();
-        TypedArray imageId = getResources().obtainTypedArray(R.array.image_id);
+        TypedArray imageId = getResources().obtainTypedArray(R.array.suggest_images);
         for (int i = 0; i < 9; ++i) {
-            models.add(new HintModel("等待数据", imageId.getResourceId(i, 0)));
+            models.add(new HintModel("等待数据", imageId.getResourceId(i, 0), 0));
         }
         mAdapter = new LifeHintItemAdapter(this, models);
         mAdapter.setGridView(mGridHint);
@@ -250,12 +250,12 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
         mData = data;
         //gridView更新
         ArrayList<HintModel> lists = new ArrayList<>();
-        TypedArray imageId = getResources().obtainTypedArray(R.array.image_id);
+        TypedArray imageId = getResources().obtainTypedArray(R.array.suggest_images);
         Hashtable<String, Suggestion> suggestionTable = data.getInstructions();
         int i = 0;
         for (Object key : suggestionTable.keySet()) {
             Suggestion value = suggestionTable.get(key);
-            HintModel hint = new HintModel(value.getDesc(), imageId.getResourceId(i++, 0));
+            HintModel hint = new HintModel(value.getDesc(), imageId.getResourceId(i++, 0), value.getCode());
             lists.add(hint);
         }
         mAdapter.resetAndNotify(lists);
