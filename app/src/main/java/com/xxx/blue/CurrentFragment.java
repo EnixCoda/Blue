@@ -66,7 +66,7 @@ public class CurrentFragment extends Fragment {
 
     public void setData(Bundle mData){
         if (mWhetherImg == null) return;
-        mWhetherImg.setImageResource(mData.getInt(Constant.EXTRA_WHETHER_IMG, R.mipmap.ic_rain_24_24));
+        mWhetherImg.setImageResource(mData.getInt(Constant.EXTRA_WHETHER_IMG, R.mipmap.weather_null));
         mWhether.setText(String.valueOf(mData.getString(Constant.EXTRA_WHETHER, "--")));
         mTemperature.setText(mData.getString(Constant.EXTRA_TEMPERATURE, "--℃"));
         mWindSpeed.setText(mData.getString(Constant.EXTRA_WIND_SPEED, "--m/s"));

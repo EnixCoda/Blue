@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:baselineAligned="false">
+
     <LinearLayout
         android:id="@+id/vg_air"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="0.5">
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/tv_pm2_5"
             android:layout_width="wrap_content"
@@ -21,100 +24,106 @@
             android:id="@+id/tv_air"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_gravity="center"
+            android:layout_marginTop="5dp"
             android:textAppearance="@style/TextAppearance.LargeSize.Inverse"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/vg_temperature"
-        android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.5">
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+
         <RelativeLayout
-            android:layout_gravity="center_horizontal"
             android:layout_width="130dp"
             android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp">
+
             <TextView
                 android:id="@+id/today"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                android:text="今日"/>
+                android:text="@string/today"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_toRightOf="@+id/today">
+                android:layout_toEndOf="@+id/today"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_today_whether"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
 
                 <TextView
                     android:id="@+id/tv_today_temperature_range"
-                    android:layout_marginTop="5dp"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="5dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
             </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_gravity="center_horizontal"
             android:layout_width="130dp"
             android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp">
+
             <TextView
                 android:id="@+id/tomorrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                android:text="明日"/>
+                android:text="@string/tomorrow"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_toRightOf="@+id/tomorrow">
+                android:layout_toEndOf="@+id/tomorrow"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/forecast_whether"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
 
                 <TextView
                     android:id="@+id/forecast_temperature"
-                    android:layout_marginTop="5dp"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="5dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
             </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_gravity="center_horizontal"
             android:layout_width="130dp"
             android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
                 android:layout_marginBottom="10dp"
-                android:text="预报"/>
+                android:text="@string/forecast"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
         </RelativeLayout>
     </LinearLayout>
 

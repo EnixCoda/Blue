@@ -87,6 +87,7 @@ public class DetailedAQI extends AppCompatActivity {
                 xRawData.add(String.valueOf(mDay + 4) + "日");
                 xRawData.add(String.valueOf(mDay + 5) + "日");
                 xRawData.add(String.valueOf(mDay + 6) + "日");
+                // TODO: 计算最高、最低值
                 lgv.setData(yList, xRawData, 300, 150);
                 View dummyView = findViewById(R.id.dummy_view);
                 try {

@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Blue</string>
+
+    <string name="waiting_data">--</string>
+    <string name="waiting_data_time">--:--</string>
+    <string name="waiting_data_temp">--℃</string>
+    <string name="waiting_data_wind">--m/s</string>
+    <string name="waiting_data_rain_possibility">--%</string>
+    <string name="waiting_data_pressure">--kPa</string>
+
+    <string name="weather_detail">天气详情</string>
+    <string name="aqi_detail">空气质量详情</string>
+    <string name="aqi_detail_specify">污染物详情</string>
+    <string name="aqi_detail_trend">空气质量趋势</string>
+    <string name="aqi_detail_sites">空气质量地图</string>
+    <string name="week_forecast">一周预报</string>
+    <string name="short_forecast">近期预报</string>
+    <string name="forecast">预报</string>
+    <string name="temperature">温度</string>
+    <string name="humidity">湿度</string>
+    <string name="wind">风速</string>
+    <string name="pressure">气压</string>
+
+    <string name="today">今日</string>
+    <string name="tomorrow">明日</string>
 </resources>

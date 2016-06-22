@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Mai
         bundle.putString(Constant.EXTRA_AIR, String.valueOf(mData.aqi));
         bundle.putString(Constant.EXTRA_AIR_TEXT, mData.AQIConclusion);
 
-        bundle.putInt(Constant.EXTRA_WHETHER_IMG, R.mipmap.ic_rain_24_24);
+        bundle.putInt(Constant.EXTRA_WHETHER_IMG, R.mipmap.weather_null);
         bundle.putString(Constant.EXTRA_WHETHER, String.valueOf(mData.weatherConclusion));
         IAQI temperature = mData.stringIAQIHashtable.get("温度");
         bundle.putString(Constant.EXTRA_TEMPERATURE, temperature.cur + "℃");

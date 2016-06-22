@@ -15,9 +15,9 @@ import getData.FetchData;
 import getData.Forecast;
 
 import com.xxx.blue.adapter.WeatherEverydayItemAdapter;
-import com.xxx.blue.adapter.WeatherEveryhourItemAdapter;
+import com.xxx.blue.adapter.WeatherEvery3HoursItemAdapter;
 import com.xxx.blue.model.WeatherEverydayItem;
-import com.xxx.blue.model.WeatherEveryhourItem;
+import com.xxx.blue.model.WeatherEvery3HoursItem;
 
 import java.util.ArrayList;
 
@@ -28,11 +28,11 @@ public class WeatherDetailsActivity extends AppCompatActivity {
 
     Button returnBtn;
     ArrayList<WeatherEverydayItem> models = new ArrayList<>();
-    ArrayList<WeatherEveryhourItem> hourModels = new ArrayList<>();
+    ArrayList<WeatherEvery3HoursItem> hourModels = new ArrayList<>();
     WeatherEverydayItemAdapter mAdapter;
-    WeatherEveryhourItemAdapter mHourAdapter;
+    WeatherEvery3HoursItemAdapter mHourAdapter;
     GridView mGridWeatherEveryday;
-    GridView mGridWeatherEveryhour;
+    GridView mGridWeatherEvery3Hours;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +41,12 @@ public class WeatherDetailsActivity extends AppCompatActivity {
         String localLocation = getIntent().getExtras().getString("location");
 
         mGridWeatherEveryday = (GridView) findViewById(R.id.grid_everyDayWeather);
-        mGridWeatherEveryhour = (GridView) findViewById(R.id.grid_everyHourWeather);
+        mGridWeatherEvery3Hours = (GridView) findViewById(R.id.grid_everyHourWeather);
 
         FetchData fetchData = new FetchData(new FetchData.AsyncResponse() {
             @Override
             public void processFinish(Day day) {
+                // TODO: placeholder
                 TextView temperature_value = (TextView) findViewById(R.id.temperature_value);
                 temperature_value.setText(Integer.toString(day.stringIAQIHashtable.get("温度").cur) + "℃");
                 TextView wind_value = (TextView) findViewById(R.id.wind_value);
@@ -73,7 +74,7 @@ public class WeatherDetailsActivity extends AppCompatActivity {
 
                 //gridView 每3小时天气
                 for (Forecast forecast : day.hourlyForecasts) {
-                    hourModels.add(new WeatherEveryhourItem(forecast.date, forecast.description, forecast.temp, forecast.rainPoss));
+                    hourModels.add(new WeatherEvery3HoursItem(forecast.date, forecast.description, forecast.temp, forecast.rainPoss));
                 }
                 int size = hourModels.size();
                 int length = 60;
@@ -85,15 +86,15 @@ public class WeatherDetailsActivity extends AppCompatActivity {
 
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         gridViewWidth, LinearLayout.LayoutParams.MATCH_PARENT);
-                mGridWeatherEveryhour.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
-                mGridWeatherEveryhour.setColumnWidth(itemWidth); // 设置列表项宽
-                mGridWeatherEveryhour.setHorizontalSpacing(0); // 设置列表项水平间距
-                mGridWeatherEveryhour.setStretchMode(GridView.NO_STRETCH);
-                mGridWeatherEveryhour.setNumColumns(size); // 设置列数量=列表集合数
+                mGridWeatherEvery3Hours.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
+                mGridWeatherEvery3Hours.setColumnWidth(itemWidth); // 设置列表项宽
+                mGridWeatherEvery3Hours.setHorizontalSpacing(0); // 设置列表项水平间距
+                mGridWeatherEvery3Hours.setStretchMode(GridView.NO_STRETCH);
+                mGridWeatherEvery3Hours.setNumColumns(size); // 设置列数量=列表集合数
 
-                mHourAdapter = new WeatherEveryhourItemAdapter(WeatherDetailsActivity.this, hourModels);
-                mGridWeatherEveryhour.setAdapter(mHourAdapter);
-                mHourAdapter.setGridView(mGridWeatherEveryhour);
+                mHourAdapter = new WeatherEvery3HoursItemAdapter(WeatherDetailsActivity.this, hourModels);
+                mGridWeatherEvery3Hours.setAdapter(mHourAdapter);
+                mHourAdapter.setGridView(mGridWeatherEvery3Hours);
             }
         });
         fetchData.execute(localLocation);

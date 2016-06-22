@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
         android:textColor="@color/weather_small_title"
-        android:text="--"/>
+        android:text="@string/waiting_data"/>
 
     <TextView
         android:id="@+id/hour"
@@ -21,39 +21,32 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
         android:textColor="@color/weather_small_title"
-        android:text="--:--"/>
+        android:text="@string/waiting_data_time"/>
 
     <ImageView
-        android:id="@+id/hourweathericon"
+        android:id="@+id/hourWeatherIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        />
+        android:layout_marginTop="10dp"/>
+
     <TextView
         android:id="@+id/temp"
         android:layout_width="40dp"
         android:layout_height="25dp"
         android:background="@drawable/temperature_box_bg"
-        android:text="--℃"
+        android:text="@string/waiting_data_temp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
         android:textColor="@color/white"
         android:gravity="center"
         android:layout_marginTop="7dp"/>
 
-    <!--<ImageView-->
-        <!--android:id="@+id/rainnum"-->
-        <!--android:layout_width="40dp"-->
-        <!--android:layout_height="45dp"-->
-        <!--android:background="@drawable/rainnum60"-->
-        <!--android:layout_marginTop="10dp"/>-->
-
     <TextView
-        android:id="@+id/rainpercent"
+        android:id="@+id/rainPossibility"
         android:layout_width="40dp"
         android:layout_height="25dp"
-        android:text="--%"
+        android:text="@string/waiting_data_rain_possibility"
         android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
-        android:textColor="@color/weather_rainpercent"
+        android:textColor="@color/weather_rain_possibility"
         android:gravity="center"/>
 
 </LinearLayout>

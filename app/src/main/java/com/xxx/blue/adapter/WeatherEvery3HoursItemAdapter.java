@@ -1,9 +1,6 @@
 package com.xxx.blue.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,24 +10,23 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.xxx.blue.model.WeatherEverydayItem;
 import com.xxx.blue.R;
+import com.xxx.blue.model.WeatherEvery3HoursItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by 张丽娟 on 2016/6/17.
+ * Created by 张丽娟 on 2016/6/18.
  */
-public class WeatherEverydayItemAdapter extends BaseAdapter {
-    List<WeatherEverydayItem> mModels;
+public class WeatherEvery3HoursItemAdapter extends BaseAdapter {
+    List<WeatherEvery3HoursItem> mModels;
     Context mContext;
     GridView view;
 
-    public WeatherEverydayItemAdapter(Context mContext, List<WeatherEverydayItem> mModels) {
+    public WeatherEvery3HoursItemAdapter(Context mContext, List<WeatherEvery3HoursItem> mModels) {
         this.mContext = mContext;
         this.mModels = mModels;
     }
@@ -59,7 +55,7 @@ public class WeatherEverydayItemAdapter extends BaseAdapter {
         ItemViewHolder holder = new ItemViewHolder(mContext, position);
         if (view != null) {
             int height = view.getHeight();
-            int width = view.getWidth() / 6;
+            int width = view.getWidth() / 50;
             ViewGroup.LayoutParams params = holder.mContainer.getLayoutParams();
             params.height = height;
             params.width = width;
@@ -69,26 +65,30 @@ public class WeatherEverydayItemAdapter extends BaseAdapter {
     }
 
     public class ItemViewHolder extends FrameLayout {
-        @Bind(R.id.wei_container)
+        @Bind(R.id.wehi_container)
         ViewGroup mContainer;
-        @Bind(R.id.week)
-        TextView week;
-        @Bind(R.id.weathericon)
-        ImageView weatherIcon;
-        @Bind(R.id.hightemp)
-        TextView highTemp;
-        @Bind(R.id.lowtemp)
-        TextView lowTemp;
+        @Bind(R.id.date)
+        TextView date;
+        @Bind(R.id.hour)
+        TextView hour;
+        @Bind(R.id.hourWeatherIcon)
+        ImageView hourWeatherIcon;
+        @Bind(R.id.temp)
+        TextView temp;
+        @Bind(R.id.rainPossibility)
+        TextView rainPossibility;
 
         public ItemViewHolder(Context context, int position) {
             super(context);
-            View view = LayoutInflater.from(context).inflate(R.layout.weather_everyday_item, null);
+            View view = LayoutInflater.from(context).inflate(R.layout.weather_everyhour_item, null);
             addView(view);
             ButterKnife.bind(this, view);
-            week.setText(mModels.get(position).week);
-            weatherIcon.setImageResource(mModels.get(position).iconResourceId);
-            highTemp.setText(mModels.get(position).highTempS);
-            lowTemp.setText(mModels.get(position).lowTempS);
+            date.setText(mModels.get(position).dateS);
+            hour.setText(mModels.get(position).hourS);
+            hourWeatherIcon.setImageResource(mModels.get(position).iconResourceId);
+            temp.setText(mModels.get(position).tempS);
+            rainPossibility.setText(mModels.get(position).rainPossibilityS);
         }
+
     }
 }

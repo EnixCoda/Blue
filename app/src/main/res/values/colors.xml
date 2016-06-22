@@ -43,7 +43,7 @@
     <color name="weather_temperature">#75b24b</color>
     <color name="weather_temperature_high">#ff7043</color>
     <color name="weather_temperature_low">#0288d1</color>
-    <color name="weather_rainpercent">#139bd2</color>
+    <color name="weather_rain_possibility">#139bd2</color>
 
     <color name="color_f2f2f2">#f2f2f2</color>
     <color name="color_ff4631">#303F9F</color>
