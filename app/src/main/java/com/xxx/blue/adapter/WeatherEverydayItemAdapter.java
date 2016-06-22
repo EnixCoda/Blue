@@ -1,9 +1,6 @@
 package com.xxx.blue.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +13,6 @@ import android.widget.TextView;
 import com.xxx.blue.model.WeatherEverydayItem;
 import com.xxx.blue.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -77,7 +73,7 @@ public class WeatherEverydayItemAdapter extends BaseAdapter {
         ImageView weatherIcon;
         @Bind(R.id.hightemp)
         TextView highTemp;
-        @Bind(R.id.lowtemp)
+        @Bind(R.id.lowTemp)
         TextView lowTemp;
 
         public ItemViewHolder(Context context, int position) {
