@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="TitleBarButton">
-        <attr name="tbb_text" format="string"/>
-        <attr name="tbb_drawable" format="reference"/>
-    </declare-styleable>
 
 </resources>
