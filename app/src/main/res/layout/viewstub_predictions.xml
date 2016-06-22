@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:textAppearance="@style/TextAppearance.HugeSize.Inverse"/>
+            android:textColor="@color/viewstub_text_color"
+            android:textSize="96sp"/>
 
         <TextView
             android:id="@+id/tv_air"
@@ -26,7 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:textAppearance="@style/TextAppearance.LargeSize.Inverse"/>
+            android:textColor="@color/viewstub_text_color"
+            android:textSize="18sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -38,7 +40,7 @@
 
         <RelativeLayout
             android:layout_width="130dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp">
 
@@ -48,7 +50,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="@string/today"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                android:textColor="@color/viewstub_text_color"
+                android:textSize="16sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -61,7 +64,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                    android:textColor="@color/viewstub_text_color"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/tv_today_temperature_range"
@@ -69,13 +73,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginTop="5dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                    android:textColor="@color/viewstub_text_color"
+                    android:textSize="16sp"/>
             </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="130dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp">
 
@@ -85,7 +90,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="@string/tomorrow"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                android:textColor="@color/viewstub_text_color"
+                android:textSize="16sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,7 +104,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                    android:textColor="@color/viewstub_text_color"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/forecast_temperature"
@@ -106,15 +113,17 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginTop="5dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                    android:textColor="@color/viewstub_text_color"
+                    android:textSize="16sp"/>
             </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="130dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="15dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -123,7 +132,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginBottom="10dp"
                 android:text="@string/forecast"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                android:textColor="@color/viewstub_text_color"
+                />
         </RelativeLayout>
     </LinearLayout>
 

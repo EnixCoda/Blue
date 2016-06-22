@@ -19,7 +19,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:text="@string/waiting_data"
-            android:textAppearance="@style/TextAppearance.HugeSize.Inverse"/>
+            android:textColor="#ffffff"
+            android:textSize="96sp"/>
 
         <TextView
             android:id="@+id/tv_air"
@@ -28,7 +29,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:text="@string/waiting_data"
-            android:textAppearance="@style/TextAppearance.LargeSize.Inverse"/>
+            android:textColor="#ffffff"
+            android:textSize="18sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -59,7 +61,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="17dp"
                 android:text="@string/waiting_data"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                android:textColor="#ffffff"
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -72,7 +75,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/temperature"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                android:textColor="#ffffff"
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/tv_temperature"
@@ -81,7 +85,8 @@
                 android:layout_alignParentEnd="true"
                 android:singleLine="true"
                 android:text="@string/waiting_data_temp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                android:textColor="#ffffff"
+                android:textSize="16sp"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -95,7 +100,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/wind"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                android:textColor="#ffffff"
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/tv_wind_speed"
@@ -103,7 +109,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="@string/waiting_data_wind"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                android:textColor="#ffffff"
+                android:textSize="16sp"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -116,7 +123,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/humidity"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                android:textColor="#ffffff"
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/tv_wet_percent"
@@ -124,7 +132,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="@string/waiting_data_rain_possibility"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                android:textColor="#ffffff"
+                android:textSize="16sp"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -140,7 +149,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="10dp"
                 android:text="当前"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse"/>
+                android:textColor="#ffffff"/>
         </RelativeLayout>
 
     </LinearLayout>

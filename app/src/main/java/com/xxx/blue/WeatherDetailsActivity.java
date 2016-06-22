@@ -2,6 +2,7 @@ package com.xxx.blue;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,17 @@ public class WeatherDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weather_details_ui);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.title_activity_detail_weather);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         ButterKnife.bind(this);
         String localLocation = getIntent().getExtras().getString("location");
 
@@ -99,13 +111,5 @@ public class WeatherDetailsActivity extends AppCompatActivity {
             }
         });
         fetchData.execute(localLocation);
-
-        returnBtn = (Button) findViewById(R.id.header_left_btn);
-        returnBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 }

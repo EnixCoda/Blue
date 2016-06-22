@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#03A9F4</color>
+    <color name="colorPrimaryDark">#039BE5</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="primary">#2A97EF</color>
 
     <color name="windowBackgroundColor">#f8f8f8</color>
     <color name="titleBarColor">@color/white</color>
-    <color name="titleBarTextColor">@color/primary</color>
+    <color name="titleBarTextColor">@color/colorPrimary</color>
     <color name="statusBarColor">@color/white</color>
 
     <color name="textColorPrimary">@color/black_alpha_87</color>
@@ -44,6 +43,8 @@
     <color name="weather_temperature_high">#ff7043</color>
     <color name="weather_temperature_low">#0288d1</color>
     <color name="weather_rain_possibility">#139bd2</color>
+
+    <color name="viewstub_text_color">#fff</color>
 
     <color name="color_f2f2f2">#f2f2f2</color>
     <color name="color_ff4631">#303F9F</color>

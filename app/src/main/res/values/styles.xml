@@ -14,4 +14,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="NoActionBarAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="NoActionBarAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>

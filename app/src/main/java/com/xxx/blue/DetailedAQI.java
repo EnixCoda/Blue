@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -31,6 +32,17 @@ public class DetailedAQI extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_aqi);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.title_activity_detail_aqi);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         String localLocation = getIntent().getExtras().getString("location");
         // 监测点地图
@@ -73,8 +85,12 @@ public class DetailedAQI extends AppCompatActivity {
 
                 // 最近7天空气质量曲线
                 yList = new ArrayList<>();
+                int min = 100, max = 100, aqi;
                 for (int i = 0; i < 7; i++) {
-                    yList.add(Double.valueOf(DetailedAQI.this.day.forecastAQI.get(i * 9).max));
+                    aqi = DetailedAQI.this.day.forecastAQI.get(i * 9).max;
+                    min = min < aqi ? min : aqi;
+                    max = max > aqi ? max : aqi;
+                    yList.add((double) aqi);
                 }
                 final Calendar c = Calendar.getInstance();
                 c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
@@ -87,30 +103,15 @@ public class DetailedAQI extends AppCompatActivity {
                 xRawData.add(String.valueOf(mDay + 4) + "日");
                 xRawData.add(String.valueOf(mDay + 5) + "日");
                 xRawData.add(String.valueOf(mDay + 6) + "日");
-                // TODO: 计算最高、最低值
-                lgv.setData(yList, xRawData, 300, 150);
+                lgv.setData(yList, xRawData, max, min);
                 View dummyView = findViewById(R.id.dummy_view);
-                try {
-                    ViewGroup parent = (ViewGroup) dummyView.getParent();
-                    int index = parent.indexOfChild(dummyView);
-                    ((ViewGroup) dummyView.getParent()).removeView(dummyView);
-                    lgv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 650));
-                    parent.addView(lgv, index);
-
-                } catch (NullPointerException e) {
-
-                }
-
-                findViewById(R.id.imageButton).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        finish();
-                    }
-                });
+                ViewGroup parent = (ViewGroup) dummyView.getParent();
+                int index = parent.indexOfChild(dummyView);
+                ((ViewGroup) dummyView.getParent()).removeView(dummyView);
+                lgv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 650));
+                parent.addView(lgv, index);
             }
         });
         fetchData.execute(localLocation);
-
     }
-
 }
